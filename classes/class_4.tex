@@ -1,0 +1,202 @@
+%==============================================================================
+% MATH 5080 — Introduction to Analysis I (Fall 2026)
+% Class:        4
+% Date:         Sept 3rd
+%==============================================================================
+
+\begin{definition}[Closure]
+    The \textbf{closure} of $S$, denoted $\overline{S}$, is defined as 
+    \[
+    \overline{S} := S \cup \operatorname{bd}  S
+    \]
+\end{definition}
+
+\begin{definition}[Openess and closedness]
+    \hfill
+    \begin{enumerate}
+        \item $S \subset X$ is called \textbf{open} if $S = \operatorname{int} S$
+        \item $S \subset X$ is called \textbf{closed} if $S^c$ is open.
+    \end{enumerate}
+\end{definition}
+
+\begin{remark}
+    A point cannot be both an interior point and a boundary point.
+\end{remark}
+
+\begin{remark}
+    A set can be both open and closed. For example 
+    \begin{itemize}
+        \item $\mathbb{R}$ is both open and closed.
+        \item $\emptyset$ is both open and closed.
+        \item $\mathbb{N}$ is not open, but closed.
+    \end{itemize} 
+\end{remark}
+
+\begin{example}
+    $S = (1, 3)$ is open and not closed.
+\end{example}
+
+\begin{example}
+    Let $(X, \sigma)$ be a metric space where $\sigma$ is the discrete 
+    metric. Take $x_0 \in X$, $S = \{ x_0 \} $ is open. 
+    \medskip 
+
+    To see why, let $\ep = \frac{1}{2}$. 
+    \begin{align*}
+        & N \left(x_0, \frac{1}{2} \right) = \{ x_0 \}  \subset S \\
+        \implies & x_0 \in \operatorname{int}  S \\
+        \implies & \operatorname{int}  S = S \\
+        \implies & S \text{ open}
+    \end{align*}
+    Hence any point in a set is interior, and any set is open and closed.
+\end{example}
+
+\begin{proposition}
+    \hfill
+    \begin{enumerate}
+        \item $S$ open $\iff$ $\operatorname{bd} S \subset S^c$
+        \item $S$ closed 
+$\iff \operatorname{bd} S \subset S$
+$\iff S = \overline{S} := S \cup \operatorname{bd} S$ 
+        \item $\overline{S}$ is closed
+        \item $\operatorname{int} S$ is open $\implies \operatorname{int} \left( \operatorname{int} (S)  \right) = \operatorname{int}(S)  $
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}[Proof. $S$ closed $\iff$ $\operatorname{bd} S \subset S$]
+    \hfill
+
+    By definition, $S$ closed $\iff$ $S^c$ open. 
+    Also by definition, $\operatorname{bd} S = \operatorname{bd} S^c$.
+    \begin{align*}
+        \operatorname{bd} S \subset S & \iff \operatorname{bd} S^c \subset S && \text{ by definition} \\
+        & \iff \operatorname{bd} S^c \cap S^c = \emptyset \\
+        & \iff \forall x \in S^c, x \notin \operatorname{bd} S^c \\
+        & \iff \forall x \in S^c, x \in \operatorname{int} S^c \\
+        & \iff S^c = \operatorname{int} S^c \\
+        & \iff S^c \text{ open} \\
+        & \iff S \text{ closed}
+    \end{align*}
+\end{proof}
+
+\begin{proposition}
+    \hfill
+    \begin{enumerate}
+        \item The union of open sets is open.  
+        \item The intersection of finitely many open sets is open.
+    \end{enumerate}
+    \remind{Add in analogous propositions about closed sets.}
+\end{proposition}
+
+\begin{example}
+    $S_n = \left( - \frac{1}{n}, \frac{1}{n} \right) $ is open for all $n \in \mathbb{N}$. 
+    $\bigcap_{n=1}^{\infty} S_n = \{ 0 \} $ is closed. 
+
+    \medskip 
+
+    To see why the intersection is closed, 
+    $\forall x >0$, by AP, $\exists n \in \mathbb{N}$ 
+    s.t. $0 < \frac{1}{n} < x$. 
+    Hence $x \notin S_n$ and 
+    $S \notin \bigcap S_n$. 
+    \medskip
+
+    At the same time, $0 \in S_n, \forall n \in \mathbb{N}$. 
+    \medskip
+
+    Since $0 \notin \operatorname{int} \{ 0 \}  $, $\{ 0 \} $ is not open.
+\end{example}
+
+\begin{proof}[Proof of 3.9.2]
+    WTS intersection of finitely many open sets is open. 
+    \medskip
+
+    Let $S_1, \hdots S_n$ be open sets, $S = \bigcap_{k = 1}^n S_k$. 
+    WTS $\forall x S, \exists \ep \in \mathbb{R}, \ep > 0$
+    s.t. 
+    $N(x , \ep) \subset S$. 
+    Note that 
+    \[
+        N(x, \ep ) \subset S \iff
+        N(x, \ep ) \subset S_i, \forall i = 1, \hdots, n
+    \]
+    Since $x \in S_i$ and $S_i$ is open, $\exists \ep_i > 0$ s.t. 
+    $N(x, \ep_i) \subset S_i$. 
+    Let $\ep = \min \{ \ep_1, \hdots, \ep_n  \} $,
+    and we know such $\ep$ exists 
+    because a sequence of finitely many numbers has a minimum.
+\end{proof}
+
+\begin{definition}[Accumulation points and isolated points]
+    \hfill 
+    \begin{enumerate}
+        \item
+    Let $S \subset X$, a point $x \in X$ is an \textbf{accumulation point}
+    of $S$ if $\forall \ep > 0$, 
+    \[
+        N^*(x, \ep) \cap S \neq \emptyset
+    \]
+    The set of all accumulation points of $S$ is denoted $S^{\prime}$.
+        \item If $x \in S \setminus S^{\prime}$, then $x$ is an 
+\textbf{isolated point} of $S$.
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    $S = \{ 0 \}  \cup (1, 2)$, $S^{\prime} = [1, 2]$
+\end{example}
+
+\begin{example}
+    $S = \mathbb{Q} \cap (1, 2)$, $S^{\prime} = [1, 2]$
+\end{example}
+
+\begin{proposition}\label{prop:closure-acc}
+    \hfill
+    \begin{enumerate}[ref=\theproposition.\arabic*]
+        \item\label{prop:closure-acc-1} $\overline{S} = S \cup S^{\prime}$
+        \item\label{prop:closure-acc-2} $S$ close $\iff S^{\prime} \subset S$
+        \item\label{prop:closure-acc-3} $\overline{S}$ is the smallest closed set that contains $S$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}[Proof of \ref{prop:closure-acc-1}]
+    WTS $S \cup \operatorname{bd} S = S \cup S^{\prime}$. 
+    \begin{enumerate}
+        \item We first show that $LHS \subset RHS$. 
+$\forall x \in S \cup \operatorname{bd} S$, $x \in S \cup S^{\prime}$. 
+\medskip 
+
+If $x \in S$, done. 
+\medskip
+
+If $x \in \operatorname{bd} S$, $x \notin S$ then $x \in \operatorname{bd} S \cap S^c$. 
+WTS $x \in S^{\prime}$, i.e. $\forall \ep > 0, N^*(x, \ep) \neq \emptyset$. 
+\medskip 
+
+Since $x \in \operatorname{bd} S$, we know $N(x, \ep) \cap S \neq \emptyset$. 
+Since $x \in S^c$, we know $\exists y \in N(x, \ep)\cap S, y \neq x$. 
+Hence $y \in N^*(x, \ep) \cap S$, 
+and $N^*(x, \ep) \neq \emptyset$.
+\item We then show $RHS \subset LHS$, i.e. 
+$\forall x \in S \cup S^{\prime}, x \in S \cup \operatorname{bd} S$. 
+\medskip 
+
+If $x \in S^{\prime}$, done. 
+\medskip 
+
+If $x \in S^{\prime}, x \notin S$, $x \in S^{\prime} \cap S^c$, 
+WTS $x \in \operatorname{bd} S$
+\remind{Exercise}.
+    \end{enumerate}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+

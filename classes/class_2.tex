@@ -1,0 +1,134 @@
+
+\begin{definition}[Absolute value]
+    For all $x \in \mathbb{R}$, we define its \textbf{absolute value} $|x|$ as 
+    \[
+        \left| x \right| = 
+        \begin{cases}
+            x, \text{ if } x \geq 0,\\
+            -x, \text{ if } x < 0,
+        \end{cases}
+    \]
+    
+\end{definition}
+
+\begin{proposition}
+    Let $x, y \in \mathbb{R}, a \geq 0$, then 
+    \begin{enumerate}
+        \item $|x| \geq 0$
+        \item $|x| \leq a \iff -a \leq x \leq a$
+        \item $|xy| = |x| \cdot |y|$
+        \item (\text{triangle inequality}) $|x + y| \leq |x| + |y|$
+    \end{enumerate}
+\end{proposition}
+
+\begin{proposition}
+    Let $x, y \in \mathbb{R}$ such that $x \leq y + \epsilon, \forall \epsilon > 0$, then $x \leq y$.
+\end{proposition}
+
+\begin{proof}
+    We prove by contrapositive. Assume that $x < y$, WTS that $\exists \epsilon > 0, y + \epsilon < x$. \\
+
+    Pick 
+    \[
+        \epsilon := \frac{x - y}{2}
+    \]
+    
+    Then 
+    \begin{align*}
+        y + \epsilon &= y + \frac{x - y}{2} \\
+        &= \frac{x+y}{2} \text{ by (D), (A2), (A3)} \\
+        & < \frac{x + x}{2} \text{ by (O3)} \\
+        & < x
+    \end{align*}
+\end{proof}
+
+\subsection{Completeness Axiom / LUB property}
+
+\begin{definition}[Bounded]
+    Let $S \subset \mathbb{R}$, we say $S$ is \textbf{bounded from above} if $\exists m \in \mathbb{R}$ s.t. $s \leq m, \forall s \in S$. Such an $m$ is called an \textbf{upper bound} of $S$.
+\end{definition}
+
+\begin{example}
+    $[0, 1]:= \{ x \in \mathbb{R}, 0 \leq x \leq 1 \} $  has upper bounds 1, 1.5, 2, etc.
+\end{example}
+
+\begin{example}
+    $\mathbb{N}$ is not bounded from above.
+\end{example}
+
+\begin{definition}[Maximum]
+    If an upper bound $m$ of $S$ is an element of $S$, then $m$ is called the \textbf{maximum} of $S$, denoted 
+    \[
+        \max S
+    \]
+\end{definition}
+
+\begin{example}
+    $S = [ 0, 1 \} $ does not have a maximum, i.e. $\max S$ DNE.
+\end{example}
+\begin{proof}
+    $\forall m \in S$, take $\epsilon = \frac{1}{2} (1 - m)$. Then $m + \epsilon < 1, m + \epsilon > m$. Hence $m$ is not an UB. Hence any $m$ cannot be UB.
+\end{proof}
+
+\begin{definition}[Supremum / least upper bound]
+    Let $S \in \mathbb{R}$ be bounded from above. Then $m \in \mathbb{R}$ is called the \textbf{supremum}, or \textbf{least upper bound} if 
+    \begin{enumerate}
+        \item $m$ is an upper bound of $S$
+        \item $\forall m^{\prime} \in \mathbb{R}$, if $m^{\prime} < m$ then $m^{\prime}$ is not an upper bound of $S$.
+    \end{enumerate} 
+\end{definition}
+
+\begin{remark}
+    $\sup [0, 1\} = 1$. 
+\end{remark}
+
+\begin{proof}
+    Suppose $\sup [0, 1\} \neq 1$. Since $1$ is an upper bound and (1.14.1) holds, then 1.14.2 must fail. Suppose $m < 1$ is an upper bound, but $ \frac{1}{2}(m + 1) \in S, \frac{1}{2}(m +1) > m$.
+\end{proof}
+
+\begin{remarks}
+    \begin{enumerate}
+        \item $\sup S$ is unique. 
+        \item $\sup S$ may not be an element of $S$. 
+        \item If $\max S$ exists, then $\max S = \sum S$
+    \end{enumerate}
+\end{remarks}
+
+\begin{example}
+    $S = \emptyset$, then any $x \in \mathbb{R}$ is an upper bound and lower bound of $S$, but $\max S, \min S, \sup S, \inf S$ do not exist.
+\end{example}
+
+
+
+\begin{theorem}[Completeness Axiom]
+    If $S \subset \mathbb{R}, S \neq \emptyset$, and $S$ bounded from above, then $\sup S$ exists.
+\end{theorem}
+
+\begin{remark}
+    The completeness axiom doe not hold in $\mathbb{Q}$.
+\end{remark}
+
+\begin{proof}
+    Take $S = \{ x \in \mathbb{Q}: x \geq 0, x^2 < 2 \} $. 
+
+    We claim that any $m \in \mathbb{Q}$ upper-bounds $S$ cannot be its supremum. 
+\end{proof}
+
+
+
+\begin{theorem}[Archimedean Property]
+    $\mathbb{N}$ is unbounded from above in $\mathbb{R}$.
+\end{theorem}
+
+\begin{proof}
+    Suppose $\mathbb{N}$ is bounded from above by $m \in \mathbb{R}$. 
+    \begin{align*}
+        \implies & \exists \sup \mathbb{N} \in \mathbb{R} \text{ by CA} \\
+        \implies &m^{\prime} := \sup \mathbb{N} \text{ is LUB} \\
+        \implies & m^{\prime} -1 \text{ is not an upper bound} \\
+        \implies & \exists n \in \mathbb{N} \text{ s.t. } m^{\prime} - 1 < n \\
+        \implies & m^{\prime} < n + 1 \in \mathbb{N}
+    \end{align*}
+
+    This contradicts with the assumption that $m^{\prime}$ is the supremum.
+\end{proof}

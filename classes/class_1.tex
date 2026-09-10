@@ -1,0 +1,192 @@
+\section{The real number system}
+
+\subsection{Natural numbers, integers, and rationals}
+
+\begin{definition}[Natural numbers]
+  We define the set $\{ 1, 2, 3, 4, \hdots \} $ as the set of \textbf{natural numbers}, denoted $\mathbb{N}$.
+\end{definition}
+\begin{remark} $\mathbb{N}$ is closed under addition and multiplication, but not subtraction.
+\end{remark}
+
+\begin{definition}[Integers]
+  We define the set $\{ \hdots, -3, -2, -1, 0, 1, 2, 3, \hdots \} $ to be the set of \textbf{integers} denoted $\mathbb{Z}$. 
+\end{definition}
+
+\begin{remark}
+  Integers are closed under subtraction, but not division.
+\end{remark}
+
+\begin{definition}[Rationals] We define the set 
+  \[
+      \left \{ \frac{p}{q}: p, q \in \mathbb{Z}, q \neq 0  \right \} 
+  \]
+  to be the set of \textbf{rational numbers}, denoted $\mathbb{Q}$. 
+\end{definition}
+
+\begin{remark}
+  $\mathbb{Q}$ has holes. For example, it can be shown that $x^2 = 2$ does not have a solution in $\mathbb{Q}$. 
+\end{remark}
+\begin{proof}
+  Suppose otherwise, then 
+  \begin{align*}
+    \exists p, q \in \mathbb{Q}, q \neq 0, s.t. \frac{p^2}{q^2} = 2
+  \end{align*}
+  WLOG, we can pick $p, q$ such that they are coprime i.e. $gcd(p, q) = 1$. \\
+
+  \begin{align*}
+      \frac{p^2}{q^2} = 2 & \implies p^2 = 2 q^2 \\
+      & \implies p = 2k \text{ for sume } k \\
+      & \implies (2k)^2 = 2q^2 \\
+      & \implies 2k^2 = q^2 \\
+      & \implies q = 2k^{\prime} \text{ for some } k^{\prime} \\
+      & \implies gcd(p, q) \geq 2 > 1
+  \end{align*}
+\end{proof}
+
+\begin{remark} $x^2 = p$ for any prime $p$ does not have a solution in $\mathbb{Q}$.
+\end{remark}
+\begin{proof}
+  Assume otherwise, then
+  \begin{align*}
+    & \exists m, n \in \mathbb{Z}, n \neq 0, s.t. \frac{m^2}{n^2} = p, gcd(m, n) = 1\\
+    \implies & m^2 = n^2 p \\
+    \implies & m = pk \text{ for some } k, \text{ since $p$ is prime}\\
+    \implies & p^2 k^2 = n^2 p \\
+    \implies & p k^2 = n^2 \\
+    \implies & n = pk^{\prime} \text{ for some } k^{\prime} \text{ since $p$ is prime}\\
+    \implies & gcd(m, n) \geq p > 1
+  \end{align*}
+\end{proof}
+
+\begin{definition}[Real numbers] The \textbf{real numbers}, denoted $\mathbb{R}$ is a set that 
+  \begin{enumerate}[label=(\roman*)]
+    \item is an ordered field
+    \item contains $\mathbb{Q}$ as an sub-ordered field
+    \item satisfies the completness axiom, or the least upper bound property
+  \end{enumerate}
+\end{definition}
+
+\begin{remark}
+  Such a set is unique under isomorphisms.
+\end{remark}
+
+\subsection{Ordered Field}
+\begin{definition}[Field]: 
+  A field $F$ is a set with two binary operations
+
+\[
++: F \times F \to F,\ (x, y) \mapsto x + y
+\]
+
+\[
+\cdot: F \times F \to F,\ (x, y) \mapsto x \cdot y
+\]
+
+that satisfy these properties:
+\begin{itemize}
+\item (A1) additive closure: $x, y \in F, x + y \in F$
+\item (A2) additive commutativity: for all $x, y \in F$, $x + y = y + x$
+\item (A3) additive associativity: for all $x, y, z \in F$, $x + (y + z) = (x + y) + z$
+\item (A4) existence of additive identity or neutral element: there is $0 \in F$ such that $x + 0 = x$ for all $x \in F$
+\item (A5) existence of additive inverse: for all $x \in F$ there is $y$ such that $x + y = 0$
+\item (M1) multiplicative closure: $x, y \in F, x \cdot y \in F$
+\item (M2) multiplicative commutativity: for all $x, y \in F$, $x \cdot y = y \cdot x$
+\item (M3) multiplicative associativity: for all $x, y, z \in F$, $x \cdot (y \cdot z) = (x \cdot y) \cdot z$
+\item (M4) existence of multiplicative identity or neutral element: there is $1 \in F, 1 \neq 0$ such that $x \cdot 1 = 1 \cdot x = x$ for all $x$
+\item (M5) existence of multiplicative inverse: for all $x \in F, x \neq 0$ there is $y$ such that $x \cdot y = 1$
+\item (D) distributivity: for all $x, y, z \in F$, $(x + y) \cdot z = x \cdot z + y \cdot z$
+\end{itemize}
+\end{definition}
+
+\begin{remark} Additive neutral element, 0, is unique.
+\end{remark}
+\begin{proof} Suppose otherwise, i.e. $\exists 0, 0^{\prime} \in F$ both satisfying A4, then 
+  \begin{align*}
+      0 &= 0 + 0^{\prime} \text{ by A4, with $0^{\prime}$ as identity} \\
+      &= 0^{\prime} + 0 \text{ by commutativity} \\
+      &= 0^{\prime} \text{ by A4, since 0 is additive identity}
+  \end{align*}
+\end{proof}
+
+\begin{remark} Multiplicative identity, 1, is unique.
+\end{remark}
+\begin{proof} Suppose otherwise, i.e. $\exists 1, 1^{\prime} \in F$ both satisfying A4, then 
+  \begin{align*}
+      1 &= 1 \cdot 1^{\prime} \text{ by M4, with $1^{\prime}$ as identity} \\
+      &= 1^{\prime} \cdot 1 \text{ by commutativity} \\
+      &= 1^{\prime} \text{ by M4, since 1 is identity}
+  \end{align*}
+\end{proof}
+
+\begin{remark} $\forall x \in F$, the additive inverse is unique.
+\end{remark}
+\begin{proof}Suppose otherwise, then $\exists y, y^{\prime}$ s.t. $x + y = x + y^{\prime} = 0$. \\
+  \begin{align*}
+      y &= y + 0 \\
+      &= y + (x + y^{\prime}) \\
+      &= (y + x) + y^{\prime} \text{ by associativity} \\
+      &= (x + y) + y^{\prime} \text{ by commutativity} \\
+      &= y^{\prime}
+  \end{align*}
+\end{proof}
+
+\begin{remark} $\forall x \in F, x \neq 0$, the multiplicative inverse is unique.
+\end{remark}
+\begin{proof}Suppose otherwise, then $\exists y, y^{\prime}$ s.t. $x \cdot y = x \cdot y^{\prime} = 1$. \\
+  \begin{align*}
+      y &= y \cdot 1 \\
+      &= y \cdot (x \cdot y^{\prime}) \\
+      &= (y \cdot x) \cdot y^{\prime} \text{ by associativity} \\
+      &= (x \cdot y) \cdot y^{\prime} \text{ by commutativity} \\
+      &= y^{\prime}
+  \end{align*}
+\end{proof}
+
+\begin{remark} Since the additive and multiplicative inverses are unique, we denote $-x$ and $\frac{1}{x}$, and we define subtraction as 
+  \[
+      x - y := x + (-y)
+  \]
+
+  We define division as 
+  \[
+      \frac{x}{y} := x \cdot \left( \frac{1}{y} \right) , y \neq 0
+  \]
+\end{remark}
+
+\begin{proposition} Let $x, y, z \in F$, then 
+  \begin{enumerate}
+    \item $x + y = y + z \implies y = z$
+    \item $-(-x) = x$
+    \item $x y = xz, x \neq 0 \implies y = z$ 
+    \item $ \frac{1}{1 / x} = x$ if $x \neq 0$ 
+    \item $0 \cdot x = 0$
+    \item $-0 = 0$
+    \item $(-1) \cdot x = -x$
+    \item $xy = 0 \iff x = 0 \text{ or } y = 0$
+    \item $(-x) (-y) = xy$
+  \end{enumerate}
+\end{proposition}
+
+\begin{definition}[Ordered field]
+  A field $F$ is an \textbf{ordered field} if it can be equipped with a relation $<$ so that 
+  \begin{enumerate}
+    \item $\forall x, y \in F$, exactly one of $x < y, x = y, y < x$ holds
+    \item $\forall x, y, z, \in F, x < y, y < z \implies x < z$
+    \item $\forall x, y, z \in F$, $x < y \implies x + z < y + z$
+    \item $\forall x, y, \in F$, $0< x, 0 < y \implies 0 < xy$
+  \end{enumerate}
+\end{definition}
+
+\begin{proposition}
+  Let $F$ be an ordered field and $x, y, z, w \in F$. Then 
+  \begin{enumerate}
+    \item $x > y, z > 0 \implies xz > yz$
+    \item $x > y, z < 0 \implies xz < yz$
+    \item $x > y \iff -x < -y$
+    \item $x < y, z < w \implies x + z < y + w$
+    \item $0 < x < y \implies 0 < \frac{1}{y} < \frac{1}{x}$
+    \item $\forall x \neq 0, x^2 > 0$. In particular, $1 > 0$
+  \end{enumerate}
+\end{proposition}
+
+\newpage

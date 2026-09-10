@@ -1,0 +1,334 @@
+\begin{result}[Application of CA]
+    $x^2 = 2, x > 0$ has a unique solution in $\mathbb{R}$, called $\sqrt{2}$
+\end{result}
+
+\begin{proof}
+    Let $S:= \{ x \in \mathbb{R}, x > 0, x^2 < 2\} $. 
+    We claim that 
+    \begin{itemize}
+        \item $S \neq \emptyset$. Take $1, 1 > 0, 1^2 < 2$. Check 
+        \item $S$ is bounded from above. Take $2$. 
+Suppose $\exists x \in S, x > 0$ then $x^2 > 2$. 
+    \end{itemize} 
+    Hence by CA, $S$ has a supremum in $\mathbb{R}$, 
+    say $m$. 
+    \medskip 
+
+    Claim: $m > 0, m^2 = 2$. 
+    \begin{enumerate}
+        \item if $m \leq 0$, then contradiction. Hence $m > 0$ check. 
+        \item To show $m^2 = 2$, it suffices to show that 
+$m^2 > 2$ or $m^2 < 2$ are both false. 
+        \begin{enumerate}
+            \item Assume $m^2 < 2$. Then we can find $n \in \mathbb{N}$
+s.t. $ \left( m + \frac{1}{n} \right)^2 < 2 $.
+\remind{For exercise}
+            \item Assume $m^2 > 2$.
+\remind{For exercise}
+        \end{enumerate} 
+    \end{enumerate}
+\end{proof}
+
+\begin{definition}[Density]
+    $A \subset B$ is dense if $
+    \forall x \in B, \forall \epsilon > 0,
+    \exists y \in A 
+    $ s.t. $ |x - y| < \epsilon$.
+    \medskip
+
+    You can do $\epsilon$-approximation for anythingh in $B$ 
+    with something in $A$.
+\end{definition}
+
+
+\begin{theorem}
+    We have
+    \begin{enumerate}
+        \item $\mathbb{Q}$ is dense in $\mathbb{R}$.
+        \item $\mathbb{R} \setminus \mathbb{Q}$ is dense in $\mathbb{R}$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{remark}
+    $\mathbb{Q}$ dense in $\mathbb{R}$ 
+    $\iff \forall a \in \mathbb{R}, b \in \mathbb{R}$, 
+    $a < b$, 
+    $\exists r \in \mathbb{Q}$ s.t. 
+    $a < r < b$.
+\end{remark}
+
+\begin{remark}
+    $r \in \mathbb{Q}, r \neq 0 \implies \sqrt{2}r \in \mathbb{R} \setminus \mathbb{Q}$
+\end{remark}
+
+\begin{proof}[Proof. Thm 1.19]
+    \begin{enumerate}
+        \item 
+    We first show that $(1) \implies (2)$, i.e. $\mathbb{Q}$ dense $\implies$ 
+    $\setminus{R} \setminus \mathbb{Q}$ dense. 
+    \medskip 
+
+    $\forall x \in \mathbb{R}, \forall \epsilon > 0$. WTS 
+    $\exists y \in \mathbb{R} \setminus \mathbb{Q}$ s.t. $|x - y| < \epsilon$. 
+    \medskip
+
+    Let $x^{\prime} = \frac{x}{\sqrt{2}}$, 
+    $\epsilon^{\prime} = \frac{\epsilon}{\sqrt{2}}$. 
+    Since $\mathbb{Q}$ dense in $\mathbb{R}$, 
+    $\exists r \in \mathbb{Q}$ s.t. $r \neq 0, \left| x^{\prime} - r \right| < \epsilon^{\prime}$. (If $r = 0$, then we can pick a smaller window $\epsilon^{\prime \prime} = \frac{r - x^{\prime}}{2}$.)
+
+    \begin{center}
+    \begin{tikzpicture}[x=1.4cm]
+    \draw[-{Stealth[length=2.2mm]}] (-0.4,0) -- (5.4,0) node[right] {$\mathbb{R}$};
+    \foreach \p/\lbl in {1.5/{x'-\ep'}, 3/{x'}, 2.4/{r}, 4.5/{x'+\ep'}}
+        \filldraw (\p,0) circle (1.6pt) node[above=4pt] {$\lbl$};
+    \end{tikzpicture}
+    \end{center}
+
+
+    Then, we take $y = \sqrt{2} r$. 
+    \begin{align*}
+        |x - \sqrt{2} r| &= \sqrt{2} |x^{\prime} - r| \\
+        & < \sqrt{2} \epsilon^{\prime} \\
+        & = \epsilon
+    \end{align*}
+
+    \item 
+Now we show (1), i.e. $\mathbb{Q}$ is dense in $\mathbb{R}$. 
+I.e. WTS $\forall x \in \mathbb{R}, \forall \ep > 0$
+$\exists y \in \mathbb{Q}$ s.t. 
+$|x - y | < \ep$. 
+\medskip 
+
+By Archimedean property, $\exists n \in \mathbb{N} \text{s.t.} n \ep > 1$
+\medskip
+
+\begin{center}
+\begin{tikzpicture}[x=1.3cm]
+  % original scale
+  \draw[-{Stealth[length=2mm]}] (-2.3,1.3) -- (2.3,1.3) node[right] {$\mathbb{R}$};
+  \foreach \p/\lbl in {-1/{x-\ep}, 0/{x}, 1/{x+\ep}}
+    \filldraw (\p,1.3) circle (1.5pt) node[above=3pt] {$\lbl$};
+
+  \node[font=\small] at (2.9,0.65) {$\times\, n$};
+
+  % blown up by n
+  \draw[-{Stealth[length=2mm]}] (-2.9,0) -- (2.9,0) node[right] {$\mathbb{R}$};
+  \foreach \p/\lbl in {-2.4/{nx-n\ep}, 0/{nx}, 2.4/{nx+n\ep}}
+    \filldraw (\p,0) circle (1.5pt) node[above=3pt] {$\lbl$};
+  \filldraw[red] (-0.9,0) circle (1.5pt) node[above=3pt] {$m$};
+  \draw[{Stealth[length=1.6mm]}-{Stealth[length=1.6mm]}] (0,-0.65) --
+    node[fill=white,inner sep=1pt,font=\small] {$n\ep>1$} (2.4,-0.65);
+\end{tikzpicture}
+\end{center}
+
+
+
+Also $
+\forall y \in \mathbb{R}, \exists m \in \mathbb{Z}
+\text{s.t.} |y - m| < 1
+$ 
+Hence take $y = nx$
+\begin{align*}
+& |nx - m | < 1 < n \ep \\
+\implies & \left| x - \frac{m}{n} \right|  < \frac{n \ep}{n} = \ep
+\end{align*}
+    \end{enumerate}
+\end{proof}
+
+\newpage
+
+\section{Cardinality}
+
+\begin{definition}[Finite]
+    A set $S \neq \emptyset$ is \textbf{finite}
+    if $\exists n \in \mathbb{N}$
+    and a bijection 
+    $f: S \to \{ 1, 2, \hdots n \} $. 
+    Otherwise $S$ is \textbf{infinite}.
+\end{definition}
+
+\begin{definition}[Countability]
+    \hfill
+    \begin{enumerate}
+        \item A set $S$ is 
+\textbf{countably infinite}
+if there is a bijection $f: S \to \mathbb{N}$
+        \item A set $S$ is \textbf{countable} 
+if it is empty
+or countably infinite 
+        \item A set $S$ is \textbf{uncountable} if
+it is not countable.
+    \end{enumerate}
+\end{definition}
+
+\begin{proposition}
+    \hfill 
+    \begin{enumerate}
+        \item Any subset of a countable set is countable.
+        \item A countable union of countable sets is countable.
+        \item (Follows from (2)) $\mathbb{Q}$ is countable. \textbf{Exercise}
+        \item $\mathbb{R} \setminus \mathbb{Q}$ is uncountable $\iff$ $\mathbb{R}$ is uncountable. \textbf{Exercise}
+        \item Union of a countable set and an uncountable set is uncountable. 
+    \end{enumerate}
+\end{proposition}
+
+\newpage 
+
+\section{Metric spaces and point-set topology}
+
+\begin{definition}[Metric space]
+    A \textbf{metric space} $(X, d)$ is a set $X$
+    of elements (called points)
+    equipped with a metric or function
+    $d: X \times X \to [0, \infty)$ 
+    such that 
+    \begin{enumerate}
+        \item $\forall x, y \in X, d(x,y) \geq 0$. 
+i.e. The image of $d$ is in $\mathbb{R}$ and non-negative 
+        \item $d(x,y) = 0 \iff x = y$
+        \item $\forall x, y \in X, d(x,y) = d(y,x)$
+        \item $\forall x, y, z, \in X$, 
+$d(x,z) \leq d(x, y) + d(y, z)$
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[Discrete metric]
+    The \textbf{discrete metric} $d$ is defined such that $\forall x, y$
+    \[
+        d(x,y) = \mathbf{1}[x \neq y] = 
+        \begin{cases}
+            0, \text{ if } x = y \\
+            1, \text{ if } x \neq y 
+        \end{cases}
+    \]
+\end{definition}
+
+
+\begin{example}
+    The followign are metric spaces 
+    \begin{itemize}
+        \item $X = \mathbb{R}, d(x,y) = |x-y|$
+        \item 
+$
+    X = \mathbb{R}^n := \{ 
+        (x_1, x_2, \hdots x_n) : x_i \in \mathbb{R}
+    \} 
+$, 
+$
+d_1(x, y) = \left( \sum\limits_{i = 1}^{n} |x_i - y_i|^2 \right)^{ \frac{1}{2}}
+$, i.e. Euclidean distance
+        \item 
+$
+    X = \mathbb{R}^n 
+$, 
+$
+d_2(x, y) = \max_i |x_i - y_i|
+$
+\item $X$ is the set of continuous functions on $[a, b]$, and $d(f,g) = \sup_{x \in [a, b]} |f(x) - g(x)|$
+\item Any $X \neq \emptyset$ with the discrete metric.
+    \end{itemize} 
+\end{example}
+
+\begin{definition}[Neighborhood]
+    Let $(X,d)$ be a metric space. 
+    Let $x \in X, \ep> 0$. 
+    The \textbf{$\ep$-neighborhood} of $x$ 
+    is 
+    \[
+        N(x, \ep) = B_{\ep}(x) := 
+        \{ 
+            y \in X, d(x, y) < \ep
+        \} 
+    \]
+    A \textbf{deleted neighborhood} is 
+    \begin{align*}
+        N^{*}(x, \ep) :&= \{ 
+            y \in X, 0 < d(x, y) < \ep
+        \} \\
+        &= N(x, \ep) \setminus \{ x \} 
+    \end{align*}
+\end{definition}
+
+\begin{definition}[Interior]
+    Let $(X, d)$ be a metric space, 
+    $S \subset X$. 
+    A point $x \in S$ is an 
+    \textbf{interior point}  of $S$ if 
+    \[
+    \exists \ep > 0 
+    \text{ s.t. }
+    N(x, \ep) \subset S 
+    \]
+
+    I.e. If an $\ep$-neighborhood around $x$ 
+    is in $S$, then $x$ is an interior point.
+
+    \medskip
+    
+    The set of all interior points of $S$
+    is called the \textbf{interior} of $S$, 
+    denoted $\operatorname{int} S$
+    \[
+        \operatorname{int}  S := \{ 
+        x \in S: \exists \ep > 0 \text{ s.t. }
+        N(x, \ep) \subset S
+        \} 
+    \]
+\end{definition}
+
+\begin{definition}[Boundary]
+    Let $(X, d)$ be a metric space, 
+    $S \subset X$. 
+    A point $x \in S$ is a boundary point of $S$ if 
+    $\forall \ep > 0$,
+    \begin{align*}
+        N (x, \ep) \cap S \neq \emptyset \\
+        N (x, \ep) \cap S^c \neq \emptyset
+    \end{align*}
+    The set of boundary pints of $S$ is $\operatorname{bd} S$
+    \begin{align*}
+        \operatorname{bd} S :&= \{ 
+            x \in X: 
+            \forall \ep > 0, 
+            N(x, \ep) \cap S \neq \emptyset,
+            N(x, \ep) \cap S^c \neq \emptyset
+        \}  \\
+        &= \left( \operatorname{int} S \cup \operatorname{int} S^c \right)^c
+    \end{align*}
+\end{definition}
+
+\begin{example}
+    $\operatorname{int} \mathbb{N} = \emptyset$, 
+\end{example}
+\begin{proof}
+    Since $\forall x \in \mathbb{N}$, $\not \exists \ep > 0$ s.t. $N(x, \ep) < \mathbb{N}$
+    hence $x \notin \operatorname{int} \mathbb{N}$. 
+\end{proof}
+
+\begin{example}
+    $\operatorname{bd} \mathbb{N} = \mathbb{N}$.
+\end{example}
+\begin{proof}
+    \remind{Exercise}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
