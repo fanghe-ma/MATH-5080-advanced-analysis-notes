@@ -1,7 +1,0 @@
-\babel@toc {english}{}\relax 
-\contentsline {section}{\numberline {1}The real number system}{3}{section.1}%
-\contentsline {subsection}{\numberline {1.1}Natural numbers, integers, and rationals}{3}{subsection.1.1}%
-\contentsline {subsection}{\numberline {1.2}Ordered Field}{4}{subsection.1.2}%
-\contentsline {subsection}{\numberline {1.3}Completeness Axiom / LUB property}{6}{subsection.1.3}%
-\contentsline {section}{\numberline {2}Cardinality}{9}{section.2}%
-\contentsline {section}{\numberline {3}Metric spaces and point-set topology}{10}{section.3}%

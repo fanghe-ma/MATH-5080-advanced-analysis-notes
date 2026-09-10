@@ -2,17 +2,17 @@
 .DS_Store
 
 # LaTeX build artifacts
-# /build/
-# *.aux
-# *.log
-# *.toc
-# *.out
-# *.synctex.gz
-# *.fdb_latexmk
-# *.fls
-# *.bbl
-# *.blg
-# *.run.xml
+/build/
+*.aux
+*.log
+*.toc
+*.out
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.bbl
+*.blg
+*.run.xml
 
 # Python virtual environment
 venv/
