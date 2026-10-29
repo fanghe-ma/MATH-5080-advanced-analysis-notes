@@ -26,7 +26,8 @@
 \end{proposition}
 
 \begin{proof}
-    We prove by contrapositive. Assume that $x < y$, WTS that $\exists \epsilon > 0, y + \epsilon < x$. \\
+    We prove by contrapositive. Assume that $x < y$, WTS that $\exists \epsilon > 0, y + \epsilon < x$.
+    \medskip
 
     Pick 
     \[
@@ -44,9 +45,17 @@
 
 \subsection{Completeness Axiom / LUB property}
 
-\begin{definition}[Bounded]
-    Let $S \subset \mathbb{R}$, we say $S$ is \textbf{bounded from above} if $\exists m \in \mathbb{R}$ s.t. $s \leq m, \forall s \in S$. Such an $m$ is called an \textbf{upper bound} of $S$.
+\begin{definition}[Bounded from above]
+    Let $S \subset \mathbb{R}$, we say $S$ is \textbf{bounded from above} 
+    if $\exists m \in \mathbb{R}$ s.t. $s \leq m, \forall s \in S$. 
+    Such an $m$ is called an \textbf{upper bound} of $S$.
 \end{definition}
+
+\begin{definition}[Bounded]
+    Let $S \subset \mathbb{R}$, we say $S$ is \textbf{bounded} 
+    if it is bounded from both above and below.
+\end{definition}
+
 
 \begin{example}
     $[0, 1]:= \{ x \in \mathbb{R}, 0 \leq x \leq 1 \} $  has upper bounds 1, 1.5, 2, etc.
@@ -71,10 +80,10 @@
 \end{proof}
 
 \begin{definition}[Supremum / least upper bound]
-    Let $S \in \mathbb{R}$ be bounded from above. Then $m \in \mathbb{R}$ is called the \textbf{supremum}, or \textbf{least upper bound} if 
+    Let $S \subset \mathbb{R}$ be bounded from above. Then $m \in \mathbb{R}$ is called the \textbf{supremum}, or \textbf{least upper bound} if 
     \begin{enumerate}
-        \item $m$ is an upper bound of $S$
-        \item $\forall m^{\prime} \in \mathbb{R}$, if $m^{\prime} < m$ then $m^{\prime}$ is not an upper bound of $S$.
+        \item \label{def:sup-1} $m$ is an upper bound of $S$ 
+        \item \label{def:sup-2} $\forall m^{\prime} \in \mathbb{R}$, if $m^{\prime} < m$ then $m^{\prime}$ is not an upper bound of $S$.
     \end{enumerate} 
 \end{definition}
 
@@ -83,10 +92,16 @@
 \end{remark}
 
 \begin{proof}
-    Suppose $\sup [0, 1\} \neq 1$. Since $1$ is an upper bound and (1.14.1) holds, then 1.14.2 must fail. Suppose $m < 1$ is an upper bound, but $ \frac{1}{2}(m + 1) \in S, \frac{1}{2}(m +1) > m$.
+    Suppose $\sup [0, 1) \neq 1$. 
+    Since $1$ is an upper bound and condition \ref{def:sup-1} holds, 
+    then condition \ref{def:sup-2} must fail. 
+    Suppose $m < 1$ is an upper bound, 
+    but $ \frac{1}{2}(m + 1) \in S, \frac{1}{2}(m +1) > m$.
 \end{proof}
 
 \begin{remarks}
+    \hfill
+
     \begin{enumerate}
         \item $\sup S$ is unique. 
         \item $\sup S$ may not be an element of $S$. 
@@ -98,23 +113,81 @@
     $S = \emptyset$, then any $x \in \mathbb{R}$ is an upper bound and lower bound of $S$, but $\max S, \min S, \sup S, \inf S$ do not exist.
 \end{example}
 
+\begin{theorem}
+    $\forall x, y \in \mathbb{R}, x < y$, $\exists r \in \mathbb{Q}$ s.t. 
+    $x < r < y$.
+\end{theorem}
 
 
 \begin{theorem}[Completeness Axiom]
     If $S \subset \mathbb{R}, S \neq \emptyset$, and $S$ bounded from above, then $\sup S$ exists.
 \end{theorem}
 
+\begin{corollary}
+    If $S \subset \mathbb{R}, S \neq \emptyset$, and $S$ bounded from below, then $\inf S$ exists.
+\end{corollary}
+
+\begin{proof}[Proof of CA $\iff$ corollary]
+    Assume CA. 
+    By CA, we know the existence of $\sup S$. 
+        WTS that $\inf S$ exists, i.e. $\exists M \in \mathbb{R}$,
+        $\forall s \in S, M \leq s$, and 
+        $\forall M^{\prime} > M, \exists s \in S$ s.t. 
+        $M \leq S < M^{\prime}$. 
+        \medskip 
+
+        Consider $S^{\prime} = \{ -x, x \in S \} $. 
+        Since $S$ nonempty, $S^{\prime}$ is nonempty. 
+        WTS $S^{\prime}$ bounded from above, i.e. $\exists M$ 
+        s.t. $\forall s \in S^{\prime}$, $M \geq s$. 
+        \medskip 
+
+        Since $S$ bounded from below, $\exists M \in \mathbb{R}, \forall s \in S$,
+        $s \geq M$. Pick arbitrary $s \in S^{\prime}, -s \in S \implies M \leq -s \iff -M \geq s$.
+        Hence $S^{\prime}$  bounded from above. By CA, $\sup S^{\prime}$ exists, say $M_2$. 
+        \medskip 
+
+        We claim that $\inf S = -M_2$. 
+        \begin{itemize}
+            \item We first show $\forall s \in S, s \geq -M_2$. Fix $s \in S$ arbitrary, 
+            \begin{align*}
+                s \in S & \implies -s \in S^{\prime} \\
+                & \implies -s \leq M_2 \\
+                & \implies s \geq -M_2 \\
+            \end{align*}
+            \item We then show that any $M^{\prime} > -M_2$ is not a lower bound. 
+            Take arbirary $M^{\prime} > -M_2$
+            \begin{align*}
+                M^{\prime} > -M_2 & \implies - M^{\prime} < M_2 \\
+                & \implies \exists s \in S^{\prime} \text{ s.t } -M^{\prime} < s \leq M_2 \\
+                & \implies M^{\prime} > -s \geq M_2
+            \end{align*}
+            Since $s \in S^{\prime} \iff -s \in S$, $M^{\prime}$ is not a lower bound of $S$.
+        \end{itemize} 
+\end{proof}
+
 \begin{remark}
-    The completeness axiom doe not hold in $\mathbb{Q}$.
+    The completeness axiom does not hold in $\mathbb{Q}$.
 \end{remark}
 
 \begin{proof}
     Take $S = \{ x \in \mathbb{Q}: x \geq 0, x^2 < 2 \} $. 
 
-    We claim that any $m \in \mathbb{Q}$ upper-bounds $S$ cannot be its supremum. 
+    We claim that any $m \in \mathbb{Q}$ that upper bounds 
+    $S$ cannot be its supremum. 
+    \remind{Exercise}.
 \end{proof}
 
-
+\begin{remark}[Implications of CA]
+    \medskip
+    \begin{enumerate}
+        \item $\mathbb{Q}$ dense in $\mathbb{R}$.
+        \item $\mathbb{R} \setminus \mathbb{Q}$ dense in $\mathbb{R}$.
+        \item $x^2 = 2$ has solution in $\mathbb{R}$, i.e. $\sqrt{2} \in \mathbb{R}$
+        \item (CCC) If a sequence of real numbers converges, its limit is in $\mathbb{R}$, 
+this statement is equivalent to CA. 
+    \end{enumerate}
+\end{remark}
 
 \begin{theorem}[Archimedean Property]
     $\mathbb{N}$ is unbounded from above in $\mathbb{R}$.
@@ -131,4 +204,30 @@
     \end{align*}
 
     This contradicts with the assumption that $m^{\prime}$ is the supremum.
+\end{proof}
+
+\begin{proposition}[Equivalent statements to Archimedean]
+    \hfill
+    \begin{enumerate}
+        \item $\forall x > 0, y \in \mathbb{R}$, $\exists n \in \mathbb{N}$ s.t. $nx > y$
+        \item $\forall x > 0, \exists n \in \mathbb{N}$ s.t. $0 < \frac{1}{n} < x$
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+    \item AP $\implies$ (1): Consider $\frac{y}{x} \in \mathbb{R}$. By AP, 
+$\exists n \in \mathbb{N}$ s.t. $n > \frac{y}{x}$. Hence $nx > y$. 
+    \item (1) $\implies$ (2): Take $y = 1$, then $\exists n \in \mathbb{N}$ s.t. 
+$nx > 1 \implies x > \frac{1}{n} > 0$. 
+    \item (2) $\implies$ (AP): By contrapositive. WTS $\mathbb{N}$ bounded from above 
+$\implies \exists x \in \mathbb{R}, x > 0, \forall n \in \mathbb{N}, \frac{1}{n} > x$. 
+\medskip 
+
+Since $\mathbb{N}$ bounded, let $n_0$ denote an upper bound. Then let $x_0 = \frac{1}{n_0} > 0$. 
+We have for arbitrary $n$
+\begin{align*}
+    n < n_0  \implies \frac{1}{n} > \frac{1}{n_0}  = x_0 
+\end{align*}
+    \end{enumerate}
 \end{proof}

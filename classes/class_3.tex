@@ -1,4 +1,4 @@
-\begin{result}[Application of CA]
+\begin{result}[Implication of CA]
     $x^2 = 2, x > 0$ has a unique solution in $\mathbb{R}$, called $\sqrt{2}$
 \end{result}
 
@@ -6,27 +6,49 @@
     Let $S:= \{ x \in \mathbb{R}, x > 0, x^2 < 2\} $. 
     We claim that 
     \begin{itemize}
-        \item $S \neq \emptyset$. Take $1, 1 > 0, 1^2 < 2$. Check 
-        \item $S$ is bounded from above. Take $2$. 
+        \item $S \neq \emptyset$. Take $1, 1 > 0, 1^2 < 2$. Check.
+        \item $S$ is bounded from above. Take $2$. Check.
 Suppose $\exists x \in S, x > 0$ then $x^2 > 2$. 
     \end{itemize} 
     Hence by CA, $S$ has a supremum in $\mathbb{R}$, 
     say $m$. 
     \medskip 
 
-    Claim: $m > 0, m^2 = 2$. 
+    Claim: $m > 0, m^2 = 2$. It suffices to check $m^2 = 2$.
+    ATC otherwise.
     \begin{enumerate}
-        \item if $m \leq 0$, then contradiction. Hence $m > 0$ check. 
-        \item To show $m^2 = 2$, it suffices to show that 
-$m^2 > 2$ or $m^2 < 2$ are both false. 
-        \begin{enumerate}
-            \item Assume $m^2 < 2$. Then we can find $n \in \mathbb{N}$
+        \item If $m^2 < 2$, 
+then we can find $n \in \mathbb{N}$
 s.t. $ \left( m + \frac{1}{n} \right)^2 < 2 $.
-\remind{For exercise}
-            \item Assume $m^2 > 2$.
-\remind{For exercise}
-        \end{enumerate} 
-    \end{enumerate}
+\medskip
+
+By AP, $\exists n \in \mathbb{N}$ s.t. 
+$n > \frac{2m + 1}{2-m^2}$, then 
+\begin{align*}
+    n > \frac{2m + 1}{2 - m^2} & \implies \frac{2m + 1}{n} < 2 - m^2 \\
+    & \implies m^2 + \frac{2m}{n} + \frac{1}{n} < 2 - m^2 \\
+    & \implies m^2 + \frac{2m}{n} + \frac{1}{n} < 2 \\
+    & \implies m^2 + \frac{2m}{n} + \frac{1}{n^2} < m^2 + \frac{2m}{n} + \frac{1}{n} < 2 \\
+    & \implies \left( m + \frac{1}{n} \right)^2 < 2
+\end{align*}
+        \item Assume $m^2 > 2$, then we can find $n \in \mathbb{N}$ 
+such that $m - \frac{1}{n}$ is also an upper bound of $S$.
+\medskip 
+
+It suffices to find an $n$ such that $ \left( m - \frac{1}{n} \right)^2 > 2 $, 
+which implies $ \left( m - \frac{1}{n} \right)^2 > x^2 \implies m - \frac{1}{n}> x$, 
+$\forall x \in S$. 
+\medskip 
+
+By AP, $\exists n \in \mathbb{N}$ s.t. 
+$n > \frac{2m}{m^2 - 2}$, then 
+\begin{align*}
+    n > \frac{2m}{m^2 - 2} & \implies m^2 - 2 > \frac{2m}{n} \\
+    & \implies m^2 - \frac{2m}{n} > 2 \\
+    & \implies m^2 - \frac{2m}{n} + \frac{1}{n^2} > m^2 - \frac{2m}{n} > 2 \\
+    & \implies  \left(  m - \frac{1}{n} \right)^2 > 2
+\end{align*}
+    \end{enumerate} 
 \end{proof}
 
 \begin{definition}[Density]
@@ -35,10 +57,13 @@ s.t. $ \left( m + \frac{1}{n} \right)^2 < 2 $.
     \exists y \in A 
     $ s.t. $ |x - y| < \epsilon$.
     \medskip
-
-    You can do $\epsilon$-approximation for anythingh in $B$ 
-    with something in $A$.
 \end{definition}
+\begin{remark}
+    We say $A$ is dense in $B$ if 
+    you can do $\epsilon$-approximation for anything in $B$ 
+    with something in $A$.
+\end{remark}
+
 
 
 \begin{theorem}
@@ -65,7 +90,7 @@ s.t. $ \left( m + \frac{1}{n} \right)^2 < 2 $.
     \begin{enumerate}
         \item 
     We first show that $(1) \implies (2)$, i.e. $\mathbb{Q}$ dense $\implies$ 
-    $\setminus{R} \setminus \mathbb{Q}$ dense. 
+    ${R} \setminus \mathbb{Q}$ dense. 
     \medskip 
 
     $\forall x \in \mathbb{R}, \forall \epsilon > 0$. WTS 
@@ -138,7 +163,9 @@ Hence take $y = nx$
 
 \newpage
 
-\section{Cardinality}
+\phantomsection
+\section*{Side note: Cardinality}
+\addcontentsline{toc}{section}{Side note: Cardinality}
 
 \begin{definition}[Finite]
     A set $S \neq \emptyset$ is \textbf{finite}
@@ -162,20 +189,33 @@ it is not countable.
     \end{enumerate}
 \end{definition}
 
+\begin{remark}
+    Every nonempty finite subset of $\mathbb{R}$ has a max and min. 
+\end{remark}
+
 \begin{proposition}
     \hfill 
     \begin{enumerate}
         \item Any subset of a countable set is countable.
         \item A countable union of countable sets is countable.
-        \item (Follows from (2)) $\mathbb{Q}$ is countable. \textbf{Exercise}
+        \item $\mathbb{Q}$ is countable. \textbf{Exercise}
         \item $\mathbb{R} \setminus \mathbb{Q}$ is uncountable $\iff$ $\mathbb{R}$ is uncountable. \textbf{Exercise}
         \item Union of a countable set and an uncountable set is uncountable. 
     \end{enumerate}
 \end{proposition}
 
+\begin{proof}[Proof that $\mathbb{Q}$ is countable]
+    There is an injection from $\mathbb{Q}$  to the set $A \coloneq \{ (a, b): a, b \in \mathbb{Z} \} $. 
+    Fix arbitrary $a \in \mathbb{Z}$, $A_a \coloneq \{ (a, b) : b \in \mathbb{Z} \} $. There is a bijection 
+    between $A_a$ and $\mathbb{Z}$, and $\mathbb{Z}$ countable, hence $A_a$ is countable. 
+    $A = \bigcup_{a \in \mathbb{Z}}A_a$ is a countable union of countable sets and is therefore countable.
+\end{proof}
+
 \newpage 
 
 \section{Metric spaces and point-set topology}
+
+\subsection{Metric spaces, open and closed sets}
 
 \begin{definition}[Metric space]
     A \textbf{metric space} $(X, d)$ is a set $X$
@@ -206,7 +246,7 @@ $d(x,z) \leq d(x, y) + d(y, z)$
 
 
 \begin{example}
-    The followign are metric spaces 
+    The following are metric spaces 
     \begin{itemize}
         \item $X = \mathbb{R}, d(x,y) = |x-y|$
         \item 
@@ -280,7 +320,7 @@ $
 \begin{definition}[Boundary]
     Let $(X, d)$ be a metric space, 
     $S \subset X$. 
-    A point $x \in S$ is a boundary point of $S$ if 
+    A point $x \in S$ is a \textbf{boundary point} of $S$ if 
     $\forall \ep > 0$,
     \begin{align*}
         N (x, \ep) \cap S \neq \emptyset \\
@@ -302,18 +342,52 @@ $
     $\operatorname{int} \mathbb{N} = \emptyset$, 
 \end{example}
 \begin{proof}
-    Since $\forall x \in \mathbb{N}$, $\not \exists \ep > 0$ s.t. $N(x, \ep) < \mathbb{N}$
-    hence $x \notin \operatorname{int} \mathbb{N}$. 
+    Fix $x \in \mathbb{R}$ and $\varepsilon > 0$ arbitrary. 
+    Take $y = x + \frac{1}{2} \min (\varepsilon, 1)$. Then 
+    \begin{itemize}
+        \item $|y - x| = \frac{1}{2} \min (\varepsilon, 1) \implies y \in N(x, \varepsilon)$
+        \item $x < y < x + 1 \implies y \notin \mathbb{N}$ 
+    \end{itemize} 
+    Hence $N(x, \varepsilon) \not \subset \mathbb{N}$ for all $\varepsilon > 0 \implies x \notin \operatorname{Int}  \mathbb{N}$.
 \end{proof}
 
 \begin{example}
     $\operatorname{bd} \mathbb{N} = \mathbb{N}$.
 \end{example}
 \begin{proof}
-    \remind{Exercise}
+    \begin{enumerate}
+        \item $\mathbb{N} \subset \operatorname{bd}  N$.
+Fix $x \in \mathbb{N}, \varepsilon > 0$, 
+        \begin{itemize}
+            \item 
+$x \in N(x, \varepsilon) \cap \mathbb{N} \neq \emptyset$. 
+            \item 
+$y = x + \frac{1}{2} \min(\varepsilon, 1) \in N(x, \varepsilon) \cap \mathbb{N}^c \neq \emptyset$.
+        \end{itemize} 
+        \item $\mathbb{N} \supset \operatorname{bd}  N$. Fix arbitrary $x \in \operatorname{bd} \mathbb{N}$. 
+ATC $x \notin \mathbb{N}$, then we consider 2 cases
+\begin{itemize}
+    \item if $x < 1$, then take $\varepsilon = 1 - x$. 
+$\forall y \in N(x, \varepsilon), 1 > y \notin \mathbb{N}$, 
+hence $N(x, \varepsilon) \cap \mathbb{N} = \emptyset$, 
+which contradicts the definition of boundary point. 
+    \item $if x > 1$, let $n \in \mathbb{N}$ such that 
+$n < x < n + 1$. Let $\varepsilon = \frac{1}{2}\min(x - n, n + 1 - x)$, then 
+$\forall y \in N(x, \varepsilon)$, $y \notin \mathbb{N}$, 
+hence $N(x, \varepsilon) \cap \mathbb{N} = \emptyset$, 
+which contradicts the definition of boundary point. 
+\end{itemize} 
+    \end{enumerate}
 \end{proof}
 
-
+\begin{remark}
+    \hfill 
+    \begin{enumerate}
+        \item $\operatorname{int} S = S \setminus \operatorname{bd} S$
+        \item boundary points may or may not be in $S$. 
+        \item Any point in a set $S$ is either a boundary or an interior point, but not both.
+    \end{enumerate}
+\end{remark}
 
 
 

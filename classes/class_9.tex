@@ -1,0 +1,536 @@
+%==============================================================================
+% MATH 5080
+% Class:        9
+% Date:         Sept 22nd
+%==============================================================================
+
+\newpage
+
+\section{Limits and Continuity of Functions}
+
+\subsection{Limits of Functions}
+
+\begin{definition}[Limits of functions]
+    Let $f: D \to \mathbb{R}, D \subset \mathbb{R}$,  and $c$
+    be an accumulation point of $D$. We say $L \in \mathbb{R}$
+    is the limit of $f$ at $c$ if $\forall \ep > 0, \exists \delta > 0$
+    s.t. $|f(x) - L | < \ep$ whenever $0 < |x - c| < \delta$ and 
+    $x \in D$,
+    denoted 
+    \[
+        \lim_{x \to c} f(x) = L
+    \]
+    
+\end{definition}
+
+\begin{remark}
+    \hfill
+    \begin{enumerate}
+        \item We define limits of functions only on accumulation points
+        in the domain. 
+        \item Note that $0 < |x - c|$, i.e. we care about $x \in N^*(c, \delta)$.
+        We do not need $f(c)$ to be defined. 
+        When it is defined, $\lim_{x \to c}f(x)$ has nothing to do with
+        $f(c)$.
+        \item The limit of a function at $c$ is unique.
+    \end{enumerate}
+\end{remark}
+
+\begin{example}
+    Show $\lim_{x \to 2}x^2 = 4$.
+    \remind{Add in later}.
+\end{example}
+
+
+\begin{theorem}[Equivalence between limit of function and limit of a sequence]
+    \hfill
+
+    Let $f: D \to \mathbb{R}, c \in D^{\prime}$, TFAE
+    \begin{enumerate}
+        \item $\lim_{x \to c}f(x)= L$
+        \item For every $ \{ a_n \} \subset D$ s.t. $a_n \to c$ but 
+        $a_n \neq c, \forall n$, we have 
+    \[
+        \lim_{n \to \infty} f(a_n) = L
+    \]
+    \end{enumerate}
+\end{theorem}
+
+\begin{remark}
+    \hfill
+    \begin{itemize}
+        \item 
+    This result allows us to work with limits of sequences whenever
+    we want to talk about limits of continuous functions
+        \item We can make the above theorem weaker by only requiring $a_n \neq c$
+        $\forall n > N$ for some $N$.
+    \end{itemize} 
+\end{remark}
+
+\begin{example}
+    $\lim_{x \to \infty} \sin \left( \frac{1}{x} \right) $ does not 
+    have a limit.
+\end{example}
+
+\begin{proof}
+    To show (1) $\implies$ (2): 
+    \medskip
+    Assume $\lim_{x \to c}f(x) = L$, 
+    Fix $\{ a_n \} \subset D$ s.t. $a_n \to c, a_n \neq c, \forall n \in \mathbb{N}$
+    WTS $\lim_{n \to \infty}f(a_n) = L$. 
+    \medskip
+
+    By definition, $\lim_{x \to c}f(x) = L \implies \exists \delta$ s.t. 
+    $0 < |x-c| < \delta \implies |f(x) - L | < \ep$.
+    Since $a_n \to c \iff \lim_{n \to \infty} a_n = c$ and $a_n \neq c, \forall n$,
+    $\exists N > 0$ s.t. $\forall n > N$
+    \begin{align*}
+        0 < |a_n - c | < \delta \implies |f(a_n) - L | < \delta
+    \end{align*}
+    \medskip
+
+    To show (2) $\implies$ (1): Assume $f(x)$ does not converge to $L$
+    as $x \to c$, 
+    $\exists \ep > 0$ s.t. $\forall \delta > 0$, 
+    $\exists x \in N^*(c, \delta) \cap D$ s.t. $|f(x) - L | \geq \ep$.
+    \begin{itemize}
+        \item Let $\delta_1 = 1, a_1 \in N^*(c, \delta_1) \cap D$ s.t. $|f(a_1) - L | \geq \ep$
+        \item Let $\delta_2 = \frac{1}{2}, a_2 \in N^*(c, \delta_2) \cap D$ s.t. $|f(a_2) - L | \geq \ep$
+        \item $\vdots$
+        \item $\delta_n = \frac{1}{n}, a_n \in N^*(c, \delta_n) \cap D$ s.t. $|f(a_n) - L | \geq \ep$
+    \end{itemize} 
+    Since $a_n$ satisfies $a_n \to c, a_n \neq c$, by assumption, 
+    $\lim_{n \to \infty} f(a_n) = L$. This contradicts $|f(a_n) - L | \geq \ep$.
+\end{proof}
+
+\begin{corollary}
+    Let $f: D \to \mathbb{R}, c \in D^{\prime}$, TFAE
+    \begin{enumerate}
+        \item $f$ doesn't have a limit at $c$
+        \item There exists a sequence $\{ a_n \}  \subset D$
+        that converges to $c$ with $a_n \neq c, \forall n$ s.t. 
+        $\{ f(a_n) \} $ diverges.
+    \end{enumerate} 
+\end{corollary}
+
+\begin{remark}
+This is very useful for proving that a limit DNE.
+\end{remark}
+
+\begin{proposition}[Algebraic operations of limits of functions]
+    Let $f: D \to \mathbb{R}, c \in D^{\prime}$. 
+    Suppose $\lim_{x \to c}f(x) = L$,
+    $\lim_{x \to c}g(x) = M$. 
+    Then 
+    \begin{enumerate}
+        \item $\lim_{x \to c}(f+ g) (x) = L + M$.
+        \item $\lim_{x \to c}(f\cdot g) (x) = LM$.
+        \item $\lim_{x \to c}kf(x) = kL, \forall k \in \mathbb{R}$.
+        \item If $g(x) \neq 0, \forall x \in D$, and $M \neq 0$, then 
+        \[
+            \lim_{x \to c} \frac{f}{g}(x) = \frac{L}{M}
+        \]
+    \end{enumerate} 
+\end{proposition}
+
+\begin{definition}[One sided limits]
+    \hfill
+    \begin{enumerate}
+        \item We say that $\lim_{x \to c^-}f(x) = L$ if 
+        $\forall \ep > 0$, $\exists \delta > 0$ s.t. 
+        $c - \delta < x < c \implies |f(x) - L | < \ep$ 
+        \item We say that $\lim_{x \to c^+}f(x) = L$ if 
+        $\forall \ep > 0$, $\exists \delta > 0$ s.t. 
+        $c < x < c  + \delta\implies |f(x) - L | < \ep$ 
+    \end{enumerate} 
+\end{definition}
+
+\begin{proposition}[
+        Equivalence of one-sided and two-sided limits
+    ]
+    \begin{align*}
+        \lim_{x \to c}f(x) = L
+        \iff
+        \lim_{x \to c^-}f(x) =
+        \lim_{x \to c^+}f(x) =
+        L
+    \end{align*}
+\end{proposition}
+
+\subsection{Continuous functions}
+
+
+\begin{definition}[Continuity]
+    Let $f: D \to \mathbb{R}$
+    \begin{enumerate}
+        \item (\textbf{Continuity at a point})
+    Let $c \in D$,  
+    we say $f$  is \textbf{continuous at $c$} if 
+    $\forall \ep > 0, \exists \delta > 0$ s.t. 
+    $|f(x) - f(c)| < \ep$ whenever 
+    $|x - c| < \delta$.
+        \item (\textbf{Continutiy over a set}): Let $S \subset D$
+    if $\forall c \in S$, $f$ is continuous at $c$, then we say 
+    that $f$ is \textbf{contiuous on $S$}.
+        \item (\textbf{Continuous function}): if $f$ is continuous
+    on $D$, then we say $f$ is a \textbf{continuous function}.
+    \end{enumerate} 
+\end{definition}
+
+\begin{remark}
+    \hfill
+    \begin{enumerate}
+        \item Compared to the definition of 
+        the limit of a function at a point,
+        we now require $c \in D$ instead of $c \in D^{\prime}$.
+        \item We now allow $x = c$.
+        \item We cannot immediately apply the previous definition 
+        of limit of a function at point to define continuity
+        because 
+        we don't know that $c$ is an accumulation point.
+        \item Depending on whether $c$ is an accumulation point
+        or an isolated point, we have different conditions
+        that are required for the continuity of $f$ at $c$. 
+        Refer to the following two propositions.
+        % \item If $c$ is an isolated pint of the domain, then any function is 
+        % continuous at $c$.
+        % \item If $c$ is an accumulation point, $f$ continuous at $c$ $\iff$
+        % $\lim_{x \to c}f(x) = f(c)$.
+    \end{enumerate} 
+\end{remark}
+
+\begin{proposition}[Any function is continuous at isolated point]
+    If $c$ is an isolated point of $D$, then 
+    $f$ is always continuous at $c$.
+\end{proposition}
+
+\begin{proof}
+    $c$ isolated $\implies \exists \delta_0$ s.t.
+    $N^*(c, \delta_0) \cap D = \emptyset$. 
+    Fix any $\ep > 0$, pick $\delta = \delta_0$. 
+    Then, 
+    \begin{align*}
+        x \in N(c, \delta) \implies x = c \implies
+        |f(x) - f(c) | = 0 < \ep
+    \end{align*}
+\end{proof}
+
+
+\begin{proposition}
+    If $c$ is an accumulation point of $D$, then 
+    $f$ is continuous at $c$ if and only if $\lim_{x \to c}f(x)=$
+    $f(c)$.
+\end{proposition}
+
+\begin{proof}
+    By definition, \remind{exercise}.
+\end{proof}
+
+
+
+
+\begin{proposition}[Equivalent characterization of continuity]
+    $f$ is continuous at $c$ if any only if for any neighborhood 
+    of $f(c)$, say $V = N(f(c), \ep), \forall \ep$, 
+    there exists a neighborhood $U = N(c, \delta)$ such that 
+    $f(U \cap D) = V$.
+\end{proposition}
+
+\begin{theorem}
+    Let $f: D \to \mathbb{R}, c \in D$ , TFAE
+    \begin{enumerate}
+        \item $f$ is continuous at $c$
+        \item If $\{ a_n \} \subset D $ s.t. $a_n \to c$, then 
+        \[
+            \lim_{n \to \infty} f(a_n) = f(c)
+        \]
+    \end{enumerate} 
+\end{theorem}
+
+\begin{proof}
+    \remind{revisit this proof}
+    \medskip
+
+    $c$ is either an isolated point or an accumulation point. 
+    \begin{enumerate}
+        \item Case 1: $c$ isolated.
+        We want to show that (1) and (2) are always true. 
+        \begin{itemize}
+            \item We already know that (1) is always true, 
+            any $f$ is continuous at $c$ if $c$ isolated.
+            \item WTS (2). Fix any $\{ a_n \}$ converging to $c$. 
+            Since $c$ isolated, $\exists \ep > 0$ s.t. 
+            $N^*(c, \ep) \cap D = \emptyset$. 
+            Since $a_n \to c, \exists N$ s.t. $\forall n > N$,
+            $|a_n - c | < \ep \implies a_n = c \implies f(a_n) = f(c)$.
+        \end{itemize} 
+        \item Case 2: $c$ accumulation point
+            \begin{itemize}
+                \item (1) $\implies$ (2): 
+                \begin{align*}
+                    f \text{continuous at } c 
+                    & \implies \lim_{x \to c}f(x) = f(c) \text{ by definition} \\
+                    & \implies \{ a_n \} \subset D, a_n \neq c, a_n \to c \implies 
+                    \lim_{n \to \infty} f(a_n) = f(c)
+                \end{align*}
+                ATC otherwise, i.e. $\{ a_n \} \subset D, a_n \to c, \lim_{n \to \infty}f(a_n) \neq f(c)$
+                then $\exists \ep > 0$ and some subsequence $\{ a_{n_k} \} $
+                such that $a_{n_k} \to c$ but $ \left| f(a_{n_k}) - f(c)\right|  > \ep$.
+                Hence $a_{n_k} \neq c, \forall k$. However, this contradicts with
+                the result.
+                \item (2) $\implies$ (1): 
+                Assume (2), then we immediately have 
+                \begin{align*}
+                    &\{ a_n \} \subset D, a_n \neq c, a_n \to c \implies 
+                    \lim_{n \to \infty} f(a_n) = f(c) \\
+                    & \implies \lim_{x \to c}f(x) = f(c) \\
+                    & \implies f \text{ continuous at } c
+                \end{align*}
+            \end{itemize} 
+    \end{enumerate} 
+\end{proof}
+
+\begin{theorem}
+    $f, g: D \to \mathbb{R}, c \in D$. Suppose $f, g$ both
+    continuous at $c$. Then the following functions are also
+    continuous at $c$:
+    \begin{enumerate}
+        \item $f + g$
+        \item $fg$
+        \item $kf$
+        \item $ \frac{f}{g}$, if $g(c) \neq 0$
+    \end{enumerate} 
+\end{theorem}
+
+\begin{remark}
+    The assumption that $\exists \ep > 0$
+    s.t. 
+    $\forall x \in N(c, \ep), g(x) \neq 0$
+    is necessary and sufficient condition for $g(c) \neq 0$.
+\end{remark}
+
+\begin{proof}
+    We prove using the previous theorem, and the 
+    analogous result for limits.
+\end{proof}
+
+
+\begin{theorem}
+    Let $f: D \to \mathbb{R}, g: E \to \mathbb{R}$ s.t.
+    $f(D) \subset E$, 
+    suppose $f$ continuous at $c \in D$, $g$ continuous at $f(c) \in E$, 
+    then $g \circ f : D \to \mathbb{R}$ is continuous at $c$.
+\end{theorem}
+
+\begin{proof}
+    Fix a neighborhood $V$ of $g \circ f(c)$, we seek a neighborhood $U$
+    such that $g \circ f( U \cap D) \subset V$. 
+    \medskip
+
+    Since $g$ continuous at $f(c)$, $\exists $ a neighborhood $W$
+    of $f(c)$ such that $g(W \cap E) \subset V$. 
+    \medskip
+
+    Since $f$ continuous at $c$, $\exists$ a neoighboord $U$ of $c$ such that 
+    $f(U \cap D) \subset W$.
+\end{proof}
+
+\begin{remark}
+    $f(D) \subset E \implies f(U \cap D) \subset W \cap E$
+    $\implies g \circ f(U \cap D) \subset g(W \cap E) \subset V$.
+    \begin{center}
+    \begin{tikzpicture}[scale=0.9, every node/.style={font=\small}]
+        % domain D and neighborhood U of c
+        \draw[thick] plot[smooth cycle, tension=0.8]
+            coordinates {(-1.5,0.4) (-1.0,0.6) (-0.7,1.2) (0.1,0.8) (0.6,1.1) (1.2,0.5) (0.9,-0.2) (1.3,-0.9) (0.2,-0.8) (-0.5,-1.3) (-1.1,-0.7) (-0.9,-0.1)};
+        \draw[thick, blue] (0.3,0.3) circle (0.8);
+        \fill (0.3,0.3) circle (1.5pt) node[below left] {$c$};
+        \node at (-1.7,0.9) {$D$};
+        \node[blue] at (0.3,1.35) {$U$};
+
+        % E containing f(D), and neighborhood W of f(c)
+        \begin{scope}[xshift=5.5cm]
+            \draw[thick] plot[smooth cycle, tension=0.8]
+                coordinates {(-1.7,0.3) (-1.3,1.1) (-0.6,1.6) (0.2,1.5) (0.7,1.8) (1.5,1.2) (1.7,0.4) (2.0,-0.4) (1.3,-1.1) (0.4,-1.0) (-0.3,-1.6) (-1.2,-1.3) (-1.4,-0.5)};
+            \draw[thick, dashed, red!70!black] plot[smooth cycle, tension=0.8]
+                coordinates {(-0.6,0.5) (-0.2,0.9) (0.4,0.7) (0.9,0.3) (1.5,0.0) (1.6,-0.5) (1.1,-0.8) (0.4,-0.6) (-0.3,-0.9) (-0.8,-0.4)};
+            \draw[thick, blue] (0,0.3) circle (1.05);
+            \draw[thick, violet] (0,0.3) ellipse (0.55 and 0.42);
+            \fill (0,0.3) circle (1.5pt) node[below] {$f(c)$};
+            \node[violet] (fUD) at (-1.9,-1.9) {$f(U \cap D)$};
+            \draw[violet, thin] (fUD.north) -- (-0.52,0.16);
+            \node[red!70!black] at (1.2,-0.4) {$f(D)$};
+            \node[blue] at (-1.25,0.55) {$W$};
+            \node at (0.6,-1.5) {$E$};
+        \end{scope}
+
+        % V around g(f(c))
+        \begin{scope}[xshift=10.5cm]
+            \draw[thick] plot[smooth cycle, tension=0.8]
+                coordinates {(-1.4,0.5) (-0.9,1.0) (-0.2,0.9) (0.4,1.3) (1.2,0.8) (1.0,0.1) (1.5,-0.6) (0.6,-1.1) (-0.2,-0.7) (-0.9,-1.2) (-1.5,-0.4)};
+            \fill (-0.4,0) circle (1.5pt) node[right] {$g(f(c))$};
+            \node at (1.6,1.0) {$V$};
+        \end{scope}
+
+        % maps
+        \draw[-{Stealth}, thick] (1.1,0.8) to[bend left=25] node[above] {$f$} (4.3,0.8);
+        \draw[-{Stealth}, thick] (6.6,0.8) to[bend left=25] node[above] {$g$} (9.4,0.8);
+    \end{tikzpicture}
+    \end{center}
+\end{remark}
+
+\begin{theorem}[Limit passes through continuous functions]
+    \hfill
+
+    Let $f: D \to \mathbb{R}, g: E \to \mathbb{R}$,
+    $f(D) \subset E$, 
+    suppose $\lim_{x \to c}f(x) = L \subset E$ and 
+    $g$ is continuous at $L$,
+    then 
+    \[
+        \lim_{x \to c} g(f(x)) = 
+        g \left( \lim_{x \to c} f(x)\right)  = 
+        g(L)
+    \]
+\end{theorem}
+
+\begin{example}
+    If however, we only have 
+    $\lim_{x \to c} f(x) = L$,
+    $\lim_{y \to L} g(y) = M$,
+    then in general we \textbf{do not have}
+    $\lim_{x \to c} g(f(x)) = M$.
+    \medskip
+
+    For example, take $f(x) = L$  a constant function, 
+    then $\lim_{x \to c}g(f(x))= g(L)$,
+    which is not necessarily equal to 
+    $\lim_{y \to L}g(y)$, unless we know
+    that $g$ is continous at $L$.
+\end{example}
+
+\begin{proof}
+    Fix $\ep >0$. WTS $\exists \delta > 0$ s.t. 
+    if 
+    $0 < |x - c | < \delta $ and $x \in D$, 
+    then $|g(f(x)) - g(L) | < \ep$. 
+    \medskip
+
+    By definition of continituity of $g$ at $L$,
+    for $\ep$, $\exists \eta > 0$ s.t. 
+    $|y - L | < \eta, y \in E \implies $
+    $|g(y) - g(L) | < \ep$
+    \medskip
+
+    By definition of limit of $f$ at $c$,
+    since $\lim_{x \to c}f(x) = L$,
+    $\exists \delta > 0$ s.t. 
+    $0 < | x - c | < \delta, x \in D$, 
+    $\implies |f(x) - L | < \eta$.
+    \medskip
+
+    Since $f(D) \subset E$, 
+    $0 < | x - c | < \delta, x \in D$
+    $\implies |f(x) - L | < \eta, f(x) \in E$
+    $\implies |g(f(x)) - g(L) | < \ep$.
+\end{proof}
+
+\begin{example}
+    $f(x) = x^2, D = (-1, 1), f(D) = [0, 1)$
+\end{example}
+
+\begin{remark}
+    Continuous functions do not necessarily preserve
+    openess.
+\end{remark}
+
+\begin{theorem}[
+    Preimage of open set in $\mathbb{R}$
+    is open
+]
+Let $f$ be a function on $\mathbb{R}$, TFAE
+\begin{itemize}
+    \item $f$ is continuous on $\mathbb{R}$.
+    \item For any open $V \subset \mathbb{R}, f^{-1}(V)$ is open.
+\end{itemize} 
+\end{theorem}
+
+\begin{remark}
+    This can be made stronger into the following theorem.
+\end{remark}
+
+\begin{theorem}[Preimage of open is open]
+    Let $f: D \to \mathbb{R}$, TFAE 
+    \begin{enumerate}
+        \item $f$ is continuous on $D$
+        \item Any open image has a preimage that is the 
+        intersection of an open set and the domain.
+        \[
+        \forall V \subset \mathbb{R}, 
+        V \text{ open},
+        \exists U \subset \mathbb{R} 
+        \text{ s.t. }
+        f(U \cap D) = V, 
+        \text{ i.e. }
+        f^{-1} = U \cap D.
+        \]
+    \end{enumerate} 
+\end{theorem}
+
+\begin{remark}
+    We want to say that any open image has an 
+    open pre-image, but that is not always true.
+    We can only say $f^{-1}(V) = U \cap D$
+    for some open $U$.
+\end{remark}
+
+\begin{corollary}
+    Let $f: D \to \mathbb{R}$ , TFAE
+    \begin{enumerate}
+        \item $f$ is continuous on $D$
+        \item for any closed $V \subset \mathbb{R}$,
+        $\exists U \subset \mathbb{R}$, $U$ closed, 
+        s.t. 
+        $f^{-1}(V) = D \cap U$.
+    \end{enumerate} 
+\end{corollary}
+
+\begin{proof}
+    We prove a special case where $D = \mathbb{R}$.
+    \medskip
+
+    (1) $\implies$ (2): Assume $f$ continous on $D$, let $V$ be open. WTS $f^{-1}(V)$
+    open. 
+    \medskip
+
+    Fix any $c \in f^{-1}(V)$. WTS $\exists \ep > 0$  s.t $N(c, \ep) \subset f^{-1}(V)$.
+    \medskip
+
+    Since $c \in f^{-1}(V), f(c) \in V$. Since $V$ open, $\exists$ a neighborhood
+    of $f(c)$ say $U$ s.t. $U \subset V$.
+    \medskip
+    
+    Since $f$ continuous at $c$, by definition, $\exists \ep > 0$  s.t. 
+    $f(N(c, \ep)) \subset U \subset V$. Hence $N(c, \ep) \subset f^{-1}(V)$.
+    \medskip
+
+    (2) $\implies$ (1): WTS $f$ continuous at any $c \in \mathbb{R}$. Let $V$ 
+    be any neighborhood of $f(c)$. WTS $\exists$ a neighborhood of $c$, say $U$ s.t.
+    $f(U) \subset V$. 
+    By assumption, we know $f^{-1}(V)$ is open. Since $c \in f^{-1}(V)$, 
+    $c$ must be an interior point of $f^{-1}(V)$. So there exists a neighborhood 
+    of $c$ say $U$ s.t. $U\subset f^{-1}(V)$, i.e. $f(U) \subset V$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+

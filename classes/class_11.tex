@@ -1,0 +1,439 @@
+%==============================================================================
+% MATH 5080
+% Class:        11
+% Date:         Sept 29th
+%==============================================================================
+
+\begin{definition}[Types of discontinuity]
+    Let $f: D \to \mathbb{R}, c \in D \cap D^{\prime}$.
+    Suppose $f$ is discontinuous at $c$, then
+    \begin{enumerate}
+        \item $f$ has a discontinuity of the \textbf{first type} if 
+        both
+        $\lim_{x \to c^+}f(x)$ and $\lim_{x \to c^-}f(x)$ exists in $\mathbb{R}$
+        \begin{itemize}
+            \item $f$ either has a \textbf{jump} discontinuity or a \textbf{removable} discontinuity
+        \end{itemize} 
+        \item Otherwise, $f$ has a discontinuity of the \textbf{second type}
+    \end{enumerate} 
+\end{definition}
+
+\begin{definition}[Increasing, decreasing and monotone functions]
+    Let $f: (a, b) \to \mathbb{R}$, we say 
+    \begin{itemize}
+        \item 
+    $f$ is \textbf{increasing} 
+    on $(a, b)$ 
+    if $a < x  < y < b \implies f(x) \leq f(y)$.
+        \item 
+    $f$ is \textbf{decreasing} 
+    on $(a, b)$ 
+    if $a < x  < y < b \implies f(x) \geq f(y)$.
+    \item $f$ is \textbf{monotone} if it is either increasing or decreasing
+    \end{itemize} 
+\end{definition}
+
+\begin{remark}
+    We sometimes denote one-sided limits as 
+    \[
+        \lim_{x \to c^-}f(x) = f(c^-),
+        \quad
+        \lim_{x \to c^+}f(x) = f(c^+)
+    \]
+\end{remark}
+
+
+\begin{proposition}
+    If $f$ is increasing on $(a, b)$, then 
+    $\forall c \in (a, b)$, both $\lim_{x \to c^-}f(x)$  and 
+    $\lim_{x \to c^+}f(x)$ must exist, and 
+    \[
+        \lim_{x \to c^-}f(x) \leq f(c) \leq \lim_{x \to c^+}f(x)
+    \]
+    In particular, $f$ may not have discontinuities of the second kind 
+    on $(a,b)$.
+\end{proposition}
+
+\begin{proof}
+    By assumption, $S:= \{ f(x) : a < x < c \} $
+    is bounded from above by $f(c)$. Also $S \neq \emptyset$.
+    By CA, $\sup S = M$ exists,
+    and $M \leq f(c)$. 
+    \medskip
+
+    \textbf{Claim}: $M = f(c-)$.
+    \medskip
+
+    Fix $\ep > 0$, seek $\delta$ s.t. 
+    $|c - x | < \delta \implies |f(x) - M | < \ep$.
+    \medskip
+
+    since $M = \sup S$, 
+    $\exists x_0 \in (a, c)$ s.t. 
+    $f(x_0) \in (M - \ep, M]$.
+    Pick $\delta = c - x_0$.
+    $\forall x$ s.t. 
+    $x \in (c - \delta, c)$, we have 
+    \[
+        x_0 = c - \delta < x < c
+    \]
+    Since $f$ increasing, 
+    \[
+        f(x_0) \leq f(x) \leq f(M)
+    \]
+    hence $|f(x) - M| < \ep$.
+\end{proof}
+
+\subsection{Limits involving infinity}
+
+\begin{definition}[Limit at infinity]
+    Let $f: (c, \infty) \to \mathbb{R}$ for some $c \in \mathbb{R}$. 
+    We say the limit of $f$ is $L \in \mathbb{R}$ at $\infty$
+    if $\forall \ep > 0, \exists X > c$ s.t 
+    $x > X \implies |f(x) - L | < \ep$, denoted 
+    \[
+        \lim_{x \to \infty} f(x)= L
+    \]
+\end{definition}
+
+\begin{definition}[Diverges to infinity at a point]
+    Let $f$ be defined on some neighborhood of $c \in \mathbb{R}$,
+    say $N(c, \delta_0)$. We 
+    say $f$ \textbf{diverges} to $\infty$ at $c$
+    if $\forall M > 0, \exists \delta > 0$ s.t. 
+    $0 < |x-c| < \delta \implies f(x) > M$, denoted
+    \[
+        \lim_{x \to c}f(x) = \infty
+    \]
+\end{definition}
+
+\begin{definition}[Diverges to infinity at infinity]
+    Let $f: (c, \infty) \to \mathbb{R}$ for some $c \in \mathbb{R}$.
+    We say $f$ diverges to $\infty$ at $\infty$ if 
+    $\forall M > 0$, $\exists X $ s.t. 
+    $x > X \implies f(x) > M$,
+    denoted
+    \[
+        \lim_{x \to \infty} f(x) = \infty
+    \]
+\end{definition}
+
+\newpage
+
+\section{Differentiation}
+
+\subsection{Differentiability and derivatives}
+\begin{definition}[Differentiability]
+    Let $I \subset \mathbb{R}$ be an interval, 
+    $f: I \to \mathbb{R}, c \in I$, 
+    $f$ is said to be \textbf{differentiable} at $c$ 
+    (\textbf{has a derivative} at $c$)
+    if 
+    \[
+        \lim_{x \to c} \frac{f(x) - f(c)}{x-c} 
+    \]
+    exists in $\mathbb{R}$. 
+    If so
+    \[
+    f^{\prime}(c) = 
+    \left. \frac{df}{dx} \right|_{x= c}^{}  = 
+    \lim_{x \to c} \frac{f(x) - f(c)}{x-c}
+    \]
+    is called the \textbf{derivative} of $f$ at $c$. 
+    \medskip
+
+    If $f$ is differentiable at each point $S \subset I$, 
+    we say $f$ is differentiable on $S$, and the function 
+    $f^{\prime}: S \to \mathbb{R}$ is called the 
+    \textbf{derivative} of $f$ on $S$.
+\end{definition}
+
+\begin{example}
+    \remind{Fill in example from notes}
+\end{example}
+
+\begin{remark}
+    \hfill
+    \begin{enumerate}
+        \item  Unless $c$ is on the end point of $I$, $f^{\prime}(c)$  exists 
+        if and only if $f^{\prime}_{+}(c)$ and $f^{\prime}_{-}(c)$ exist and
+        they agree.
+        \item A function can be continuous but not differentiable.
+    \end{enumerate} 
+\end{remark}
+
+\begin{theorem}[Differentiability implies continuity]
+    If $f: I \to \mathbb{R}$ is differentiable at $c \in I$,
+    then $f$ is continuous at $c$. 
+\end{theorem}
+
+\begin{proof}
+    Since $c$ is an accumulation point of $I$ (\remind{why??}),
+    it suffices to show $f(c) = \lim_{x \to c}f(x)$. 
+    \medskip
+
+    For all $x \neq c$, one has 
+    \[
+        f(x) - f(c) = \frac{f(x) - f(c)}{x-c} (x-c)
+    \]
+    Since $f^{\prime}(c)$ exists, by limit theorem,
+    we have 
+    \begin{align*}
+        \lim_{x \to c} \left( f(x) - f(c) \right) 
+        = f^{\prime}c \cdot \left( \lim_{x \to c}(x-c) \right) 
+        = f^{\prime}(c) = 0
+    \end{align*}
+    Hence
+    \[
+        \lim_{x \to c} f(x) = \lim_{x \to c}f(c) = f(c)
+    \]
+\end{proof}
+
+\begin{remark}
+    Differentiability implies continuity, but the converse is not
+    true.
+\end{remark}
+
+\begin{example}
+    Consider $f(x) = |x|$. $f$ is continuous at $x=0$
+    but not differentiable.
+\end{example}
+
+\subsection{Basic Differentiation Rules and Formulas}
+
+\begin{theorem}
+    Suppose $f, g: I \to \mathbb{R}$ differentiable at $c \in I$<
+    then 
+    \begin{enumerate}
+        \item $\forall k \in \mathbb{R}, (kf)^{\prime}(c) = k f^{\prime}(c)$
+        \item $( f+ g)^{\prime}(c) = f^{\prime}(c) + g^{\prime}(c)$
+        \item Product rule: $(fg)^{\prime}(c) = f^{\prime}(c) g(c) + f(c) g^{\prime}(c)$
+        \item Quotient rule: If $g(c) \neq 0$, then 
+        \[
+            \left( \frac{f}{g} \right)^{\prime}(c) = 
+            \frac{f^{\prime}(c) g(c) - f(c) g^{\prime}(c)}{ \left( g(c) \right)^2 }
+        \]
+    \end{enumerate} 
+\end{theorem}
+
+\begin{proof}[Proof of product rule]
+    \begin{align*}
+        \lim_{x \to c} \frac{(fg)(x) - (fg)(c)}{x-c}
+        &=
+        \lim_{x \to c} \frac{f(x) g(x) - f(x)g(c) + f(x)g(c) - f(c)g(c)}{x-c} \\
+        &= \lim_{x \to c} f(x) \lim_{x \to c} \frac{g(x) - g(c)}{x - c} + 
+        = \lim_{x \to c} \frac{f(x) - f(c)}{x-c}\lim_{x \to c} g(c)  \\
+        &= f(c) g^{\prime}(c) + f^{\prime}(c) g(c) 
+        \text{ since differentiability implies continuity}
+    \end{align*}
+\end{proof}
+
+\begin{theorem}[Chain Rule]
+    Let $f: I \to \mathbb{R}, g: J \to \mathbb{R}$ s.t. 
+    $f(I) \subset J$, where $I, J \subset \mathbb{R}$ are intervals. 
+    Let $c \in I$. If $f$ is differentiable at $c$
+    and $g$ is differentiable at $f(c)$, then 
+    $g \circ f$ is differentiable at $c$ and 
+    \[
+        (g \circ f)^{\prime}(c) = g^{\prime}(f(c)) \cdot f^{\prime}(c)
+    \]
+\end{theorem}
+
+\begin{proof}[Proof of Quotient rule using Chain rule]
+    Write $ \frac{f}{g} = f \cdot \frac{1}{g}$ where 
+    $ \frac{1}{g} = g \circ \frac{1}{x}$.
+    \textbf{Claim}: If $x \neq 0$, then $ \left(\frac{1}{x}\right)^{\prime} = - \frac{1}{x^{2}}$.
+    \textbf{Proof}: 
+    \begin{align*}
+        \lim_{x \to c} \frac{ \frac{1}{x} - \frac{1}{c} }{x - c} = 
+        \lim_{x \to c} \frac{-1}{xc} = - \frac{1}{c^{2}}
+    \end{align*}
+    Hence by chain rule at $c$ s.t. $g(c) \neq 0$, we have 
+    \begin{align*}
+        \left( \frac{1}{g} \right)^{\prime}(c) = - \frac{1}{\left(g(c)\right)^{2}}
+        g^{\prime}(c)
+    \end{align*}
+    By product rule, 
+    \begin{align*}
+        \left(f\cdot \left( \frac{1}{g} \right) \right)^{\prime} (c) 
+        &= f^{\prime}(c) \frac{1}{g(c)} + f(c) \cdot \frac{-g^{\prime}(c)}{g^{2}(c)}
+    \end{align*}
+\end{proof}
+
+\begin{proof}[Proof of Chain rule]
+    Define a function $h: J \to \mathbb{R}$ 
+    \[
+        h(y) = \begin{cases}
+            \frac{g(y) - g(f(c))}{y - f(c)} &\text{ if } y \neq f(c) \\
+            f^{\prime}(f(c)) &\text{ if } y = f(c)
+        \end{cases}
+    \]
+    \textit{This is an extension of } $ \frac{g(y) - g(f(c))}{y - f(c)}$
+    \textit{to all } $ y \in J$ \textit{ such that it is continuous at $y = f(c)$}.
+    \medskip
+
+    By construction, we have $\forall y \in J$,
+    \[
+        g(y) = g(f(c)) = h(y) (y - f(c))
+    \]
+    Hence we have 
+    \begin{align*}
+        \lim_{x \to c} \frac{g(f(x)) - g(f(c))}{x - c} 
+        &= \lim_{x \to c} \frac{h(f(x))(f(x) - f(c))}{x - c} \\
+        &= \lim_{x \to c} h(f(x)) \lim_{x \to c} \frac{f(x) - f(c)}{x-c}
+    \end{align*}
+    Where the second equality holds if both limits exist.
+    \medskip
+
+    \textbf{Claim}: $h$ is continuous at $f(c)$.
+    
+    \textbf{Proof}: from construction of $h$, 
+    \begin{align*}
+        \lim_{y \to f(c)}h(y) 
+        &= \lim_{y \to f(c)} \frac{g(y) - g(f(c))}{y - f(c)} \\
+        &= g^{\prime}(f(c))  \text{ since $g$ differentiable at $f(c)$}
+        \\
+        &= h(f(c))
+    \end{align*}
+
+    Hence, we have $f$ differentiable at $c$ $\implies$
+    $f$ continuous at $c$ $\implies$
+    $h(f(x))$ continuous at $c$, and 
+    \[
+        \lim_{x \to c} h(f(x)) 
+        % = h \left( \lim_{x \to c}f(x) \right)  
+        = h(f(c)) = g^{\prime}(f(c))
+    \]
+    \remind{revisit this proof}
+\end{proof}
+
+\subsection{Mean Value Theorem}
+
+\begin{theorem}[Mean value Theorem]
+    \label{thm:mvt}
+    Let $f$ be continuous on $[a, b]$, differentiable on $(a, b)$
+    then there exists some $c \in (a, b)$ s.t. 
+    \[
+        f^{\prime}(c) = \frac{f(b) - f(a)}{b-a}
+    \]
+\end{theorem}
+
+\begin{theorem}[Rolle's Theorem]
+    Let $f$ be continuous on $[a, b]$, differentiable on $(a, b)$
+    and $f(a) = f(b)$, then $\exists c \in (a, b)$ s.t. 
+    $f^{\prime}(c) = 0$.
+\end{theorem}
+
+\begin{corollary}
+    \hfill
+    \begin{enumerate}
+        \item Let $f$ be differentiable on $(a,b)$ s.t. $f^{\prime}(x) = 0$
+        $\forall x \in (a, b)$. Then $f$ is constant on $(a,b)$
+        \item Let $f, g$ be differentiable on $(a,b)$ s.t. 
+        $f^{\prime}(x) = g^{\prime}(x), \forall x \in (a, b)$, then 
+        $f(x) = g(x) + C$ on $(a, b)$ for some $C \in \mathbb{R}$
+    \end{enumerate} 
+\end{corollary}
+
+\begin{proof}
+    (1) $\implies$ (2): apply (1) to $f - g$.
+    I.e. $h \coloneq f - g$. Then $h = C$ for some $C$.
+    $f = g + C$.
+    \medskip 
+
+    Proof of (1): Suppose $f$ is not constant
+    on $(a,b)$, then $\exists x_1, x_2 \in (a, b)$
+    s.t. $f(x_1) \neq f(x_2)$, say $x_1 < x_2$. 
+    Then since $f$ is continuous on $[x_1, x_2]$ and 
+    differentiable on $(x_1, x_2)$, by MVT, 
+    $\exists c \in (x_1, x_2) \subset (a, b)$ s.t. 
+    $f^{\prime}(c) = \frac{f(x_2) - f(x_1)}{x_2 - x_1} \neq 0$.
+\end{proof}
+
+\begin{corollary}
+    \label{cor:derivatives-of-monotone-functions}
+    Let $f$ be differentiable on $(a, b)$, then 
+    \begin{enumerate}
+        \item $f^{\prime}(x) \geq 0, \forall x \in (a, b) \iff $  $f$ increasing on $(a,b)$
+        \item $f^{\prime}(x) \leq 0, \forall x \in (a, b) \iff $  $f$ decreasing on $(a,b)$
+    \end{enumerate} 
+\end{corollary}
+
+\begin{remark}
+    Note that
+    \begin{enumerate}
+        \item $f^{\prime} > 0$ on $(a, b)$ $\implies$ $f$ strictly increasing
+        \item $f^{\prime} < 0$ on $(a, b)$ $\implies$ $f$ strictly decreasing
+    \end{enumerate} 
+    But the converse is not true,
+    e.g. $f= x^{3}$ is strictly increasing but $f^{\prime}(0) = 0$.
+\end{remark}
+
+\begin{proof}[Proof of 
+    \ref{cor:derivatives-of-monotone-functions}
+]
+\begin{itemize}
+    \item $\implies$: For any $a < x_1 < x_2 < b$, 
+    WTS $f(x_1) \leq f(x_2)$. 
+    By MVT on $[x_1, x_2]$, $\exists c \in (x_1, x_2)$ s.t. 
+    \[
+        0 \leq f^{\prime}(c) = \frac{f(x_2) - f(x_1)}{x_2 - x_1}.
+    \]
+    Since $x_2 - x_1 > 0$, we have $f(x_2) - f(x_1) \geq 0$
+    \item $\impliedby$: Fix any $c \in (a, b)$, WTS $f^{\prime}(c) \geq 0$.
+    By definition,
+    \[
+        f^{\prime}(c)
+        = \lim_{x \to c} \frac{f(x) - f(c)}{x - c}
+        = \lim_{x \to c^+} \frac{f(x) - f(c)}{x - c}
+    \]
+    Sice $\forall x > c, f(x) \geq f(c)$, $f^{\prime}(c) \geq 0$.
+\end{itemize} 
+\end{proof}
+
+\begin{definition}
+    Let $f: D \to \mathbb{R}$, $f$ has a local maximum (minimum)
+    at $p \in D$ if $\exists \delta > 0$ s.t. 
+    $f(x) \leq f(p)$ 
+    (or $f(x) \geq f(p)$ for minimum), $\forall x \in D \cap N (p,\delta)$.
+\end{definition}
+
+\begin{remark}
+    \begin{enumerate}
+        \item If $p \in D$ is an isolated point, it is both the local max
+        and local min. 
+        \item $f$ doesn't need ot be continuous at $p \in D$ to have local
+        extrema, but $f$ needs to be defined at $p$
+        \item If $f$ constant on $I$, then it has local max or min everywhere
+        on $I$.
+    \end{enumerate} 
+\end{remark}
+
+\begin{corollary}
+    Let $f$ be defined on $(a, b), p \in (a, b)$ then 
+    \begin{enumerate}
+        \item If $\exists \delta > 0$ s.t. $f$ increasing on $(p- \delta, p]$
+        and decreasing on $[p, p +\delta)$, then $f$ has a local max at $p$. 
+        \item If $f$ is differentiable on $N(p, \delta) \cap (a, b)$, for 
+        some $\delta > 0$, then if $f^{\prime} \geq 0$ on $(p - \delta, p)$
+        and $f^{\prime} \leq 0$ on $(p, p + \delta)$, then 
+        $f$ has local max at $p$.
+    \end{enumerate} 
+\end{corollary}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

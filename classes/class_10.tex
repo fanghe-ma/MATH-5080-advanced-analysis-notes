@@ -1,0 +1,353 @@
+%==============================================================================
+% MATH 5080
+% Class:        10
+% Date:         Sept 29th
+% cross checked against lecture notes
+%==============================================================================
+
+\subsection{Properties of continuous functions: compactness}
+
+\begin{remark}
+    Continuity does not preserve closedness.
+\end{remark}
+\begin{example}
+    Consider $D = [1, \infty), f(x) = \frac{1}{x}$. Then the domain is closed,
+    but the image $f(D) = (0, 1]$ and is not closed.
+\end{example}
+\begin{remark}
+    Continuity does not preserve boundedness.
+\end{remark}
+\begin{example}
+    Consider $D = [0, 1], f(x) = \frac{1}{x}$. 
+    Then the domain is bounded,
+    but the image $f(D) = [1, \infty)$ and is not bounded.
+\end{example}
+
+\begin{theorem}[Continuity preserves compactness]
+    Let $D \subset \mathbb{R}$ be compact, and $f: D \to \mathbb{R}$ be continuous.
+    Then, $f(D)$ is compact.
+\end{theorem}
+
+\begin{proof}
+    Let $\mathcal{F} = \{ O_{\alpha} \}_{\alpha \in \Delta} $
+    be an open cover for $f(D)$. WTS there exists
+    a finite subcover for $f(D)$. 
+
+    \medskip
+
+    By theorem, each $\forall O_{\alpha}$, $\exists H_{\alpha}$
+    open s.t. $f^{-1} (O_{\alpha}) = H_{\alpha} \cap D$.
+    \medskip
+
+    Fix $x \in D$, $f(x) \in f(D) \implies$
+    $\exists \alpha \in \Delta$ s.t. 
+    $f(x) \in O_{\alpha}$ 
+    $\implies$
+    $x \in f^{-1}(O_{\alpha}) = H_{\alpha} \cap D \subset H_{\alpha}$.
+    Hence $ \{ H_{\alpha} \}_{\alpha \in \Delta} $ is an open cover
+    for $D$.
+    \medskip
+
+    Since $D$ compact, $\exists \alpha_1, \alpha_2, \hdots \alpha_k$
+    s.t. 
+    $D \subset H_{\alpha_1} \cup \hdots \cup H_{\alpha_k}$.
+    \medskip
+
+    Fix $y \in f(D), \exists x \in D$ s.t. 
+    $y = f(x)$. Since $x \in H_{\alpha_i}$
+    for some $i = 1, \hdots k$, we have 
+    $x \in H_{\alpha_i} \cap D = f^{-1}(O_{\alpha_i})$
+    $\implies$
+    $y = f(x) \in O_{\alpha_i}$.
+\end{proof}
+
+
+\begin{corollary}[Extreme Value Theorem]
+    Let $D$ be compact, and $f: D \to \mathbb{R}$ be continuous. 
+    Then, $f$ attains both its maximum and minimnum on $D$, i.e.
+    $\exists x_1, x_2 \in D$ s.t. $f(x_1) \leq f(x) \leq f(x_2)$ 
+    $, \forall x \in D$.
+\end{corollary}
+
+\begin{proof}
+    By theorem, $f(D)$ is compact.
+    \medskip
+
+    \textbf{Claim}: Suppose $S \subset \mathbb{R}, S \neq \emptyset$
+    and $S$ compact, then $S$ contains its max and min. 
+
+    \textbf{Proof}: since $S$ bounded and nonempty $\sup S, \inf S$ exists.
+    Since $S$ closed, $\inf S, \sup S \in S$. 
+\end{proof}
+
+\begin{definition}[Uniform continuity]
+    Let $f: D \to \mathbb{R}$, we say $f$ is uniformly continuous on $D$ if 
+    $\forall \ep > 0, \exists \delta > 0$ s.t. $\forall x, y \in D$, 
+    $|x - y| < \delta \implies |f(x)- f(y) | < \ep$.
+\end{definition}
+
+\begin{remark}
+    $f$ can be continuous at any $c \in D$ but not uniformly continuous.
+\end{remark}
+
+\begin{example}
+    $f(x) = \frac{1}{x}, D = \left( 0, 1 \right) $ is continuous but 
+    not uniformly continuous.
+\end{example}
+
+\begin{example}
+    $f(x) = \frac{1}{x}, D = (1, 2]$ is uniformly contiuous. 
+    Fix $\ep > 0$, we seek $\delta > 0$ such that $|x-y| < \delta \implies |f(x) - f(y) | < \epsilon$. 
+    \[
+        |f(x) - f(y)|= \left| \frac{1}{x} - \frac{1}{y} \right|  = 
+        \frac{ \left| x- y \right| }{x-y} \leq |x-y|
+    \]
+    Hence we can pick $\delta = \ep$.
+\end{example}
+
+\begin{example}
+    $f(x) = \sin x$ is uniform continuous on $\mathbb{R}$.
+\end{example}
+
+\begin{example}
+    $f(x) = x$ is uniform continuous on $\mathbb{R}$,
+    $g(x) = x^{2}$ is not.
+\end{example}
+
+
+\begin{remark}
+    Boundedness is not required for uniform continuity. Consider $f(x) = x$.
+\end{remark}
+
+\begin{theorem}
+    Let $D$ be compact and $f: D \to \mathbb{R}$ be continuous on $D$. Then $f$ is uniformly
+    continuous on $D$.
+\end{theorem}
+
+\begin{remark}
+    On compact sets, continuity is necessary and sufficient for uniform continuity.
+\end{remark}
+
+\begin{proof}
+    Fix $ \ep > 0$. $\forall x \in D$, since $f$ continuous at $x$, $\exists \delta_x$ s.t. 
+    \[
+        |x-y| < \delta_x \implies \left| f(x) - f(y) \right|  < \frac{\ep}{2}
+    \]
+    Fix $y_1, y_2 \in N(x, \delta_x)$. We want to say that $|f(y_1) - f(y_2) | $ is small enough.
+    \medskip
+
+    Define $O_{x} = N \left( x, \frac{\delta_x}{2} \right) $. Then $ \{ O_x \}_{x \in D} $ is an open cover for $D$. 
+    By compactness, $\exists x_1, x_2, \hdots x_n \in D$ \text{ s.t. } $D \subset O_{x_1} \cup \hdots O_{x_k}$.
+    Define 
+    \[
+        \delta \coloneq \min \{ 
+            \frac{\delta_{x_1}}{2},
+            \frac{\delta_{x_2}}{2},
+            \hdots,
+            \frac{\delta_{x_k}}{2},
+        \} 
+    \]
+    Claim: $\forall x, y \in D, |x-y| < \delta \implies |f(x) - f(y)| < \ep$. 
+    \medskip
+
+    Fix $x, y$ with $|x - y| < \delta$.
+    \begin{align*}
+        & |x-y| < \delta, \exists O_{x_i} \text{ s.t. } x \in O_{x_i} \\
+        \implies & \left| f(x) - f(x_i) \right|  < \frac{\ep}{2} \\
+    \end{align*}
+    Also
+    \begin{align*}
+        & |x-y| < \delta \leq \frac{\delta_{x_i}}{2} \\
+        \implies & |y - x_i| \leq |y - x| + |x - x_i| < 
+        \frac{\delta_{x_i}}{2} + 
+        \frac{\delta_{x_i}}{2} 
+        = \delta_{x_i} \\
+        \implies & y \in N(x_i, \delta_{x_i}) \\
+        \implies & \left| f(y) - f(x_i) \right| < \frac{\ep}{2}
+    \end{align*}
+    Hence
+    \begin{align*}
+        |f(x) - f(y)| \leq
+        \left| f(x) - f(x_i) \right|  + 
+        \left| f(x_i) - f(y) \right| 
+        <
+        \frac{\ep}{2} + \frac{\ep}{2} = \ep
+    \end{align*}
+\end{proof}
+
+\begin{definition}
+    We say $\tilde{f}: E \to \mathbb{R}$ is an extension 
+    of a function $f: D \to \mathbb{R}$ if $D \subset E$
+    and $\tilde{f}(x) = f(x), \forall x \in D$.
+\end{definition}
+
+
+\begin{theorem}
+    \label{thm:equivalent-characterization-of-uniform-continuity}
+    Let $f(a, b) \to \mathbb{R}$. TFAE
+    \begin{enumerate}
+        \item $f$ is uniformly continuous on $(a, b)$
+        \item $f$ is continuous on $(a,b)$ and both $\lim_{x \to a^+}f(x)$ and $\lim_{x \to b^{-1}}f(x)$
+        exist in $\mathbb{R}$
+        \item $f$ can be extended to a continuous function $\tilde{f}$ on $[a,b]$
+    \end{enumerate} 
+\end{theorem}
+
+\begin{lemma}[Uniform continuity preserves Cauchyness]
+    \label{lemma:uniform-cty-preserves-cauchyness}
+    Let $f: D \to \mathbb{R}$ be a uniformly continuous function on $D$, 
+    
+    then for any Cauchy sequence
+    $\{ a_n \} \subset D$, 
+    $ \{ f(a_n) \} $ is also Cauchy. 
+\end{lemma}
+
+\begin{proof}[Proof of \ref{lemma:uniform-cty-preserves-cauchyness}]
+    Let $ \{ a_n \} $ be Cauchy. WTS that $ \{ f(a_n) \} $ is Cauchy. 
+    $\forall \ep > 0$, we seek $N > 0 \text{ s.t. } |f(a_n) - f(a_m)| < \ep, \forall n, m > N$. 
+    \medskip
+
+    Since $f$ is uniform contiuous on $D$, $\exists \delta \text{ s.t. } |x-y| < \delta \implies |f(x) - f(y) | < \ep$. 
+    \medskip
+
+    Since $ \{ a_n \} $ is Cauchy, $\exists N > 0$.s.t 
+    $\forall n, m > N$,
+    \[
+        |a_n - a_m| < \delta \implies |f(a_n) - f(a_m) | < \ep
+    \]
+\end{proof}
+
+\begin{proof}[Proof of
+    \ref{thm:equivalent-characterization-of-uniform-continuity}
+]
+
+    \begin{enumerate}
+        \item (2) $\implies$ (3) \remind{On homework, revisit}
+        \item (3) $\implies$ (2) 
+        \begin{itemize}
+            \item Fix any $c \in (a, b)$. WTS $f$ continuous at $c$.
+            \medskip
+            Since $c$ interior, $\exists \delta$ s.t. $N(c, \delta) \subset (a,b)$.
+            Hence $f(x) = \tilde{f}(x)$ $\forall x \in N(c, \delta)$.
+            $\tilde{f}$ continuous on $[a,b] \implies \tilde{f}$ continuous on $N(c, \delta)$
+            $\implies f$ continuous on $N(c, \delta)$. Hence $f$ continuous at $c$.
+            \item WTS $\lim_{x \to a^+}f(x)$ exists. 
+            Since $\tilde{f}$ continuous at 
+            $a$, $\lim_{x \to a^+}f(x) = \lim_{x \to a^+}\tilde{f}(x) = f(a)$.
+            \item WTS $\lim_{x \to b^-}f(x)$ exists.
+            Since $\tilde{f}$ continuous at 
+            $b$, $\lim_{x \to b^-}f(x) = \lim_{x \to b^-}\tilde{f}(x) = f(b)$.
+        \end{itemize} 
+        \item (3) $\implies$ (1) \remind{On homework, revisit}
+        \item (1) $\implies$ (2): it suffices to show that 
+        $f$ uniformly continuous on $(a,b)$ implies 
+        $\lim_{x \to a^+}f(x)$,
+        $\lim_{x \to b^-}f(x)$ exist in $\mathbb{R}$.
+        By symmetry, it suffices to show that 
+        $\lim_{x \to a^+}f(x)$ exists.
+        \medskip 
+
+        ATC otherwise, i.e. $\lim_{x \to a^+}f(x)$ does not exist,
+        then by theorem, $\exists \{ a_n \} \subset (a,b)$
+        s.t. $a_n \to a^+$
+        and $\{ f(a_n) \} $ diverges. 
+        However $\{ a_n \} $ is Cauchy which means 
+        $\{ f(a_n) \} $ must be Cauhcy. Hence a contradiction.
+    \end{enumerate}
+\end{proof}
+
+% =================================================================================
+
+\subsection{
+    Properties of continuous functions: connectedness and monotonicity
+}
+
+\begin{theorem}[Intermediate Value Theorem]
+    \label{thm:IVT}
+    Let $f$ continuous, $f: [a,b] \to \mathbb{R}$, and $y$ is a value 
+    in between $f(a), f(b)$.
+    Then, $\exists c \in (a, b) \text{ s.t. } f(c) = y$.
+\end{theorem}
+
+% \begin{remark}
+%     \textit{If $D$ is connected, then $f(D)$ is connected.}
+% \end{remark}
+
+\begin{theorem}[Continuity preserves connectedness]
+    \label{thm:cty-preserves-connectedness}
+    Let $f: D \to \mathbb{R}$ continuous and $D$ is connected, 
+    then $f(D)$ is connected.
+\end{theorem}
+
+\begin{corollary}
+    Let $I$ be a compact interval (i.e. closed and bounded $[a,b]$
+    or a singleton
+    ). If $f$ is continuous on $I$, then $f(I)$ is 
+    a compact interval.
+\end{corollary}
+
+
+\begin{proof}[Proof of \ref{thm:cty-preserves-connectedness} $\implies$ IVT]
+    Follows immediately by definition.
+    Since $[a,b]$ is connected, 
+    $f([a,b])$ is connected.
+    WLOG say $f(a) < f(b)$.
+    For any $f(a) < y < f(b)$, $y \in f([a,b])$
+    $\implies \exists c \in [a, b]$ s.t. 
+    $f(c) = y$.
+\end{proof}
+
+\begin{proof}[Proof of \ref{thm:IVT}]
+    ATC $f(D)$ disconnected, 
+    $\exists A, B$ open s.t. 
+    $f(D) \subset A \cup B, A \cap f(D) \neq \emptyset$, 
+    $B \cap f(D) \neq \emptyset, A \cap B = \emptyset$.
+
+    Since $f $ continuous, and $A$ open, $\exists$
+    open $U$ s.t. $f^{-1}(A) = U \cap D$. 
+    Similarly, $\exists$ open $V$ s.t. $f^{-1}(B) = V \cap D$. 
+    We then claim 
+    \begin{enumerate}
+        \item $D \subset U \cup V$
+        \item $U \cap V \cap D = \emptyset$
+        \item $U \cap D \neq \emptyset, V \cap D \neq \emptyset$
+    \end{enumerate} 
+    Hence $D$ is disconnected.
+\end{proof}
+\begin{remark}
+    Note that (2) above does not necessarily
+    imply $U \cap V = \emptyset$. 
+    \remind{
+        Refer to notes on connectedness which shows that (2)
+        is sufficient for disconnectedness.
+    }
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

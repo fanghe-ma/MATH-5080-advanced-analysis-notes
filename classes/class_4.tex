@@ -20,10 +20,6 @@
 \end{definition}
 
 \begin{remark}
-    A point cannot be both an interior point and a boundary point.
-\end{remark}
-
-\begin{remark}
     A set can be both open and closed. For example 
     \begin{itemize}
         \item $\mathbb{R}$ is both open and closed.
@@ -79,13 +75,14 @@ $\iff S = \overline{S} := S \cup \operatorname{bd} S$
     \end{align*}
 \end{proof}
 
-\begin{proposition}
+\begin{proposition}\label{prop:union-open}
     \hfill
     \begin{enumerate}
         \item The union of open sets is open.  
         \item The intersection of finitely many open sets is open.
+        \item The intersection of closed sets is closed. 
+        \item The union of finitely many closed sets is closed.
     \end{enumerate}
-    \remind{Add in analogous propositions about closed sets.}
 \end{proposition}
 
 \begin{example}
@@ -107,7 +104,16 @@ $\iff S = \overline{S} := S \cup \operatorname{bd} S$
     Since $0 \notin \operatorname{int} \{ 0 \}  $, $\{ 0 \} $ is not open.
 \end{example}
 
-\begin{proof}[Proof of 3.9.2]
+
+\begin{proof}[Proof of theorem \ref{prop:union-open}.1 $\iff$ \ref{prop:union-open}.3]
+    Fix arbitrary open sets $S_{\alpha}, \alpha \in \Lambda$.
+    \begin{align*}
+        \bigcup_{\alpha} S_{\alpha} \text{ open } &\iff \left( \bigcup_{\alpha} S_{\alpha}\right)^c \text{ closed} \iff \bigcap_{\alpha}S_{\alpha}^c \text{ closed}
+    \end{align*}
+\end{proof}
+
+
+\begin{proof}[Proof of theorem \ref{prop:union-open}.2]
     WTS intersection of finitely many open sets is open. 
     \medskip
 
@@ -132,6 +138,7 @@ $\iff S = \overline{S} := S \cup \operatorname{bd} S$
     \begin{enumerate}
         \item
     Let $S \subset X$, a point $x \in X$ is an \textbf{accumulation point}
+    or \text{limit point}
     of $S$ if $\forall \ep > 0$, 
     \[
         N^*(x, \ep) \cap S \neq \emptyset
@@ -141,6 +148,10 @@ $\iff S = \overline{S} := S \cup \operatorname{bd} S$
 \textbf{isolated point} of $S$.
     \end{enumerate}
 \end{definition}
+\begin{remark}
+    $x \in X$ is an accumulation point of $S \subset X$ if and only if 
+    every neighbrhood of $x$ contains infintely many points in $S$.
+\end{remark}
 
 \begin{example}
     $S = \{ 0 \}  \cup (1, 2)$, $S^{\prime} = [1, 2]$
@@ -153,42 +164,246 @@ $\iff S = \overline{S} := S \cup \operatorname{bd} S$
 \begin{proposition}\label{prop:closure-acc}
     \hfill
     \begin{enumerate}[ref=\theproposition.\arabic*]
-        \item\label{prop:closure-acc-1} $\overline{S} = S \cup S^{\prime}$
-        \item\label{prop:closure-acc-2} $S$ close $\iff S^{\prime} \subset S$
-        \item\label{prop:closure-acc-3} $\overline{S}$ is the smallest closed set that contains $S$.
+        \item $\overline{S} = S \cup S^{\prime}$
+        \item $S$ close $\iff S^{\prime} \subset S$
+        \item $\overline{S}$ is the smallest closed set that contains $S$.
     \end{enumerate}
 \end{proposition}
 
-\begin{proof}[Proof of \ref{prop:closure-acc-1}]
-    WTS $S \cup \operatorname{bd} S = S \cup S^{\prime}$. 
+\begin{proof}[Proof of \ref{prop:closure-acc}]
     \begin{enumerate}
-        \item We first show that $LHS \subset RHS$. 
-$\forall x \in S \cup \operatorname{bd} S$, $x \in S \cup S^{\prime}$. 
-\medskip 
+        \item WTS $\overline{S} = S \cup S^{\prime} \iff S \cup \operatorname{bd} S = S \cup S^{\prime}$
+            \begin{enumerate}
+                \item We first show that $LHS \subset RHS$. 
+                $\forall x \in S \cup \operatorname{bd} S$, $x \in S \cup S^{\prime}$. 
+                \begin{itemize}
+                    \item If $x \in S$, done. 
+                    \item If $x \in \operatorname{bd} S \cap S^c$, 
+                        WTS $x \in S^{\prime}$, i.e. $\forall \ep > 0, N^*(x, \ep) \neq \emptyset$. 
+                        \medskip 
 
-If $x \in S$, done. 
-\medskip
-
-If $x \in \operatorname{bd} S$, $x \notin S$ then $x \in \operatorname{bd} S \cap S^c$. 
-WTS $x \in S^{\prime}$, i.e. $\forall \ep > 0, N^*(x, \ep) \neq \emptyset$. 
-\medskip 
-
-Since $x \in \operatorname{bd} S$, we know $N(x, \ep) \cap S \neq \emptyset$. 
-Since $x \in S^c$, we know $\exists y \in N(x, \ep)\cap S, y \neq x$. 
-Hence $y \in N^*(x, \ep) \cap S$, 
-and $N^*(x, \ep) \neq \emptyset$.
-\item We then show $RHS \subset LHS$, i.e. 
-$\forall x \in S \cup S^{\prime}, x \in S \cup \operatorname{bd} S$. 
-\medskip 
-
-If $x \in S^{\prime}$, done. 
-\medskip 
-
-If $x \in S^{\prime}, x \notin S$, $x \in S^{\prime} \cap S^c$, 
-WTS $x \in \operatorname{bd} S$
-\remind{Exercise}.
+                        Since $x \in \operatorname{bd} S$, we know $N(x, \ep) \cap S \neq \emptyset$. 
+                        Since $x \in S^c$, we know $\exists y \in N(x, \ep)\cap S, y \neq x$. 
+                        Hence $y \in N^*(x, \ep) \cap S$, 
+                        and $N^*(x, \ep) \neq \emptyset$.
+                \end{itemize} 
+                \item We then show $RHS \subset LHS$, i.e. 
+                $\forall x \in S \cup S^{\prime}, x \in S \cup \operatorname{bd} S$. 
+                \begin{itemize}
+                    \item If $x \in S$, done. 
+                    \item If $x \in S^{\prime} \setminus S$,
+                WTS $x \in \operatorname{bd} S$. 
+                $\forall \varepsilon > 0, x \in N(x, \varepsilon) \cap S^c \implies N(x, \varepsilon) \cap S^c \neq \emptyset$.
+                $x \in S^{\prime}, N^*(x, \varepsilon) \cap S \neq \emptyset \implies N(x, \varepsilon) \cap S \neq \emptyset$.
+                \end{itemize} 
+            \end{enumerate}
+        \item WTS $S$ close $\iff S^{\prime} \subset S$. Recall 
+            \[
+                S \text{ closed} 
+                \iff S = \operatorname{bd} S \subset S
+                \iff S = \bar{S} 
+            \]
+            \begin{itemize}
+                \item $S$ closed $\implies S = \bar{S} = S \cup S^{\prime} \implies S^{\prime} \subset S$ 
+                \item $S^{\prime} \subset S \implies \bar{S} = S \cup S^{\prime} = S \implies S $ closed.
+            \end{itemize} 
     \end{enumerate}
 \end{proof}
+
+\begin{remark}
+    \begin{enumerate}
+        \item $S^{\prime} = (S \cup \operatorname{bd} S) \setminus \{ \text{isolated points} \} $
+        \item Isolated points may not be boundary points.
+        \begin{itemize}
+            \item In discrete metric space, any $S \subset X$, $s \in S$ is isolated and interior.
+        \end{itemize} 
+    \end{enumerate}
+\end{remark}
+
+\subsection{Compact sets}
+
+\begin{definition}[Compactness]
+    A set $S \in X$ is \textbf{compact}
+    if for any open cover 
+    of $S$  has a finite subcover.
+    \medskip
+
+    An open cover $F$ is a set of open sets $O_{\alpha}, \alpha \in \Lambda$
+    s.t. $\bigcup_{\alpha \in \Lambda}^n O_{\alpha} \supset S$,
+    and a subcover is a finite subcollection $O_{\alpha_1}, \hdots O_{\alpha_n} \in F$
+    s.t. $\bigcup_{i = 1}^n O_{\alpha_i} \supset S$.
+    \medskip
+
+    If $X$ itself is a compact set, then we say $(X, d)$ is a compact metric space.
+\end{definition}
+
+\begin{example}
+    $S = [1, \infty)$ is not compact. 
+
+    We can show that there exists an open cover $F$ such that no finite subcollection 
+    of it covers $S$. 
+
+    Let $O_n = (0, n), \forall n \in \mathbb{N}$. 
+    We observe that 
+    \[
+        S = [1, \infty) \subset \bigcup_{n = 1}^{\infty} O_n
+    \]
+    We claim that for any $O_{n_1}, \hdots O_{n_k}$, 
+    \[
+        S \not \subset \bigcup_{i = 1}^k O_{n_i}
+    \]
+    Let $n_0 = \max \{ n_1, \hdots n_k \} $ , then 
+    \[
+        \bigcup_{i = 1}^n O_{n_i} \subset (0, n_0)
+    \]
+    Hence $\exists x \in S$ s.t. $x > n_0$ and $x \notin \bigcup_{i = 1}^k O_{n_i}$.
+\end{example}
+
+\begin{proposition}
+    A closed subset of a compact set is compact. 
+\end{proposition}
+\begin{proof}
+    Let $S$ be compact, and let $H \subset S$ be a closed subset. 
+    WTS $H$ is compact. 
+    \medskip 
+
+    Let $\{ O_{\alpha} \}_{\alpha \in \Lambda} $ be any open cover of $H$. 
+    Since $H$ is closed, we know $H^c$ open. So 
+    \[
+    \{ O_{\alpha} \}_{\alpha \in \Lambda} \cup \{ H^c \} 
+    \]
+    is an open cover of $S$.
+    \medskip 
+
+    Since $S$ is compact, there exists $N$ and $O_{\alpha_1}, \hdots O_{\alpha_N}$
+    s.t.
+    \begin{align*}
+        & O_{\alpha_1} \cup \hdots O_{\alpha_N} \cup H^c \supset S \supset H \\
+        \implies & O_{\alpha_1} \cup \hdots O_{\alpha_N} \supset H \\
+    \end{align*}
+    and hence we have found a finite subcover of $H$. Hence $H$ is compact. 
+\end{proof}
+
+\begin{definition}[Boundedness for sets]
+    We say that a set $S \subset X$ is \textbf{bounded} 
+    if $\exists M > 0$ s.t. 
+    $d(x,y) \leq M, \forall x, y \in S$.
+\end{definition}
+
+\begin{remark}
+    A set is bounded is some $\ep$ ball around some 
+    point contains all points.
+\end{remark}
+
+\begin{theorem}[Heine-Borel]
+    A set $S \subset \mathbb{R}$ is compact if and only if it is bounded and closed.
+\end{theorem}
+
+\begin{remarks}
+    \begin{enumerate}
+        \item 
+    The forward direction is true in any metric space. 
+    The converse is true for $\mathbb{R}$ but not necessarily all
+    metric spaces.
+        \item The converse is equivalent to CA.
+    \end{enumerate}
+\end{remarks}
+
+\begin{proof}
+    \begin{enumerate}
+        \item "Compact $\implies$ bounded and closed for any metric space"
+        \begin{enumerate}
+            \item "Compact $\implies$ bdd"
+            \medskip 
+
+            Fix $x_0 \in S$, then $\{ N(x_0, r) \}_{r \geq 0} $ is an open cover of $S$. 
+            \medskip 
+
+            Since $S$ cpt, $\exists r_1, \hdots r_N$
+            s.t. 
+            \[
+                N(x_0, r_1) \cup N(x_0, r_N) \supset S
+            \]
+            Let $M = 2 \max \{ r_1, \hdots r_N \} $, $M > 0$. 
+            Then 
+            \begin{align*}
+                S \subset N  \left( x_0, \frac{M}{2}\right) 
+            \end{align*}
+            \item "Compact $\implies$ closed". Let $S \subset X$ be cpt. WTS that $S^{\prime} \subset S$. 
+            Assume $S^{\prime} \not\subset S \implies x_0 \in S^{\prime} \setminus S$. 
+            Let $O_{\ep} = \{ x \in X: d(x, x_0) > \ep \}, \ep > 0$. Then 
+            \[
+            \bigcup_{\ep > 0} O_{\ep} \supset S
+            \]
+            Since $S$ cpt, $\exists \ep_1, \hdots \ep_{N} > 0$ s.t. 
+            $O_{\ep_1} \cup \hdots \cup O_{\ep_N} \supset S$. 
+            Let $\ep_{\min} = \frac{1}{2} \min \{ \ep_1, \hdots \ep_N \} $. 
+            Then 
+            \[
+                N(x_0, \ep_{\min}) \cap S = \emptyset
+            \]
+            Which contradicts $x_0 \in S^{\prime}$.
+        \end{enumerate}
+        \item "Bounded and closed $\implies$ compact in $\mathbb{R}$"
+        \medskip 
+
+        Let $\mathcal{F} = \{ O_{\alpha} \}_{\alpha \in \Lambda} $  be any open cover of $S$.  
+        $\forall x \in \mathbb{R}$, define $S_x: = S \cap (-\infty, x]$, define $B$
+        \[
+            B \coloneq \{ 
+                x \in \mathbb{R}: S_x \text{ covered by finitely many } O_{\alpha}\text{'s in } \mathcal{F}
+            \} 
+        \]
+
+        We first observe that $B \neq \emptyset$. Since $S$ bounded, 
+        \begin{align*}
+            \implies & \exists m \in \mathbb{R} \text{ s.t. } m \text{ lower bounds } S \\
+            \implies & \forall x < m, S_x = S \cap (-\infty, x] = \emptyset
+        \end{align*}
+        It suffices to show that $B$ is unbounded from above. If this is true, since $S$ bounded from above,
+        let $M$ be an upper bound of $S$. Then $\exists b \in B$ 
+        s.t. $b > M$ and therefore $S_b \cap (-\infty, b] = S$, and $S$ has a finite subcover.
+        \medskip
+
+        WTS that $B$ is unbounded from above. ATC otherwise, then by CA, 
+        $\sup B$ exists, say $b$. 
+        \begin{enumerate}
+            \item Case 1: $b \in S$
+            \medskip
+
+            $\exists O_{\alpha_0} \in \mathcal{F}$ s.t. $b \in O_{\alpha_0}$. 
+            \medskip 
+
+            Since $O_{\alpha_0}$ open, $\exists \ep > 0$ s.t. $N(b, \ep) \subset O_{\alpha_0}$. 
+            \medskip 
+
+            By definition of supremum, $\exists b^{\prime} \in B$ s.t. $b - \ep < b^{\prime} < b$. 
+            \medskip 
+
+            By definition of $B$, $\exists \alpha_1, \hdots \alpha_N$ s.t. 
+            \begin{align*}
+                & O_{\alpha_1} \cup \hdots O_{\alpha_N} \supset S_{b^{\prime}} = S \cap (\infty, b^{\prime}] \\
+                \implies & O_{\alpha_1} \cup \hdots O_{\alpha_N} \cup O_{\alpha_0 } \supset S_{b + \ep} = S \cap (\infty, b + \ep] \\ 
+                \implies & b + \ep \in B \\
+                \implies & b \text{ is not upper bound of} B
+            \end{align*}
+
+            \item Case 2: $b \notin S$, $b \in S^c$. 
+            \medskip 
+
+            Since $S$ closed, $S^c$ open, therefore $\exists \ep > 0$ s.t. $N(b, \ep) \subset S^c$. By definition of supremum, $\exists b^{\prime} \in B$ s.t. $b - \ep < b^{\prime} < b$. Hence $S^{b^{\prime}}$ has finite open cover. 
+            \medskip 
+
+            Since $S_{b + \ep / 2} = S_{b^{\prime}}$, $S_{b + \ep /2}$ also has finite open cover, i.e. $b + \ep / 2 \in B$, contradicting the assumption that $b$ is an upper bound.
+        \end{enumerate}
+    \end{enumerate}
+\end{proof}
+
+
+
+
+
+
 
 
 

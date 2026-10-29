@@ -1,0 +1,597 @@
+%==============================================================================
+% MATH 5080 — Introduction to Analysis I (Fall 2026)
+% Class:        7
+% Date:         Sept 15th
+%==============================================================================
+
+\begin{theorem}[Operation on limits]
+    Suppose 
+    $\lim_{n \to \infty} a_n = A$,
+    $\lim_{n \to \infty} b_n = B$, then 
+    \begin{enumerate}
+        \item $\lim_{n \to \infty}(a_n + b_n) = A + B$
+        \item $\lim_{n \to \infty}ka_n = kA$
+        \item $\lim_{n \to \infty}a_n b_n = AB$
+        \item If $b_n \neq 0, \forall n$ and $B \neq 0$, then 
+        \[
+            \lim_{n \to \infty} \frac{a_n}{b_n} = \frac{A}{B}
+        \]
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof of 3]
+    \textit{
+        The idea is to use boundedness of one of the sequences to 
+        find a bound on the deviation for each of the convergent sequences
+        from their limits, and then take the bigger $N$.
+    }
+    \medskip
+
+    Fix $\ep > 0$, seek $N > 0$ s.t. $\forall n > N, \left| a_n b_n - AB \right| < \ep $.
+    \begin{align*}
+        \left| a_n b_{n} - AB \right|  
+        &= \left| a_{b}b_{n} - a_{b}B + a_{b}B - AB \right| \\
+        &\leq \left| a_{n}b_{n} - a_{n}B \right| + \left| a_{n}B - AB \right| \\
+        &= \left| a_{n} \right|  |b_{b} - B| + |a_{n} - A | |B|
+    \end{align*}
+    Since convergent implies boundedness, $\exists M > 0$ s.t. $| a_n | \leq M, \forall n$.
+    Choose $M$ such that $|B| \leq M$. 
+    \medskip
+
+    By convergence of $a_n, b_n$, we can choose
+    \begin{itemize}
+        \item $N_1 > 0$ s.t. $|a_n - A | < \frac{\ep}{2M}, \forall n > N_1$
+        \item $N_2 > 0$ s.t. $|a_n - A | < \frac{\ep}{2M}, \forall n > N_2$
+        \item $N = \max \{ N_1, N_2 \} $
+    \end{itemize} 
+    Then $\forall n > N$
+    \begin{align*}
+        \left| a_n b_{n} - AB \right|  
+        &\leq \left| a_{n} \right|  |b_{b} - B| + |a_{n} - A | |B| \\
+        &< |a_n | \cdot \frac{\ep}{2M} + \frac{\ep}{2M} \cdot |B| \\
+        & \leq \frac{\ep}{2} + \frac{\ep}{2} \\
+        &= \ep
+    \end{align*}
+\end{proof}
+
+\begin{example}
+    $\lim_{n \to \infty} \frac{n + 1}{2n - 1} = \frac{1}{2}$ 
+    \medskip
+
+    By definition, fix $\ep > 0$, seek $N > 0$ s.t. $\forall n > N$, 
+    \[
+        \left| 
+            \frac{n+1}{2n-1} - \frac{1}{2}
+        \right|  < \ep
+    \]
+    Simplifying the expression, we get
+    \begin{align*}
+        & \left| 
+            \frac{n+1}{2n-1} - \frac{1}{2}
+        \right|  
+        = \left| \frac{2n + 2 - 2n +1}{2(2-n-1)} \right| 
+        = \frac{3}{2} \frac{1}{2n - 1} < \ep \\
+        \iff &  \frac{1}{2n - 1} < \frac{2}{3}\ep \\
+        \iff & 2n - 1 > \frac{3}{2} \ep \\
+        \iff & n > \frac{1}{2} \left( \frac{3}{2} \ep  + 1 \right) 
+    \end{align*}
+    Take 
+    \[
+        N= 
+        \lceil
+        \frac{1}{2} \left( \frac{3}{2} \ep + 1 \right)
+        \rceil
+    \]
+    and we are done. 
+
+    \medskip
+
+    Alternatively, \textit{we can prove using algebraic properties}.
+    \begin{align*}
+        \frac{n + 1}{2n - 1} 
+        &= \frac{ \frac{1}{2} (2n-1) + \frac{3}{2}}{2n - 1} \\
+        &= \frac{1}{2} + \frac{3}{2} \frac{1}{2n -1}
+    \end{align*}
+    It suffices to prove $\lim_{n  \to \infty} \frac{1}{2n-1} = 0$.
+    Then by theorem, $\lim_{n \to \infty} \frac{n + 1}{2n-1} = \frac{1}{2} + \frac{3}{2} \cdot 0 = \frac{1}{2}$.
+\end{example}
+
+
+\begin{corollary}
+    If $\lim_{n \to \infty}a_n$ converges, and $\lim_{n \to \infty} b_n$ diverges,
+    then $\lim_{n \to \infty}a_n + b_n$ diverges.
+\end{corollary}
+
+\begin{example}
+    Show $\lim_{n \to \infty} a^{ \frac{1}{n}} = 1$ 
+    \medskip
+
+    \textbf{Proof}
+    We consider 3 cases
+    \begin{itemize}
+        \item $a < 1$: then by theorem,
+        \begin{align*}
+            &\lim_{n \to \infty} \frac{1}{a^{ \frac{1}{n}}}
+            = \frac{1}{ \lim_{n \to \infty} a^{ \frac{1}{n}}} \\
+            \implies & \lim_{n \to \infty} a^{ \frac{1}{n}} = 
+            \frac{1}{\lim_{n \to \infty} \frac{1}{a^{ \frac{1}{n}}}}
+            = \frac{1}{\lim_{n \to \infty} \left( \frac{1}{a} \right)^{ \frac{1}{n}} }
+        \end{align*}
+        and then we are in the case of $a > 1$
+        \item $a = 1$: trivial
+        \item $a > 1$
+    \end{itemize} 
+
+    Hence it suffices to show for $a > 1$. 
+    Fix $\ep > 0$, we seek $N$ s.t. $\forall n > N$,
+    \begin{align*}
+        & \left| a^{ \frac{1}{n}} - 1 \right| < \ep \\
+        \iff & a^{ \frac{1}{n}} - 1 < \ep \\
+        \iff & a^{ \frac{1}{n}}  < 1 + \ep \\
+        \iff & \frac{1}{n} \ln a < \ln( 1 + \ep) \\
+        \iff & n > \frac{ \ln a}{\ln ( 1 + \ep)}
+    \end{align*}
+    Hence we can take 
+    \[
+        N = 
+        \lceil
+        \frac{\ln a}{\ln ( 1 + \ep)}
+        \rceil
+    \]
+    and we are done.
+\end{example}
+
+
+\begin{theorem}[Sandwich Theorem]
+    Let $N_0$ such that $a_n \leq c_n \leq b_n$,
+    $\forall n > N_0$,
+    suppose
+    \[
+        \lim_{n \to \infty} a_n =
+        \lim_{n \to \infty} b_n = L
+    \]
+    then 
+    \[
+        \lim_{n \to \infty} c_n = L
+    \]
+\end{theorem}
+
+\begin{proof}
+    Fix $\varepsilon > 0$, we seek $N > 0$ s.t. $\forall n > N$,
+    \[
+        |c_n - L| < \varepsilon
+    \]
+    Since $\lim a_n = L, \exists N_1$ s.t. 
+    $\forall n > N_1$,
+    $|a_n - L | < \ep$
+    Since $\lim b_n = L, \exists N_2$ s.t. 
+    $\forall n > N_2$,
+    $|b_n - L | < \ep$
+    Pick $N = \max \{ N_1, N_2, N_0 \} $, 
+    then $\forall n > N$,
+    \begin{align*}
+        c_n - L \leq b_n - L < \ep \\
+        c_n - L \geq a_n - L > -\ep \\
+    \end{align*}
+    Hence 
+    \[
+        \left| c_n - L  \right|  < \ep
+    \]
+    
+\end{proof}
+
+\begin{example}
+    Show $\lim_{n \to \infty} n^{ \frac{1}{n}} = 1$ 
+    \medskip
+
+    By sandwich theorem, we first have $n^{ \frac{1}{n}} \geq 1$
+    for all $n \geq 1$. Hence we have found a lower bound 
+    for all terms with $n > 1$.
+    \medskip
+
+    We then seek an upper bound that goes to 1. 
+    Define a helper $h_n = n^{ \frac{1}{n}} - 1$,
+    then $n^{ \frac{1}{n}} = 1 + h_n$. 
+    We want to find an upper bound of $h_n$ that 
+    goes to 0. 
+    Write 
+    \begin{align*}
+        n^{ \frac{1}{n}} & = 1 + h_n \\
+        \left( n^{\frac{1}{n}} \right)^{n} & = (1 + h_n)^n \\
+        &= \sum\limits_{k = 0}^{n} 
+        \begin{pmatrix} n \\ k \end{pmatrix} 
+        h_n^k \\
+        & \geq \begin{pmatrix} n \\2 \end{pmatrix} h_n^2 \\
+        &= \frac{n(n-1)}{2} h_n^2 \\
+        \frac{2n}{n(n-1)} &\geq h_n^2 \\
+        \sqrt{ \frac{2}{n-1}} & \geq h_n
+    \end{align*}
+    Hence we can apply the sandwich theorem and say that 
+    $n^{ \frac{1}{n}} \to 1$.
+\end{example}
+
+\begin{definition}[Divergence]
+    We say $\{ a_n \} $ diverges to $\infty$ if $\forall M > 0$,
+    $\exists N > 0$ s.t. $a_n > M, \forall n > N$, denoted 
+    \[
+        \lim_{n \to \infty} a_n = \infty
+    \]
+\end{definition}
+
+\begin{example}
+    $\{ 0, 2, 0, 4, \hdots \} $ does not diverge to $\infty$.
+\end{example}
+
+\subsection{Cauchy sequences and monotone sequences}
+
+\begin{definition}[Cauchy sequence]
+    $\{ a_n \} $ is a \textbf{Cauchy sequence} if $\forall \varepsilon > 0$, 
+    $\exists N > 0$ s.t. $|a_n - a_m| < \varepsilon, \forall n, m > N$.
+\end{definition}
+
+\begin{theorem}[Cauchy implies boundedness]
+    Every Cauchy sequence is bounded.
+\end{theorem}
+\begin{proof}
+    Fix $\{ a_n \} $ a Cauchy sequence. 
+    Fix $\varepsilon = 1$, by definition, 
+    $\exists N_0 > 1$ s.t. $\forall n, m > N_0$,
+    $|a_n - a_m| < 1$. 
+    Hence, $a_n < |a_{N_0 + 1}| + 1, \forall n > N_0$. 
+    \medskip 
+
+    Also, $\{ a_n \}_{1 \leq n \leq N_0} $ is finite 
+    and a maximum exists. 
+    \medskip
+
+    Hence $M \coloneq \max \{ 
+        a_1, \hdots a_{N_0},
+        |a_{N_0 + 1}|
+    \} 
+    $ bounds the whole sequence.
+\end{proof}
+
+\begin{theorem}[Convergence imply Cauchyness]
+    Every convergent sequence is Cauchy.
+\end{theorem}
+\begin{proof}
+    Fix sequence $ \{ a_n \} $, fix $ \varepsilon > 0$. Let limit be $L$. 
+    Since $a_n$ converges, $\exists N > 0$ s.t. 
+    \begin{align*}
+        & |a_n - L | < \frac{\varepsilon}{2}, \forall n > N\\
+        \implies & \forall n, m > N, |a_n - L| < \frac{\varepsilon}{2}, 
+        |a_m - L | < \frac{\varepsilon}{2} \\
+        \implies & |a_n - a_m| = 
+        |(a_n - L) - (a_m - L)| \leq |a_n - L | + |a_m - L | < 
+        \frac{\varepsilon}{2} + 
+        \frac{\varepsilon}{2} = \varepsilon
+    \end{align*}
+\end{proof}
+
+
+\begin{theorem}[Cauchy Convergence Criterion]
+    If $\{ a_n \} \in \mathbb{R}$ is Cauchy then it 
+    converges, and the limit is in $\mathbb{R}$. 
+\end{theorem}
+
+\begin{proof}
+    \textit{We use Bolzano-Weierstrass to show existence of limit.}
+    \medskip 
+
+    Consider two cases. $\{ a_n \} $ is either finite or infinite. 
+    \begin{itemize}
+        \item $\{ a_n \} $ finite. Let $S$ dnote the set of values $ \{ s_1, \hdots s_k \} $. 
+        Let $\varepsilon = \frac{1}{2} \min \{ |s_i - s_j| \}, i \neq j, 1 \leq i, j \leq k $. 
+        \medskip 
+
+        Since $\{ a_n \} $ is Cauchy, $\exists N > 0$ s.t. 
+        \[
+            |a_n - a_m| < \varepsilon, \forall n, m > N \implies 
+            \exists i \text{ s.t. } a_n = s_i, \forall n > N
+        \]
+        \item $ \{ a_n \} $ infinite. 
+        We have shown above that Cauchyness implies boundedness.
+        By BW, $\exists L \in \mathbb{R}$
+        that is an accumulation point. 
+        \medskip 
+
+        WTS $\lim_{n \to \infty}a_n = L$. Fix $\varepsilon > 0$, 
+        we seek $N$ s.t. $|a_n - L| < \varepsilon, \forall n > N$. 
+        \medskip 
+
+        Since $\{ a_n \} $ Cauchy, $\exists N_0$ s.t. 
+        $|a_n - a_m | < \frac{ \varepsilon}{2}, \forall n, m > N$.
+        If suffices to show that at least one
+        $a_{n_0} \in N\left(L, \frac{\varepsilon}{2} \right), n_0 > N_0$.
+
+        Since $L$ is an accumulation point, $N^*\left(L, \frac{\varepsilon}{2}\right)$
+        contains infinitely many points, so in particular we may pick
+        $n_0 > N_0$ with $a_{n_0} \in N\left(L, \frac{\varepsilon}{2}\right)$.
+        Then for $n > n_0$,
+        \[
+            |a_n - L| \leq |a_n - a_{n_0}| + |a_{n_0} - L|
+            < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon,
+        \]
+        i.e. $N\left(a_{n_0}, \frac{\varepsilon}{2}\right) \subseteq N(L,\varepsilon)$
+        and every later term lies in it.
+        \medskip
+
+        \begin{center}
+        \begin{tikzpicture}[scale=.80]
+            % Outer ball N(L, epsilon)
+            \draw[thick, blue] (0,0) circle (3);
+            \node[blue] at (-2.1,2.1) {$N(L,\varepsilon)$};
+
+            % Inner ball N(L, epsilon/2)
+            \draw[thick, dashed, gray] (0,0) circle (1.5);
+            \node[gray] at (0.6,-1.75) {$N(L,\varepsilon/2)$};
+
+            \fill (0,0) circle (1.5pt) node[below left] {$L$};
+
+            % Point a_{n_0} inside the inner ball
+            \coordinate (an0) at (0.6,0.6);
+
+            % Ball N(a_{n_0}, epsilon/2)
+            \draw[thick, red] (an0) circle (1.5);
+            \node[red] at ($(an0)+(0,1.75)$) {$N(a_{n_0},\varepsilon/2)$};
+            \fill (an0) circle (1.5pt) node[above right] {$a_{n_0}$};
+
+            % Later terms a_n, n > n_0, inside N(a_{n_0}, epsilon/2)
+            \coordinate (ann) at ($(an0)+(0.9,-0.4)$);
+            % \fill ($(an0)+(-0.5,0.8)$) circle (1pt);
+            % \fill ($(an0)+(0.3,1.0)$) circle (1pt);
+            % \fill ($(an0)+(-0.9,-0.5)$) circle (1pt);
+
+            % Triangle inequality: L -- a_{n_0} -- a_n -- L
+            \draw[thick, orange!80!black] (0,0) -- (an0) -- (ann) -- cycle;
+            \node[orange!80!black] at ($(0,0)!0.5!(an0) + (0.3,0.05)$) {\scriptsize $\varepsilon/2$};
+            \node[orange!80!black] at ($(an0)!0.5!(ann) + (0.35,0.05)$) {\scriptsize $\varepsilon/2$};
+            \node[orange!80!black] at ($(0,0)!0.5!(ann) + (-0.3,-0.25)$) {\scriptsize $<\varepsilon$};
+            \fill (ann) circle (1.5pt) node[below right] {\scriptsize $a_n,\, n>n_0$};
+        \end{tikzpicture}
+        \end{center}
+    \end{itemize}
+\end{proof}
+
+\begin{example}
+    We can show divergence of Harmonic series by showing that 
+    it is not Cauchy. 
+    \[
+        a_n = 1 + \frac{1}{2} + \hdots + \frac{1}{n}
+    \]
+    i.e. WTS $\exists \ep >0$,
+    $\forall N > 0$,
+    $\exists m > n > N$ s.t. 
+    $|a_m - a_n |> \ep$.
+    Take $\ep  = \frac{1}{4}$, 
+    $m = 2n$,
+    then 
+    \begin{align*}
+        a_m- a_n &= 
+        \frac{1}{ n+1} + 
+        \frac{1}{ n+2} + 
+        \hdots
+        \frac{1}{m}
+        \\
+        & \geq \frac{m - n}{m} \\
+        & = 1 - \frac{n}{m} \\
+        & = \frac{1}{2}
+    \end{align*}
+    Hence the harmonic series is not cauchy and therefore does not converge.
+\end{example}
+
+
+\begin{definition}[Monotone sequence]
+    \hfill
+    \begin{enumerate}
+        \item $\{ a_n \} $ is \textbf{increasing} if $a_n \leq a_{n + 1}, \forall n$
+        \item $\{ a_n \} $ is \textbf{decreasing} if $a_n \geq a_{n + 1}, \forall n$
+    \end{enumerate}
+    If $ \{ a_n \} $ is either increasing or 
+    decreasing, we say it is \textbf{monotone}.
+    \medskip
+
+    Equivalently, we can define strictly increasing, strictly decreasing and
+    strictly monotone.
+\end{definition}
+
+\begin{theorem}[Monotone Convergence Theorem]
+    If a sequence $\{ a_n \} $ is monotone and bounded,
+    then it converges. 
+\end{theorem}
+
+\begin{corollary}[Alternative statement of MCT]
+    Given a monotone sequence, it is bounded if and only
+    if it converges.
+\end{corollary}
+
+\begin{proof}[Proof of MCT]
+    WTS that given a monotone sequence, 
+    it converges if and only it is bounded.
+    \medskip
+
+    $(\implies)$: convergence implies boundedness always, 
+    without requiring monotonicity.
+    \medskip
+
+    $(\impliedby)$:
+    Let $\{ a_n \} $ be a monotone and bounded sequence, 
+    WTS it converges. 
+    \medskip
+
+    WLOG, assume $\{ a_n \} $ increasing. 
+    Since $ \{ a_n \} $ bounded, by CA, 
+    $\sup \{ a_n \} $ exists, say $L$. 
+    WTS $\lim_{n \to \infty}a_n = L$.
+    \medskip 
+
+    Fix $\varepsilon > 0$< by definition of supremum, 
+    $\exists n_0$ s.t. $a_{n_0} > L-\varepsilon$.
+    Hence 
+    \begin{align*}
+        & L - \varepsilon < a_n \leq L, \forall n > n_0 \\
+        \implies & |a_n - L | < \varepsilon, \forall n > n_0
+    \end{align*}
+\end{proof}
+
+\begin{remark}
+    \hfill
+    \begin{enumerate}
+        \item An increasing sequence converges $\iff$ bounded from above.
+        \item A decreasing sequence converges $\iff$ bounded from below.
+    \end{enumerate}
+\end{remark}
+
+\begin{example}
+    \textit{We can use MCT to determine the convergence
+    of a sequence defined recursively,
+    i.e. we prove convergence by showing
+    boundedness and monotonicitiy}
+    \medskip
+
+    For example, $a_1 = 5$, $a_{n + 1} = \frac{1}{2} \left( a_n + \frac{5}{a_n} \right) $.
+    We can show this is bounded by noting $a_n > 0$ and 
+    therefore 
+    \begin{align*}
+        a_{n + 1} &= \frac{1}{2} \left( 
+            \sqrt{a_n}^2 + \sqrt{ \frac{5}{a_n}}^2
+        \right)  \\
+        & \geq \sqrt{a_n} \sqrt{ \frac{5}{a_n}}
+        = \sqrt{5}
+    \end{align*}
+\end{example}
+
+
+
+\begin{proof}[Proof that interval are connected 
+    \label{proof:connected-sets-in-R}]
+    \medskip
+
+    Recall theorem \ref{theorem:connected-sets-in-R}. 
+    WTS that if $S \subset \mathbb{R}$ is an interval
+    then $S$ is connected.
+    \medskip
+
+    Suppose $S$ disconnected. By definition, $\exists A, B$
+    open and nonempty such that $S \subset A \cup B$,
+    $A \cap B = \emptyset$,
+    $S \cap A \neq \emptyset$,
+    $S \cap B \neq \emptyset$.
+    \medskip
+
+    Let $x \in S \cap A, y \in S \cap B$. WLOG, say $x < y$.
+    Let $x_1 = x, y_1 = y$. We seek sequences 
+    $\{ x_n \} \subset A \cap S $,
+    $\{ y_n \} \subset A \cap S $,
+    such that 
+    \begin{itemize}
+        \item $x_n$ is increasing 
+        \item $y_n$ is decreasing 
+        \item $|x_n - y_n| \to 0$ as $n \to \infty$
+    \end{itemize} 
+
+    To construct such a sequence, take $z_{k + 1} = \frac{x_k + y_k}{2}$.
+    \begin{itemize}
+        \item if $z_{k + 1} \in A, x_{k + 1} = z_{k + 1}, y_{k + 1} = y_k$
+        \item if $z_{k + 1} \in B, x_{k + 1} = x_k, y_{k + 1} = z_{k + 1}$
+    \end{itemize} 
+    Then 
+    \[
+        y_i - x_i = \frac{y_1 - x_1}{2^{i - 1}}
+    \]
+    Since $\{ x_n \} $ bounded and increasing, 
+    $\exists a \in \mathbb{R}$ s.t. $x_n \to a$.
+    Likewise
+    $\exists b \in \mathbb{R}$ s.t. $y_n \to b$.
+    Then
+    \[
+        b - a = 
+        \lim_{n \to \infty} y_n - 
+        \lim_{n \to \infty} x_n 
+        = \lim_{n  \to \infty} (y_{n} - x_{n})
+        = \lim_{n  \to \infty} 2^{-(n-1)}(y_1 = x_1)
+        = 0
+    \]
+    Hence $b=a$.
+    \medskip
+
+    We know that $a \in (S \cap A) \setminus ( S \cap B)$ or 
+    $a \in (S \cap B) \setminus (S \cap A)$. 
+    Suppose $a \in S \cap A$ but $a \notin B$, by openess of $A$, 
+    there is some $N(a, \varepsilon) \subset A$.
+    Since $A, B$ disjoint, $N(a, \varepsilon) \subset B^c$. 
+    However, $y_n \to a$, hence $\exists N>0$ s.t. $\forall n > N$,
+    $y_n \in N(a, \varepsilon)$, which is a contradiction.
+\end{proof}
+
+\subsection{Subsequences}
+
+\begin{definition}[Subsequence]
+    Let $\{ a_n \}  \in \mathbb{R}$ and $\{ n_k \}_k$ be a 
+    striclty increasing sequence 
+    in $\mathbb{N}$, i.e. $n_k < n_{k + 1}, \forall k$, then 
+    $\{ a_{n_k} \}_k$ is a subsequence of $\{ a_n \} $
+\end{definition}
+
+\begin{example}
+    Take $\{ 1, -1, 1, -1, \hdots \} $, 
+    \begin{itemize}
+        \item $n_k = 2k - 1, \{ n_k \}_k = \{ 1, 3, 5, \hdots \}$, 
+        $\{ a_{n_k} \}_k = \{ 1, 1, 1, \hdots \}  $
+        \item $n_k = 2k , \{ n_k \}_k = \{ 2, 4, 6, \hdots \}$, 
+        $\{ a_{n_k} \}_k = \{ -1, -1, -1, \hdots \}  $
+    \end{itemize} 
+\end{example}
+
+\begin{theorem}[Subsequence of convergent sequence converges]
+    If $\lim_{n \to \infty}a_n = L \in \mathbb{R}$, or $L = \pm \infty$
+    then for any subsequence $\{ a_{n_k} \}_k $ of $\{ a_n \} $, 
+    \[
+        \lim_{k \to \infty} a_{n_k} = L
+    \]
+\end{theorem}
+
+\begin{proof}
+    Fix $\ep > 0$, we seek $K > 0$ s.t. $ \left| a_{n_k}  - L \right| < \ep$,
+    $\forall k > K$. 
+    Since $a_n$ converges, 
+    \[
+        \lim_{n \to \infty} a_n = L \implies \exists N > 0 \text{ s.t }
+        |a_n - L | < \ep, \forall n > N
+    \]
+    Also, $\forall k > N, n_k \geq k \geq N$, hence $|a_{n_k} - L | < \ep$, 
+    hence 
+    \[
+        \lim_{k \to \infty} a_{n_k = L}
+    \]
+\end{proof}
+
+\begin{corollary}[Convergent subsequences whose limits disagree imply divergence]
+    If $\{ a_n \} $ has two subsequences that converge to different values
+    then $\{ a_n \} $ diverges and does not converge to $\pm \infty$.
+\end{corollary}
+
+\begin{theorem}[Bdd divergent sequences have at least two convergent subsequences]
+    \label{theroem:bdd-dvgt-implies-multiple-cvgt-subseq}
+    If $\{ a_n \} $ bounded and divergent, 
+    then there exist two subsequences of $\{ a_n \} $ that converge 
+    to different values. 
+\end{theorem}
+
+\begin{theorem}
+    \label{theorem:bdd-implies-cvgt-subseq}
+    Every bounded sequence $\{ a_n \} $ has a convergent subsequence.
+\end{theorem}
+
+
+
+
+
+
+
+
+
+
+
+
+

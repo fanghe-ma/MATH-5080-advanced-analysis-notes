@@ -1,0 +1,565 @@
+%==============================================================================
+% MATH 5080
+% Class:        13
+% Date:         Oct 13th
+%==============================================================================
+
+\subsection{L'Hopital's Rule}
+
+\begin{theorem}[L'Hopital's Rule, 0/0 case]
+    \label{thm:lhopital-1}
+    Let $f, g$ be differentiable on 
+    $U = N^*(c, \delta)$ 
+    for some $\delta > 0$, s.t. 
+    \begin{enumerate}
+        \item $\lim_{x \to c}f(x) = \lim_{x \to c}g(x) = 0$
+        \item $g^{\prime}(x) \neq 0, \forall x \in U$
+        \item $\lim_{x \to c} \frac{f^{\prime}(x)}{g^{\prime}(x)} = L \in \mathbb{R} \cup \{ \pm \infty \} $
+    \end{enumerate}
+    Then
+    \[
+        \lim_{x \to c} \frac{f(x)}{g(x)} = L
+    \]
+\end{theorem}
+
+\begin{remark}
+    The above conditions are sufficient for $g(x) \neq 0, \forall x \in U$.
+    ATC otherwise, we can extend $g: N^*(x, \delta) \to \mathbb{R}$
+    to $\tilde{g}: N(x, \delta) \to \mathbb{R}$ by letting 
+    \[
+        \tilde{g} (c) = \lim_{x \to c}g(x) = 0
+    \]
+    If $g(x) = 0$, then MVT on $[x, c]$ 
+    implies $\exists c_1 \in (x, \c)$ s.t.
+    \[
+        g(c_1)= \frac{
+            \tilde{g}(c) - \tilde{g}(x)
+        }{
+            c - x
+        } = 0
+    \]
+    which is a contradiction.
+\end{remark}
+
+\begin{lemma}[Cauchy Mean Value Theorem]
+    Let $f, g $ be continuous on $[a,b]$, 
+    differentiable on $(a,b)$, then 
+    $\exists c\in (a,b)$ s.t.
+    \[
+        \left( f(b) - f(a) \right) \cdot g^{\prime}(c)
+        =
+        \left( g(b) - g(a) \right) \cdot f^{\prime}(c)
+    \]
+\end{lemma}
+
+\begin{remark}
+    \hfill
+    \begin{enumerate}
+        \item $g(x) = x$ recovers MVT.
+        \item This is not a direct consequence of $MVT$
+    \end{enumerate} 
+\end{remark}
+
+\begin{proof}
+    Define $h(x)$
+    \[
+        h(x) = 
+        \left( f(b) - f(a) \right) g(x) - 
+        \left( g(b) - g(a) \right) f(x)
+    \]
+    then $h$ is continuous on $[a, b]$, 
+    differentiable on $(a,b)$,
+    and $h(a) = f(b)g(a) - g(b)f(a) =h(b)$.
+    By Rolle's $\exists c \in (a, b)$ s.t. $h^{\prime}(c) = 0$,
+    i.e.
+    \[
+        \left( f(b) - f(a) \right) \cdot g^{\prime}(c)
+        =
+        \left( g(b) - g(a) \right) \cdot f^{\prime}(c)
+    \]
+\end{proof}
+
+\begin{proof}[Proof of 
+    \ref{thm:lhopital-1}
+]
+\begin{itemize}
+    \item Case $L \in \mathbb{R}$: Suffices to show 
+    \[
+        \lim_{x \to c^{-}} \frac{f(x)}{g(x)} = L
+    \]
+    The idea is to
+    \begin{enumerate}
+        \item Use Cauchy MVT to write 
+        \[
+            \frac{{f}(x)}{{g}(x)}
+            = \frac{f^{\prime}(c_x)}{g^{\prime}(c_x)}
+        \]
+        \item Taking the limit on both sides and show that 
+        the limit is equal to $L$.
+    \end{enumerate} 
+
+    \textbf{Step 1}: Fix any $x < c, x \in U$.
+    Since we know that $f, g$ differentiable and therefore
+    continuous on $[x, c)$, and 
+    $\lim_{x \to c} f(x) = \lim_{x \to c}g(x) = 0$,
+    we can define 
+    $\tilde{f}(c) = \tilde{g}(c) = 0$ and extend
+    $f, g$ to $\tilde{f}, \tilde{g}$ on $[x, c]$.
+    We have $\tilde{f}, \tilde{g}$ differentiable on $(x, c)$. 
+    \medskip
+
+    Applying Cauchy MVT, $\exists c_x \in (x, c)$ s.t. 
+    \[
+        \left( \tilde{f}(c) - \tilde{f}(x) \right) g^{\prime}(c_x) = 
+        \left( \tilde{g}(c) - \tilde{g}(x) \right) f^{\prime}(c_x)
+    \]
+    By assumption, $g^{\prime} \neq 0$, which implies
+    \begin{itemize}
+        \item $g^{\prime}(c_x) \neq 0$
+        \item $\tilde{g}(c) - \tilde{g}(x) \neq 0$. Otherwise,
+        by MVT, $\exists c_2 \in (x, c)$ s.t. 
+        \[
+            g^{\prime}(c_2) = \frac{\tilde{g}(c)- \tilde{g}(x)}{c - x}= 0
+        \]
+    \end{itemize} 
+    Hence,
+    \[
+        \left( \tilde{f}(c) - \tilde{f}(x) \right) g^{\prime}(c_x) = 
+        \left( \tilde{g}(c) - \tilde{g}(x) \right) f^{\prime}(c_x)
+        \implies
+        \frac{\tilde{f}(c) - \tilde{f}(x)}{\tilde{g}(c) - \tilde{g}(x)}
+        = \frac{f^{\prime}(c_x)}{g^{\prime}(c_x)}
+    \]
+    Since $\tilde{f}(c) = \tilde{g}(c) = 0$, we have
+    \[
+        \frac{f(x)}{g(x)}
+        = \frac{f^{\prime}(c_x)}{g^{\prime}(c_x)}
+    \]
+    \medskip
+
+    \textbf{Step 2}: by assumption, we have 
+    \[
+        \lim_{x \to c^{-}} \frac{f^{\prime}(x)}{g^{\prime}(x)} = L
+    \]
+    hence $\forall \ep, \exists \delta$ s.t. 
+    \[
+        x \in (c - \delta, c) \implies 
+        \left| 
+            \frac{f^{\prime}(x)}{g^{\prime}(x)} - L 
+        \right|  < \ep
+    \]
+    For any such $x$, since $x < c_x < c$, therefore
+    $ c- \delta < c_x < c$. Hence
+    \[
+        \left| 
+            \frac{f^{\prime}(c_x)}{g^{\prime}(c_x)} - L
+        \right|  < \ep
+    \]
+    Therefore 
+    \[
+        \lim_{x \to c} \frac{f^{\prime}(c_x)}{g^{\prime}(c_x)} = L 
+        \implies
+        \lim_{x \to c} \frac{f(x)}{g(x)} = L 
+    \]
+    
+    \item Case $L = \pm \infty$,
+    WTS 
+    \[
+        \lim_{x \to c^{+}} \frac{f(x)}{g(x)} = \infty
+    \]
+    As before, we get
+    \[
+        \frac{f(x)}{g(x)} = \frac{f^{\prime}(c_x)}{g^{\prime}(c_x)}
+        \text{ for some } c_x \in (c, x)
+    \]
+    By assumption, 
+    \[
+        \lim_{x \to c} \frac{f^{\prime}(x)}{g^{\prime}(x)} = \infty
+    \]
+    implies $\forall M > 0, \exists \delta > 0$ s.t. 
+    \[
+        x \in (c, c + \delta) \implies \frac{f^{\prime}(x)}{g^{\prime}(x)} > M
+    \]
+    Hence $\forall x \in (c, c + \delta)$, 
+    $c < c_x < c+ \delta$, hence 
+    \[
+        \frac{f(x)}{g(x)} = \frac{f^{\prime}(c_x)}{g^{\prime}(c_x)}
+        > M
+    \]
+    which implieas 
+    \[
+        \lim_{x \to c^{+}} \frac{f(x)}{g(x)} = \infty
+    \]
+\end{itemize} 
+\end{proof}
+
+\begin{example}
+    \begin{enumerate}
+        \item $\lim_{x \to 0} \frac{e^{x} - 1}{x}$
+        Check the conditions
+        \begin{itemize}
+            \item $\lim_{x \to 0} e^{x} - 1 = 0$, $\lim_{x \to 0}x  = 0$
+            \item $x^{\prime} = 1 \neq 0$
+            \item $f^{\prime} = e^{x}, g^{\prime} = 1$, 
+            $\lim_{x \to 0} \frac{f^{\prime}}{g^{\prime}} = \frac{e^{x}}{1} = 1$
+        \end{itemize} 
+        Hence, L'Hopital gives 
+        \[
+            \lim_{x \to 0} \frac{e^{x} - 1}{x} = 1
+        \]
+        \item $\lim_{x \to 0} \frac{\cos x}{x}$
+        Checking the conditions, $\lim_{x \to 0}\cos x = 1 \neq 0$,
+        condition 1 fails.
+    \end{enumerate} 
+\end{example}
+
+\begin{theorem}[L'Hopital's Rule for $x \to \infty$]
+    \label{thm:lhopital-2}
+    Let $f, g$ be differentiable on $(a, \infty)$ s.t. 
+    \begin{enumerate}
+        \item $\lim_{x \to \infty}f(x) = \lim_{x \to \infty} g(x) = 0$
+        \item $g^{\prime}(x) \neq 0, \forall x \in (a, \infty)$
+        \item $\lim_{x \to \infty} \frac{f^{\prime}(x)}{g^{\prime}(x)} = L \in \mathbb{R} \cup \{ \pm \infty \} $
+    \end{enumerate} 
+    Then,
+    \[
+        \lim_{x \to \infty} \frac{f(x)}{g(x)} = L
+    \]
+\end{theorem}
+
+\begin{remark}
+    Again $g(x) \neq 0$ is implicitly given. 
+    \begin{itemize}
+        \item if a single point $g(x_0) = 0$,
+        and $g(x) \neq 0, \forall x \neq x_0$,
+        then we can consider the theorem on
+        $(x_0, \infty)$.
+        \item if a sequence $\{ a_n \} $ s.t. 
+        $f(a_n) = 0$, then we can find a contradiction
+        with MVT 
+        \remind{do we need sequence to find contradiction??
+        or is it just two points that's needed??
+        }
+    \end{itemize} 
+\end{remark}
+
+\begin{example}
+    \remind{add in example}
+\end{example}
+
+\begin{proof}
+    \textit{The idea is to use 
+    change of variables
+    and the first form of L'Hopital.
+    }
+
+    Let $x = \frac{1}{t}$, then 
+    $x \to \infty \iff t \to 0^{+}$.
+    Define 
+    $F(t) = f \left( \frac{1}{t} \right) $,
+    $G(t) = g \left( \frac{1}{t} \right) $.
+
+    We first show that satisfying the 
+    conditions of \ref{thm:lhopital-2}
+    implies the conditions of 
+    \ref{thm:lhopital-1}.
+    \begin{enumerate}
+        \item By assumption, we have 
+        $\lim_{x \to \infty}f(x) = \lim_{g \to \infty}g(x) = 0$
+    \begin{align*}
+        &\lim_{x \to \infty}f(x) = \lim_{g \to \infty}g(x) = 0 \\
+        \implies &
+        \lim_{t \to 0^{+}}f \left( \frac{1}{t} \right)  = 
+        \lim_{g \to 0^{+}}g \left( \frac{1}{t} \right)  = 0 \\
+        \implies &
+        \lim_{t \to 0^{+}}F \left( {t} \right)  = 
+        \lim_{g \to 0^{+}}G \left( {t} \right)  = 0 \\
+    \end{align*}
+        \item By assumption, $g^{\prime}(x) \neq 0$.
+        Consider $G^{\prime}(t)$
+        \begin{align*}
+            &G^{\prime}(t) = g^{\prime} \left( \frac{1}{t} \right) 
+            \cdot \frac{-1}{t^{2}}  \\
+            \implies& G^{\prime}(t) \neq 0
+        \end{align*}
+        \item By assumption, 
+        $\lim_{x \to \infty} \frac{f^{\prime}(x)}{g^{\prime}(x)} = L$.
+        Then, by change of variables, we have
+        \[
+            \lim_{t \to 0^{+}} 
+            \frac{f^{\prime} \left( \frac{1}{t} \right) }{
+                g^{\prime} \left( \frac{1}{t} \right) 
+            }
+            = \lim_{x \to \infty}
+            \frac{f^{\prime}(x)}{g^{\prime}{x}} = L
+        \]
+        By Chain Rule, 
+        \begin{align*}
+            F^{\prime}(t) = f^{\prime} \left( \frac{1}{t} \right) 
+            \cdot \left( - \frac{1}{t^{2}} \right)  \\
+            G^{\prime}(t) = g^{\prime} \left( \frac{1}{t} \right) 
+            \cdot \left( - \frac{1}{t^{2}} \right)  \\
+        \end{align*}
+        Hence
+        \begin{align*}
+            \lim_{x \to 0^{+}} 
+            \frac{F^{\prime}(t)}{G^{\prime}(t)} 
+            =
+            \lim_{x \to 0^{+}} 
+            \frac{
+                f^{\prime} \left( \frac{1}{t} \right) 
+            }{
+                g^{\prime} \left( \frac{1}{t} \right) 
+            }  = L
+        \end{align*}
+    \end{enumerate} 
+    Having verified all 3 conditions, 
+    apply \ref{thm:lhopital-1}
+    to $F, G$, and we get 
+    \[
+        \lim_{t \to 0^+}
+        \frac{F(t)}{G(t)} 
+        = 
+        \lim_{t \to 0^+}
+        \frac{F^{\prime}(t)}{G^{\prime}(t)} 
+        = L
+    \]
+    Applying change of variables again, we get
+    \[
+        \lim_{x \to [infty]}
+        \frac{f(x)}{g(x)} 
+        =
+        \lim_{t \to 0^+}
+        \frac{F(t)}{G(t)} 
+        = L
+    \]
+    
+\end{proof}
+
+\begin{remark}
+    The first two L'Hopital's Rule theorems 
+    (
+        \ref{thm:lhopital-1},
+        \ref{thm:lhopital-2}
+    )
+    theoretically
+    cover all possible cases of limits of indeterminate
+    forms. However, for convenience, we extend L'Hopital's to 
+    $ \frac{\infty}{\infty}$ forms directly.
+\end{remark}
+
+\begin{theorem}[L'Hopital's Rule for $ \frac{\cdot}{\infty}$]
+    \label{thm:lhopital-3}
+    Let $f, g$ be differentiable on 
+    $U = N^{*}(c, \delta)$ for some $\delta > 0$
+    s.t. 
+    \begin{enumerate}
+        \item $\lim_{x \to c} g(x) = \pm \infty$
+        \item $g^{\prime}(x) \neq 0, \forall x \in U$
+        \item $\lim_{x \to c} \frac{f^{\prime}(x)}{g^{\prime}(x)} = L$
+        $\in \mathbb{R} \cup \{ \pm \infty \} $
+    \end{enumerate} 
+    Then 
+    \[
+        \lim_{x \to c} \frac{f(x)}{g(x)} = L
+    \]
+\end{theorem}
+
+\begin{remark}
+    Note that \ref{thm:lhopital-3}
+    does not require $\lim_{x \to c}f(x) = \pm \infty$.
+    This makes the theorem stronger, 
+    but means we cannot prove using 
+    change of variables and \ref{thm:lhopital-1}.
+\end{remark}
+
+
+\begin{theorem}
+    [L'Hopital's Rule for $ \frac{\cdot}{\infty}, x \to \infty$]
+    \label{thm:lhopital-4}
+    Let $f, g$ be differentiable on $(a, \infty)$
+    s.t. 
+    \begin{enumerate}
+        \item $\lim_{x \to \infty}g(x) = \pm \infty$
+        \item $g^{\prime}(x) \neq 0, \forall x \in (a, \infty)$
+        \item $\lim_{x \to \infty} \frac{f^{\prime}(x)}{g^{\prime}(x)} = L$
+        $\in \mathbb{R} \cup \{ \pm \infty \} $
+    \end{enumerate} 
+    then,
+    \[
+        \lim_{x \to \infty} \frac{f(x)}{g(x)} = L
+    \]
+\end{theorem}
+
+\begin{remark}
+    \ref{thm:lhopital-4} follows from
+    \ref{thm:lhopital-3} by change of variables.
+\end{remark}
+
+\subsection{Taylor's Theorem}
+
+\begin{theorem}[Taylor's Theorem]
+    \label{thm:taylor}
+    Let $f^{(i)}$ be continuous on $[a,b]$,
+    differentiable on $(a,b)$,
+    $\forall 0 \leq i \leq n$.
+    Let $x_0 \in [a, b]$. Then
+    $\forall x \in [a, b]$ with
+    $x \neq x_{0}$, 
+    $\exists c $ between $x$ and $x_{0}$ s.t. 
+    \begin{align*}
+        f(x) &= f(x_0) 
+        + f^{\prime}(x_0) (x-x_{0})
+        + \frac{
+            f^{(2)}(x_0)
+        }{
+            2!
+        }
+        (x - x_{0})^{2} 
+        + \hdots 
+        + \frac{
+            f^{(n)}(x_0)
+        }{
+            n!
+        }
+        (x - x_{0})^{n}  \\
+        &
+        + \frac{
+            f^{(n + 1)}(c)
+        }{
+            n!
+        }
+        (x - x_{0})^{n} 
+    \end{align*}
+\end{theorem}
+
+\remind{
+    why is it always
+    continuous on closed interval and
+    differentiable on open interval??
+}
+
+\begin{remarks}
+    \begin{itemize}
+        \item 
+    Since the theorem requires 
+    $f^{(n)}$ differentiable, 
+    the RHS ($f^{(n + 1)}$) is well defined.
+        \item Since $c$ depends on $x$,
+    the RHS is not in a polynomial form.
+        \item If $n = 0$, we recover MVT.
+    \end{itemize} 
+\end{remarks}
+
+\begin{proof}
+    Fix $x \in [a,b], x \neq x_{0}$. 
+    Let $M$ be the unique solution of 
+    \begin{align*}
+        f(x) &= f(x_0) 
+        + f^{\prime}(x_0) (x-x_{0})
+        + \frac{
+            f^{(2)}(x_0)
+        }{
+            2!
+        }
+        (x - x_{0})^{2} 
+        + \hdots 
+        + \frac{
+            f^{(n)}(x_0)
+        }{
+            n!
+        }
+        (x - x_{0})^{n} 
+        + 
+        M
+        (x - x_{0})^{n} 
+    \end{align*}.
+    WTS $M = \frac{f^{(n+1)}(c)}{(n+1)!}$ for some $c$
+    between $x, x_0$. 
+    Define 
+    \[
+        F(t) = f(t) + f^{\prime}(t) (x-t)
+        + \hdots + \frac{f^{(n)}(t)}{n!} (x - t)^{n}
+        + M (x-t)^{n+1}
+    \]
+    Then $F$ is continuous on $[a,b]$,
+    differentiable on $(a,b)$.
+    Observe that 
+    \[
+        F(x) = f(x), F(x_{0}) = f(x)
+    \]
+    By Rolle's theorem,
+    $\exists c$ between $x, x_0$ s.t. 
+    $F^{\prime}(c) = 0$.
+    Differentiating $F$, we get
+    \begin{align*}
+        F^{\prime}(c) 
+        =& f^{\prime}(c) 
+        + \left[ 
+            - f^{\prime}(c)
+            + f^{(2)}(c) (x - c)
+        \right] \\
+        +& \left[ 
+            - 2 \frac{f^{(x)}(c)}{2!} (x-c) 
+            + \frac{f^{(3)}(c)}{2!} (x-c)^2
+        \right]  \\
+        +& \left[ 
+            - 3 \frac{f^{(3)}(c)}{3!} (x-c)^2
+            + \frac{f^{(4)}(c)}{3!} (x-c)^3
+        \right]   \\
+        +& \hdots \\
+        +& \left[ 
+            - n \frac{f^{(n)}(c)}{n!} (x-c)^n
+            + \frac{f^{(n+1)}(c)}{n!} (x-c)^n
+        \right] \\
+        +& (-M) (n+1) (x-t)^n
+    \end{align*}
+    Setting this to 0, we get
+    \[
+        M = \frac{f^{(n+1)}(c)}{(n+1)!}
+    \]
+\end{proof}
+
+\begin{definition}[Taylor's Polynomials]
+    Let $f^{(i)}$ be continuous on $[a,b]$,
+    differentiable on $(a,b)$, $\forall 0 \leq i \leq n$>
+    Let $x_0 \in [a, b]$.
+    Fix any $x \in [a,b]$, $x \neq x_0$,
+    then the \textbf{Taylor's Polynomials}
+    for $f$ at $x_0$ are
+    \begin{align*}
+        p_0(x) &= f(x_0) \\
+        p_1(x) &= f(x_0) + f^{\prime}(x_0)(x-x_0)\\
+        p_2(x) &= f(x_0) + f^{\prime}(x_0)(x-x_0)
+        + \frac{f^{(2)}(x)}{2!} (x-x_0)^2 
+        \\
+        &\vdots
+        p_2(x) &= f(x_0) + f^{\prime}(x_0)(x-x_0)
+        + \frac{f^{(2)}(x)}{2!} (x-x_0)^2 
+        + \hdots
+        _ \frac{f^{(n)}(x)}{n!} (x-x_0)^n
+    \end{align*}
+\end{definition}
+
+
+\begin{remark}
+    What is the relationship between $f$ and 
+    $\{ p_n \} $
+    \begin{itemize}
+        \item If $f$ is a polynomial, then $\exists N$
+        s.t. $p_n = f, \forall n \geq N$
+        \item For general $f$, $p_n(x)$ is an approximation
+        \item of $f$ with an upper bound on the magnitude
+        of error
+        \[
+            \frac{
+                \max \left| f^{(n+1)} \right| 
+            }{
+                (n+1)!
+            } 
+            \left| x - x_0 \right|^{n + 1}
+        \]
+        
+    \end{itemize} 
+\end{remark}
+

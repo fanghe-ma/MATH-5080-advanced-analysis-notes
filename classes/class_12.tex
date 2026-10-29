@@ -1,0 +1,442 @@
+%==============================================================================
+% MATH 5080
+% Class:        12
+% Date:         Oct 8th
+%==============================================================================
+
+\begin{theorem}[Fermat Theorem]
+    \label{thm:fermat}
+    Let $f: [a, b] \to \mathbb{R}$ and $p \in (a, b)$.
+    Suppose $f$ has a local max or local min at $p$ and
+    $f^{\prime}(p)$ exists. 
+    Then $f^{\prime}(p) = 0$.
+\end{theorem}
+
+\begin{remark}
+    This theorem says that at an interior local extrema,
+    the slope is zero. 
+    However, this doesn't apply to cases where 
+    \begin{itemize}
+        \item extrema is at end point of domain
+        \item extrema is at an isolated point
+        \item extrema at point where $f^{\prime}$ undefined
+    \end{itemize} 
+\end{remark}
+
+\begin{proof}
+    Assume $f$ has local max at $p \in (a, b)$, 
+    i.e. $\exists \delta > 0$ s.t. 
+    $f(x) \leq f(p)$. $\forall x \in N(p, \delta) \cap [a, b]$. 
+    By choosing $\delta$ sufficiently small, we can have 
+    $N(p, \delta) \subset (a, b)$. 
+    Since $f$ differentiable at $p$, 
+    \[
+        \lim_{x \to p} \frac{f(x) - f(p)}{x-p} = f^{\prime}(p)
+    \]
+    exists. 
+    \medskip
+
+    Since for all $p < x < p + \delta$, 
+    we have $x - p> 0, f(x) - f(p) \leq 0$,
+    therefore we have
+    \[
+        f^{\prime}(p) = \lim_{x \to p^{-}} \frac{f(x) - f(p)}{x - p} \leq 0
+    \]
+
+    By considering the left hand limit instead, we also have 
+    \[
+        f^{\prime}(p) = \lim_{x \to p^{-}} \frac{f(x) - f(p)}{x - p} \geq 0
+    \]
+    Hence $f^{\prime}(p) = 0 $.
+\end{proof}
+
+\begin{remark}
+    $f^{\prime}(p) = 0 \not \implies $ local extrema. 
+    e.g. $f = x^3$ at $x = 0$.
+\end{remark}
+
+\begin{proof}[Proof of \ref{thm:mvt}] 
+    \textit{
+        The idea is to first prove Rolle's using Fermat,
+        and then use
+        Rolle's to prove MVT.
+    }
+    \begin{enumerate}
+        \item Step 1: WTS Rolle's
+        \medskip
+
+        Since $f$ is continuous on $[a, b]$ which is compact,
+        we know that $f$ attains its max and min on $[a,b]$.
+        i.e. $\exists x_1, x_2 \in [a, b]$ s.t. $\forall x \in [a, b]$
+        \[
+            f(x_1) \leq f(x) \leq f(x_2)
+        \]
+        Consider two cases 
+        \begin{itemize}
+            \item Case 1: both $x_1, x_2$ are end points of $[a,b]$.
+            Then $f(a) = f(b) \implies f(x_1) = f(x_2) \implies$
+            $f$ constant on $[a,b]$. Hence by definition,
+            $f^{\prime}(c) = 0$ for any $c \in [a, b]$.
+            \item Case 2: One of $x_1, x_2$ is not an endpoint of $[a,b]$. 
+            Say $x_1 \in (a, b)$. Then, 
+            $f$ has a local min at $x_1$. 
+            By Fermat \ref{thm:fermat},
+            $f^{\prime}(x_1) = 0$. Take $c = x_1$.
+        \end{itemize} 
+        \item Step 2: WTS Rolle's $\implies$ MVT
+        
+        \medskip
+        Define 
+        \[
+            h(x) = \frac{f(b) - f(a)}{b-a} (x-a) + f(a)
+        \]
+        \[
+            g(x) = h(x) - f(x)
+        \]
+        Then observe that 
+        \begin{itemize}
+            \item $f, h$ both continuous on $[a, b]$, hence $g$ continuous on $[a,b]$
+            \item $f^{\prime}, h^{\prime}, g^{\prime}$ all exist on $(a, b)$
+            \item $h(a) = f(a),h(b) = f(b)$, hence $g(a) = g(b) = 0$
+        \end{itemize} 
+        Applying Rolle's to $g$, $\exists c\in (a, b)$ s.t. $g^{\prime}(c) = 0$.
+        \begin{align*}
+            g^{\prime}(c) = f^{\prime}(c) - h^{\prime}(c) 
+            = f^{\prime}(c) - \frac{f(b) - f(a)}{b-a}
+        \end{align*}
+        Hence 
+        \[
+            f^{\prime}(c) = \frac{f(b) - f(a)}{b-a}
+        \]
+    \end{enumerate} 
+\end{proof}
+
+\begin{proposition}
+    Let $f: D \to \mathbb{R}$,
+    if
+    $f^{\prime}(c) > 0$, 
+    then $\exists N(c, \delta)$ s.t. 
+    \begin{itemize}
+        \item $f(x) < f(c), \forall x \in (c - \delta, c) \cap D$
+        \item $f(c) < f(x), \forall x \in (c, c + \delta) \cap D$
+    \end{itemize} 
+\end{proposition}
+
+
+\begin{theorem}[IVT for derivatives]
+    \label{thm:IVT-for-derivatives}
+    Let $f$ be differentiable on $[a,b]$ and 
+    $k$ is strictly between $f^{\prime}(a), f^{\prime}(b)$.
+    Then $\exists c \in (a, b)$ s.t. 
+    $f^{\prime}(c) = k$.
+\end{theorem}
+
+\begin{proof}
+    WLOG, assume $f^{\prime}(a) < k < f^{\prime}(b)$.
+    Let $g(x) \coloneq f(x) - kx$, 
+    then $g$ is differentiable on $[a,b]$
+    and $g^{\prime}(x) = f^{\prime}(x) - k$. 
+    WTS $\exists c \in (a, b)$ s.t. $g^{\prime}(c) = 0$.
+    \medskip 
+
+    \textit{By Fermat, it suffices to show that $g$ attains a local extrema somewhere}.
+    \medskip 
+
+    Since $g$ is continuous on $[a,b]$, which is compact, we know 
+    that the max and the min exist for the set $g([a, b])$,
+    i.e. $g$ attains global max and min on $[a,b]$.
+    \medskip
+
+    \textit{We just need to exclude the case this global extrema
+    is attained at the end points of $[a,b]$, in which case
+    we cannot apply Fermat.
+    }
+    \medskip
+
+    \textbf{Claim}: if $g$ attains minimum at $c \in [a,b]$
+    then $c$ is interior, i.e. $c \in (a, b)$.
+
+    \textbf{Proof}: since $f^{\prime}(a) < k < f^{\prime}(b)$,
+    one has 
+    \[
+        g^{\prime}(b) = f^{\prime}(b) - k > 0 
+        \implies
+        \lim_{x \to b^{-}} \frac{g(x) - g(b)}{x-b} = g^{\prime}(b) > 0
+    \]
+    By definition of limit, $\exists \delta > 0$ s.t. 
+    $\forall x \in (b - \delta, b)$
+    \[
+        \frac{g(x) - g(b)}{x-b} > 0
+    \]
+    Since $x - b < 0$, we have $g(x) - g(b) < 0$.
+    Hence $g$ doesn't attain the minimum at $b$,
+    i.e. $c \neq b$. Similarly, $c \neq a$.
+    \medskip
+
+    Hence $g$ attains local min at some $c \in \left( a,b \right) $ ,
+    by Fermat, $g^{\prime}(c) = 0$.
+\end{proof}
+
+\begin{corollary}
+    If $f$ is differentiable on $[a,b]$ then $f^{\prime}$ may 
+    only have discontinuities of the second type on $[a,b]$.
+\end{corollary}
+
+\begin{proof}
+    \remind{revisit this}
+    \medskip
+
+    Suppose $f^{\prime}$ has a discountinuity 
+    of the first type
+    at $c \in [a,b]$, say
+    $c \in (a, b)$. Then 
+    $\lim_{x \to c^{-}}f^{\prime}(x)$
+    $\lim_{x \to c^{+}}f^{\prime}(x)$ both exist, but not both are
+    equal to $f^{\prime}(c)$. 
+    WLOG, say $\lim_{x \to c^{-}}f^{\prime}(x) < f^{\prime}(c)$.
+    Then $\exists \epsilon, \delta$ s.t. 
+    $\forall x \in [c - \delta, c)$, $f^{\prime}(x) < f^{\prime}(c) - \ep$.
+    \medskip
+
+    Consider the interval $[c - \delta, c]$, and the number $k = f^{\prime}(c) - \frac{\ep}{2}$.
+    $f$ is differentiable on $[c-\delta, c]$,
+    and $k$ is strictly between $f^{\prime}(c -\delta)$ and $f^{\prime}(c)$.
+    By theorem 3, $\exists x \in (c - \delta, c)$ s.t. $f^{\prime}(x) = k$,
+    which is a contradiction.
+\end{proof}
+
+\begin{theorem}[Inverse Function Theorem]
+    \label{thm:inverse-function-theorem}
+    Let $f$ be differentiable on interval $I = (a,b)$ and $f^{\prime}(x) \neq 0$<
+    $\forall x \in I$. Then 
+    \begin{enumerate}
+        \item $f$ is injective, i.e. $f^{-1}$ can be defined as a function on $f(I)$
+        \item $f^{-1}$ is differentiable on $f(I)$
+        \item The following is true
+    \[
+        (f^{-1})^{\prime}(y) = 
+        \frac{1}{f^{\prime}(x)}
+        = \frac{1}{f^{\prime} \left( f^{-1}(y) \right) }, \forall y = f(x) \in f(I)
+    \]
+    \end{enumerate} 
+\end{theorem}
+
+\begin{example}
+    \remind{revisit these examples}
+    \medskip
+    \begin{enumerate}
+        \item $g(x) = (x + 1)^{ \frac{1}{3}}$, find $g^{\prime}(7)$
+        \item Prove $(\arctan x)^{\prime} = \frac{1}{1 + x^{2}}$
+        \item Prove $(\arcsin x)^{\prime} = \frac{1}{ \sqrt{1 - x^{2}}}$
+    \end{enumerate} 
+\end{example}
+
+\begin{proof}
+    Since $f^{\prime} \neq 0$ on $I$, we must have
+    either $f^{\prime} > 0$ or $f^{\prime} < 0$
+    on $I$
+    \begin{itemize}
+        \item Otherwise, if $f^{\prime}(a) > 0, f^{\prime}(b) < 0$,
+        then by IVT for derivatives, $\exists c \in (a, b)$ s.t. 
+        $f^{\prime}(c) = 0$
+    \end{itemize} 
+    WLOG, assume $f^{\prime} > 0$ on $I$, then $f$ strictly increasing.
+    Hence $x_1 \neq x_2 \implies f(x_1) \neq f(x_2) \implies f$  injective.
+    \medskip
+
+    Fix any $y_{0} \in f(I)$, WTS $f^{\prime}$ differentiable at $y$ and
+    \[
+        (f^{-1})^{\prime}(y_{0}) = 
+        \frac{1}{ f^{\prime} \left( f^{-1}(y_{0}) \right) }
+    \]
+    By injectivity, $\exists !x_0 \in I $ s.t. 
+    $f^{-1}(y_0) = x_0$.
+    In fact $ \forall y \in f(I), \exists ! x_0 \in I$
+    s.t. $f^{-1}(y) = x$.
+
+    \begin{align*}
+        \lim_{y \to y_{0}} \frac{f^{-1}(y) - f^{-1}(y_{0})}{y - y_{0}}
+        &=
+        \lim_{y \to y_{0}} \frac{x - x_{0}}{f(x) - f(x_{0})} \\
+        &=
+        \lim_{y \to y_{0}} \frac{1}{
+            \frac{f(x) - f(x_{0})}{x - x_{0}}
+        } 
+        \text{ since } 
+        y \neq y_{0} \implies x = f^{-1} (y) \neq f^{-1}(y_{0}) = x_{0}
+        \\
+        &=
+        \lim_{x \to x_{0}} \frac{1}{
+            \frac{f(x) - f(x_{0})}{x - x_{0}}
+        } \text{by justification below}
+        \\
+        &=
+        \frac{1}{
+            f^{\prime}(x_{0})
+        } \\
+        &=
+        \frac{1}{
+            f^{\prime}(f^{-1}(y_{0}))
+        } \\
+    \end{align*}
+
+    To justify 
+    \[
+        \lim_{y \to y_{0}} \frac{1}{
+            \frac{f(x) - f(x_{0})}{x - x_{0}}
+        } 
+        =
+        \lim_{x \to x_{0}} \frac{1}{
+            \frac{f(x) - f(x_{0})}{x - x_{0}}
+        }
+    \],
+    Let
+    \[
+        G(x) = \begin{cases}
+            \frac{1}{
+                \frac{
+                    f(x) - f(x_{0})
+                }{
+                    x - x_{0}
+                }
+            } \text{ if } x \neq x_0, \\
+            \frac{1}{f^{\prime}(x_{0})} \text{if } x = x_{0}
+        \end{cases}
+    \]
+    Since $f$ differentiable, we know that 
+    $G$ is continuous at $x_0$.
+    \remind{why??}
+
+    WTS 
+    \[
+        \lim_{y \to y_{0}} G \left( f^{-1}(y) \right) 
+        = 
+        G(x_0)
+        = \frac{1}{f^{\prime}(x_0)}
+    \]
+
+    \textbf{Claim}: $\lim_{y \to y_{0}} f^{-1}(y) = x_0$
+
+    \textbf{Proof}: 
+    Sufficient for this is the continuity of $f^{-1}$.
+    If $f^{-1}$ continuous, 
+
+    we can pass the limit through a
+    continuous function and say
+    
+    \[
+        \lim_{y \to y_0} G \left( f^{-1}(y) \right)  
+        = G \left( 
+            \lim_{y \to y_{0}} f^{-1}(y)
+         \right) 
+         = G(x_{0})
+    \]
+
+    Hence it suffices to show that $f^{-1}$
+    is continuous.
+    \medskip
+
+    We know $f$ continuous, and $I$ is in interval.
+    IVT implies $f(I)$ is also an interval. 
+    Furthermore, $f$ is strictly monotone.
+    By lemma below, $f^{-1}$ is continuous.
+    Hence we are done.
+\end{proof}
+
+\begin{lemma}
+    Let $f$ be a strictly monotone and continuous function 
+    on interval $I$, then
+    $f^{-1}$ is continuous on $f(I)$.
+    \medskip
+
+    In fact, $f$ strictly increasing (decreasing)
+    and continuous on interval $I$
+    implies $f^{-1}$
+    is also strictly
+    increasing (decreasing)
+    and continuous on $f^{-1}(I)$.
+\end{lemma}
+
+
+\begin{proof}
+    WLOG assume $f$ strictly increasing. 
+    Then $f^{-1}$ is well defined. 
+    \medskip
+
+    \textbf{Claim}: $f^{-1}$ strictly increasing.
+    \begin{itemize}
+        \item 
+    Fix any $y_1 < y_2$. WTS $f^{-1}(y_1) < f^{-1}(y_2)$.
+    Let 
+    $x_1 = f^{-1}(y_1)$,
+    $x_2 = f^{-1}(y_2)$.
+    Then obviously $x_1 < x_2$.
+    \end{itemize} 
+
+    Next, WTS $f^{-1}$ continuous on $I$.
+    Fix any $y_0 \in f(I)$. 
+    $\exists \ ! x_0 \in I$ s.t. 
+    $f(x_0) = y_0$.
+    Fix $\ep > 0$, we seek $\delta > 0$
+    s.t. 
+    \[
+        |y - y_{0}| < \delta \implies
+        \left| f(y) - x_0 \right| < \epsilon
+    \]
+
+    \medskip 
+    For now, 
+    assume $x_0$ interior,
+    $[x_0 - \ep, x_0 + \ep] \subset I$
+    \remind{is this different from assuming $x_0$ interior?}
+    Let $y_1 = f(x_0 - \ep), y_2 = f(x_0 + \ep)$.
+    Define 
+    \[
+        \delta = \min \{ 
+            |y_1 - y_0|,
+            |y_2 - y_0|,
+        \} > 0
+    \]
+    \textbf{Claim}: 
+    $|y - y_{0}| < \delta \implies $
+    $ \left| f(y) - f(y_{0}) \right| < \ep$.
+    \begin{itemize}
+        \item Fix any $y$ s.t. $|y - y_0| < \delta$.
+        Since $f$ increasing, we have
+        \[
+            y_1 
+            = f(x_0 - \ep) 
+            < f(x_0) 
+            = y_0 
+            < f(x_0 + \ep) 
+            = y_2
+        \]
+        Hence $y$ is in the interval 
+        $(y_1, y_2)$.
+        Since $f(I)$ is an interval, and
+        $y_1, y_2 \in I$,
+        then $(y_1, y_2) \subset f(I)$.
+        Hence $f^{-1}$ is well defined on 
+        $(y_1, y_2)$. 
+        How since $f^{-1}$ increasing,
+        $y_1 < y < y_2$ implies 
+        \[
+            x_0 - \ep 
+            = f^{-1}(y_1) 
+            < f^{(y)}
+            < f^{-1}(y_2)
+            = x_0 + \ep
+        \]
+    \end{itemize} 
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+

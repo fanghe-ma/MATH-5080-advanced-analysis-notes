@@ -1,0 +1,343 @@
+%==============================================================================
+% MATH 5080 — Introduction to Analysis I (Fall 2026)
+% Class:        6
+% Date:         Sept 10th
+%==============================================================================
+
+\begin{theorem}
+    [Nested Interval Property]
+    \label{thm:NIP}
+    Let $\{ I_n = [a_n, b_n]: n \in \mathbb{N} \} $ be a family of closed 
+    bounded intervals s.t. $I_{n + 1} \subset I_n$ and $I_n \neq \emptyset$,
+    $\forall n \in \mathbb{N}$. Then 
+    \[
+        \bigcap_{i = 1}^{\infty} I_n \neq \emptyset
+    \]
+\end{theorem}
+
+\begin{theorem}[Generalized NIP]
+    \label{thm:generalized-NIP}
+    If $\mathcal{F} = \{ K_{\alpha} \} $ is a collection of compact 
+    subsets of $X$ such that the intersection of every finite 
+    subcollection of $\mathcal{F}$ is nonempty, then 
+    \[
+        \bigcap_{\alpha} K_{\alpha} \neq \emptyset
+    \]
+\end{theorem}
+
+\begin{remark}[Theorem \ref{thm:generalized-NIP} $\implies$ theorem \ref{thm:NIP}]
+    \hfill
+    Let $\mathcal{F} = \{ I_n : n \in \mathbb{N} \}$ be as in Theorem \ref{thm:NIP},
+    with $X = \mathbb{R}$. We check the hypotheses of Theorem \ref{thm:generalized-NIP}.
+    \medskip
+
+    \textbf{Compactness.} Each $I_n = [a_n, b_n]$ is closed and bounded in $\mathbb{R}$,
+    hence compact by Heine-Borel.
+    \medskip
+
+    \textbf{Finite intersections are nonempty.} Take any finite subcollection
+    $I_{n_1}, \hdots, I_{n_k}$ and let $N = \max\{ n_1, \hdots, n_k \}$.
+    Since the intervals are nested, $I_m \subset I_n$ whenever $m \geq n$, so
+    $I_N \subset I_{n_j}$ for every $j$. Therefore
+    \[
+        I_{n_1} \cap \hdots \cap I_{n_k} = I_N \neq \emptyset
+    \]
+    by assumption.
+    \medskip
+
+    Hence Theorem \ref{thm:generalized-NIP} applies and gives
+    \[
+        \bigcap_{n = 1}^{\infty} I_n \neq \emptyset
+    \]
+\end{remark}
+
+\begin{proof}[Proof of \ref{thm:generalized-NIP}]
+    Suppose $\bigcap_{\alpha}K_{\alpha} = \emptyset$. 
+    Fix any $K_{\alpha_0} \in \mathcal{F}$. 
+    $K_{\alpha_0}$ is compact by assumption. 
+    Fix $x \in K_{\alpha_0}$. 
+    \begin{align*}
+        x \notin \bigcap_{\alpha}K_{\alpha} & 
+        \implies \exists \alpha_x \text{ s.t. } x \notin K_{\alpha_x} 
+        \iff x \in K_{\alpha_x}^c 
+    \end{align*}
+    Also 
+    $K_{\alpha_x}$ compact $\implies$
+    $K_{\alpha_x}$ closed $\implies$
+    $K_{\alpha_x}^c$ open. 
+    Hence $\{ K_{\alpha_x} \}_{x \in K_{\alpha_0}} $ is an open cover 
+    of $K_{\alpha_0}$. 
+    By compactness of $K_{\alpha_0}$, $\exists \alpha_1, \hdots \alpha_N$
+    s.t. 
+    \begin{align*}
+        & K_{\alpha_0} \subset K_{\alpha_1}^c \cup \hdots K_{\alpha_N}^c \\
+        \iff & K_{\alpha_0} \cap ( K_{\alpha_1}^c \cup \hdots K_{\alpha_N}^c)^c = \emptyset \\
+        \iff & K_{\alpha_0} \cap  K_{\alpha_1} \cap \hdots K_{\alpha_N} = \emptyset
+    \end{align*}
+    which contradicts the assumption that any finite subcollection has a 
+    nonempty intersection.
+\end{proof}
+
+\subsection{Connected sets}
+
+\begin{definition}[Disconectedness / connectedness]
+    A set $S \subset X$ is \textbf{disconnected} if 
+    $\exists A, B$ s.t. 
+    \begin{itemize}
+        \item $A, B$ open 
+        \item $S \subset A \cup B$
+        \item $A \cap S \neq \emptyset$
+        \item $B \cap S \neq \emptyset$
+        \item $A \cap B = \emptyset$
+    \end{itemize} 
+\end{definition}
+
+\begin{example}
+    \hfill 
+    \begin{enumerate}
+        \item $(1, 2) \cup (2, 3)$ disconnected, 
+        take $A = (0, 2), B = (2, \infty)$
+        \item $\mathbb{Q}$ disconnected, 
+        take $A = (-\infty, \sqrt{2}), B = (\sqrt{2}, \infty)$
+        \item For a discrete metric space, 
+        connected sets are $\emptyset$ or singleton, 
+        any other set is disconnected.
+        \item Any singleton set is connected.
+    \end{enumerate}
+\end{example}
+
+\begin{definition}
+    A set $S \subset \mathbb{R}$ is an \textbf{interval} if 
+    $\forall a, b \in \mathbb{R}, a < b$
+    \[
+        a \in S, b \in S \implies [a, b] \subset S
+    \]
+\end{definition}
+
+\begin{theorem}[Connected sets in $\mathbb{R}$]
+    \label{theorem:connected-sets-in-R}
+    $S \subset \mathbb{R}$ is connected 
+    if and only if one of the following holds
+    \begin{enumerate}
+        \item $S = \emptyset$ 
+        \item $S$ singleton
+        \item $S$ is an interval.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    \begin{enumerate}
+        \item $\implies$: 
+            Assume $S \subset \mathbb{R}$ connected and contains 
+            at least 2 points. 
+            WLOG, $a < b, a \in S, b \in S$. 
+            WLOG, assume $\inf S, \sup S \notin S $. 
+            WTS $S = (\inf S, \sup S)$.
+            \begin{itemize}
+                \item $S \subset (\inf S, \sup S)$ is for free. 
+                \item Suffices to show $(\inf S, \sup S) \subset S$
+                \medskip 
+
+                Suppose $\exists x \in (\inf S, \sup S) \cap S^c$, 
+                then let $A \coloneq (\infty, x), B = (x, \infty)$. 
+                Then
+                \begin{itemize}
+                    \item $S \subset A \cup B$
+                    \item $A \cap B = \emptyset$
+                    \item $A, B$ open 
+                    \item $A \cap S \neq \emptyset$ because by definition of 
+                    infimum, $\exists y \in S$ s.t. 
+                    $\inf S < y < x$
+                    \item $B \cap S \neq \emptyset$ because $\exists y \in S$
+                    s.t. $\sup S > y > x$.
+                \end{itemize} 
+            \end{itemize} 
+            \item $\impliedby$ 
+            \label{proof:connected-sets-in-R}
+    \end{enumerate}
+\end{proof}
+
+\begin{definition}[Separatedness]
+    Two sets $A,B \subset X$ are \textbf{separated} if 
+    \[
+        \bar{A}  \cap B = \emptyset, A \cap \bar{B}  = \emptyset
+    \]
+\end{definition}
+
+\begin{remark}
+    $A, B$ separated may not necessarily have $\bar{A} \cap \bar{B}  = \emptyset$,
+    e.g. 
+    \[
+        A = (0, 1), B = (1, 2)
+    \]
+\end{remark}
+\begin{remark}
+    \begin{itemize}
+        \item Separate $\implies$ Disjoint 
+        \item Separate $\not \impliedby$ Disjoint, e.g. 
+        \[
+        A = (0, 1], B = (1, 2)
+        \]
+    \end{itemize} 
+\end{remark}
+
+\begin{definition}[Relatively open / closed sets]
+    Let $S \subset X$, a set $E \subset S$ is 
+    \textbf{relatively open} in $S$ if there is an open set $U \subset X$
+    s.t. $E = S \cap U$. 
+    \medskip 
+
+    $E$ is \textbf{relatively closed} in $S$ 
+    if there is a closed set $U \subset X$
+    s.t. $E = S \cap U$.
+\end{definition}
+
+\begin{theorem}
+    Let $S \subset X$, TFAE 
+    \begin{enumerate}
+        \item $S$ is disconnected 
+        \item $\exists$ nonempty sets $A, B \subset S$ s.t. $A, B$ relatively 
+        open in $S$, $A \cap B = \emptyset, S = A \cup B$.
+        \item $\exists $ nonempty sets $A, B \subset S$ s.t. $A, B$ separated, and 
+        $S = A \cup B$
+    \end{enumerate} 
+\end{theorem}
+
+
+\newpage
+
+\section{Numerical Sequences}
+
+\begin{definition}[Sequence]
+    A \textbf{sequence} $\{ a_n: n \in \mathbb{N} \}$
+    $= \{ a_1, a_2, \hdots a_n, \hdots \} $ is a function 
+    $f: \mathbb{N} \to \mathbb{R}$.
+\end{definition}
+
+\subsection{Convergent sequences}
+
+\begin{definition}[Convergence]
+    A sequence $\{ a_n \} $ \textbf{converges}
+    to $L \in \mathbb{R}$ if $\forall \varepsilon > 0$, 
+    $\exists N > 0$ s.t. $\forall n > \mathbb{N}$
+    \[
+        |a_n - L | < \varepsilon
+    \]
+    Then we say that $L$ is the \textbf{limit} of $\{ a_n \} $, and denote 
+    \[
+        \lim_{n \to \infty} a_n = L
+    \]
+    If $\{ a_n \} $ doesn't converge to any real number, we say $ \{ a_n \} $ \textbf{diverges}.
+\end{definition}
+
+\begin{example}
+    $\{ (-1)^n \} $ diverges.
+\end{example}
+
+\begin{proof}
+    Suppose $\lim_{n \to \infty}a_n = L$. 
+    Let $\varepsilon = \frac{1}{100}$. 
+    Then either $1$ or $-1$ is not in $N(L, \varepsilon)$.
+\end{proof}
+
+\begin{theorem}[Uniqueness of limit]
+    If a sequence converges then the limit is unique.
+\end{theorem}
+
+\begin{proof}
+    ATC otherwise, then $\{ a_n \} $ converges to two different limits,
+    $L_1 \neq L-2$. 
+    Let $\ep = \frac{1}{3} \left| L_1 - L_2 \right|  > 0$> 
+    By definition of limit, 
+    \begin{itemize}
+        \item $\exists N_1 > 0$ s.t. $\forall n > N_1, |a_n - L_1| < \ep$
+        \item $\exists N_2 > 0$ s.t. $\forall n > N_2, |a_n - L_2| < \ep$
+    \end{itemize} 
+    Then let $n > \max \{ N_1, N_2 \} $, then $|a_n - L_1| < \ep, |a_n - L_2| < \ep$, 
+    and 
+    \begin{align*}
+        |L_1 - L_2| &= |L_1 - a_n + a_n - L_2 |  \\
+        & \leq  |L_1 - a_n| + |a_n - L_2| \\
+        & < 2 \ep \\
+        &= \frac{2}{3} |L_1 - L_2| 
+    \end{align*}
+\end{proof}
+
+\begin{theorem}[Convergence implies bounded]
+    If a sequence converges then it is bounded.
+\end{theorem}
+
+\begin{proof}
+    \textit{
+        The idea is that if a sequence converges to $L$, 
+        past a certain point, everything is close to $L$.
+        We only have to deal with finitely many terms 
+        before the sequence gets close to $L$,
+        in which case we can take a max.
+    }
+
+
+    Assume $\lim_{n \to \infty}a_n = L$, and let $\varepsilon = 1$. 
+    Then $\exists N \in \mathbb{N}$ s.t. $|a_n - L| < 1, \forall n > N$. 
+    Hence, $\forall n \geq N$
+    \begin{align*}
+        |a_n| &= |a_n - L + L |  \\
+        & \leq |a_n - L| + |L| \\
+        & < 1 + |L|
+    \end{align*}
+    \medskip
+
+    Let $M \coloneq \max \{ |a_1|, |a_2|, \hdots |a_N|, |L| + 1 \} $. 
+    Then $ |a_n| \leq M, \forall n > N$.
+\end{proof}
+
+\begin{proposition}[Limits and accumulation points]
+    \hfill
+    \begin{enumerate}
+        \item If $\lim_{n \to \infty} a_n = L$ and if $\{ a_n \} $
+        attains infinitely many values, then $L$ is an accumulation point of $ \{ a_n \} $.
+        \item If $L \in S^{\prime}$ then $S$ contains a sequence 
+        $\{ a_n \} $ that converges to $L$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    \begin{enumerate}
+        \item \textit{$a_n \to L \implies N(L, \ep)$ contains all but finitely many terms.}
+        Fix $\varepsilon > 0$. WTS $\exists x \in \{ a_n \} \cap N^*(L, \varepsilon)$
+        Since $\lim_{n \to \infty} a_n = L, \exists N > 0$ 
+        s.t. $a_n \in N(L, \varepsilon), \forall n > N$.
+        \medskip 
+
+        ATC otherwise, then $a_n = L, \forall n > N$. Then
+        $\{ a_n \} $ contains only $a_1, a_2, \hdots, a_N, L$, 
+        which contradicts the assumption that $\{ a_n \} $
+        has infinitely many values.
+        \item Let $\varepsilon_1 = 1$. Since $L$ is an accumulation point,
+        \begin{align*}
+            L \in S^{\prime} & = \implies \exists a_1 \in S \cap N^*(L, \varepsilon_1)
+        \end{align*}
+        Repeat this, setting $\varepsilon_n = \frac{1}{n}$, and picking
+        $a_n \in S \cap N^*(L, \varepsilon_n)$.
+        \medskip 
+
+        We claim that $\lim a_n = L$. Fix any $\varepsilon > 0$,
+        by AP, $\exists N \in \mathbb{N}$ s.t. $ \frac{1}{N} < \varepsilon$, 
+        then $\forall n > N$, 
+        \[
+            |a_n - L| < \frac{1}{n} < \frac{1}{N} < \varepsilon
+        \]
+    \end{enumerate}
+\end{proof}
+
+\begin{remark}
+    If $ \{ a_n \} $ has infinitely many values, $a_n \to L$, then $L$ is \textbf{unique} the accumulation point. 
+\end{remark}
+
+
+
+
+
+
+
+
+

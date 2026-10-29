@@ -1,0 +1,524 @@
+%==============================================================================
+% MATH 5080
+% Class:        14
+% Date:         Oct 15th
+%==============================================================================
+
+\newpage
+
+\section{Infinite Series}
+
+\subsection{Basic properties of series}
+
+\begin{definition}[Infinite Series]
+    Given a sequence $\{ a_n \} \subset \mathbb{R}$.
+    An infinite series is defined as
+    \[
+        \sum\limits_{k = 1}^{\infty}  a_k
+    \]
+\end{definition}
+
+\begin{definition}[Partial sum]
+    Given a sequence $\{ a_n \} \subset \mathbb{R}$.
+    For all $n \geq 1$,
+    the \textbf{$n$-th partial sum} is defined as 
+    \[
+        S_n \coloneq \sum\limits_{k=1}^{n} a_k
+    \]
+    The set $\{ S_n \}_{n \in \mathbb{N}} $ is called
+    the \textbf{partial sums} of the series $\sum\limits_{n=1}^{\infty} a_n $.
+\end{definition}
+
+
+\begin{definition}[Convergence of a series]
+    Given a sequence $\{ a_n \} \subset \mathbb{R}$,
+    and partial sums $\{ S_n \}_n$,
+    \begin{itemize}
+        \item we say the series $\sum\limits_{k=1}^{\infty} a_k$ converges 
+        to $S \in \mathbb{R}$
+        if $ \{ S_n \} $ converges to $S \in \mathbb{R}$, this is denoted
+        \[
+            \sum\limits_{n = 1}^{\infty}  a_n = S
+        \]
+        \item we say the series diverges if $\{ S_n \} $ diverges.
+    \end{itemize} 
+\end{definition}
+
+\begin{example}[Geometric Series]
+    Fix $a \in \mathbb{R}$, its geometric series is 
+    \[
+    \sum\limits_{n = 1}^{\infty} a^{n-1} = 1 + a + a^{2} + \hdots
+    \]
+    This converges to $ \frac{1}{1-a}$ if $|a| < 1$, 
+    and diverges otherwise.
+    \medskip
+
+    \textbf{Proof}: Recall
+    \[
+        \sum\limits_{k=1}^{n} a^{k-1} 
+        = 1 + a + a^{2} + \hdots a^{n}
+        = \frac{1-a^{n}}{1-a}
+    \]
+    Consider 3 cases
+    \begin{itemize}
+        \item $|a| < 1$: WTS $\lim_{n \to \infty}a^{n} = 0$
+        Fix $\ep > 0$, take $N = \frac{\ln \ep}{\ln \left| a \right| }$.
+        Then $\forall n > N$
+        \begin{align*}
+            n > \frac{\ln \ep}{\ln \left| a \right| } \\
+            \implies &n \ln \left| a \right|  < \ln \ep
+            \implies & \left| a \right|^{n} < \ep
+            \implies & |a^{n} | < \ep
+        \end{align*}
+        and we are done.
+        Hence 
+        \[
+            \sum\limits_{k = 1}^{\infty}  a^{k-1}
+            = 
+            \lim_{n \to \infty} \frac{1 - a^{n}}{1-a} 
+            = \frac{1}{1-a}
+        \]
+        \item $|a| = 1$: $S_n = n$, diverges.
+        \item $|a| > 1$: $\lim_{n \to \infty}a^{n}$ diverges.
+    \end{itemize} 
+\end{example}
+
+\begin{theorem}[Series converges iff sequence of partial sums is Cauchy]
+    $\sum\limits_{n = 1}^{\infty} a_n$ converges if and only if
+    $\forall \ep >0, \exists N > 0$ s.t. 
+    $m \geq n > N \implies \left| \sum\limits_{k = n}^{m} a_k \right| < \ep$.
+\end{theorem}
+
+\begin{proof}
+    By definition and Cauchy Convergence Criterion,
+    \begin{align*}
+        & \sum\limits_{n = 1}^{\infty} a_n \text{ converges}  \\
+        \iff &  \{ S_n \}  \text{ converges} \\
+        \iff & \{ S_n \}  \text{ Cauchy} \\
+        \iff & \forall \ep > 0, \exists N > 0 s.t. 
+        \forall m > n > N, |S_n - S_m | = 
+        \left| \sum\limits_{k = n + 1}^{m} a_k \right| 
+        < \ep \\
+        \iff & \forall \ep > 0, \exists N > 0 s.t. 
+        \forall m \geq n > N_1, 
+        \left| \sum\limits_{k = n}^{m} a_k \right| 
+        < \ep \\
+    \end{align*}
+    The last equivalence (more specifically, its forward direction,
+    requires a relabling, \remind{revisit this}
+    ).
+\end{proof}
+
+\begin{corollary}[Convergence of series implies convergence of sequence to 0]
+    If $\sum\limits_{n = 1}^{m} a_n$ converges
+    then $\lim_{n \to \infty}a_n = 0$.
+\end{corollary}
+
+\begin{proof}
+    By theorem, $\forall \ep > 0, \exists N > 0$ s.t. 
+    $\forall m \geq n > N$
+    \[
+        \left| \sum\limits_{k=n}^{m} a_k  \right|  < \ep
+    \]
+    Take $m = n$, then $ \left| a_n  \right| < \ep$. 
+    Hence $\lim_{n \to \infty}a_n = 0$.
+\end{proof}
+
+\begin{remark}
+    \begin{itemize}
+        \item The converse is not true. Convergence of a sequence
+        to 0 does not imply convergence of series. For example, 
+        harmonic series.
+        \item The corollary is useful for showing a series diverges,
+        by using its contrapositive.
+    \end{itemize} 
+\end{remark}
+
+\begin{definition}[Absolute and conditional convergence]
+    \hfill
+    \begin{enumerate}
+        \item We say $\sum\limits_{n = 1}^{\infty} a_n$ \textbf{converges
+        absolutely} if $ \sum\limits_{n = 1}^{\infty} |a_n| $ converges.
+        \item If $\sum\limits_{n=1}^{\infty} a_n$ converges 
+        but $ \sum\limits_{n = 1}^{\infty} |a_n|$ diverges, then we say 
+        $\sum\limits_{n = 1}^{\infty} a_n$ \textbf{converges conditionally}.
+    \end{enumerate} 
+\end{definition}
+
+\begin{corollary}[Absolute convergence implies convergence]
+    If $\sum\limits_{n = 1}^{\infty} a_n$ converges absolutely, 
+    then $\sum\limits_{n = 1}^{\infty} a_n$ converges.
+\end{corollary}
+
+\begin{proof}
+    Suffices to verify that the sequence of partial sums 
+    is Cauchy. 
+    \medskip
+
+    Fix $\ep > 0$, since $\sum\limits_{}^{} |a_n|$ converges,
+    $\exists N > 0$ s.t.
+    \begin{align*}
+        m \geq n > N 
+        \implies &
+        \left| \sum\limits_{k=n}^{m}|a_k|  \right|  < \ep \\
+        \implies & \sum\limits_{k = n}^{m} |a_k| < \ep 
+    \end{align*}
+    By triangle inequality,
+    \[
+    \left| \sum\limits_{k = n}^{m} a_k \right|  
+    \leq 
+    \sum\limits_{k = n}^{m}  \left| a_k \right| 
+    < \ep
+    \]
+\end{proof}
+
+\begin{proposition}
+    Let $\sum\limits_{n= 1}^{\infty} a_n$ and 
+    $\sum\limits_{n=1}^{\infty} b_n$ converge,
+    and $\alpha, \beta \in \mathbb{R}$,
+    then 
+    \[
+        \sum\limits_{n= 1}^{\infty} \left( \alpha a_n + \beta b_n \right) 
+        = \alpha \sum\limits_{n=1}^{\infty} a_n + \beta \sum\limits_{n =1}^{\infty} b_n
+    \]
+\end{proposition}
+
+\begin{proof}
+    Let $A_n = \sum\limits_{k= 1}^{n} a_k$,
+    $B_n = \sum\limits_{k= 1}^{n} b_k$.
+    By assumption
+\end{proof}
+
+\begin{remark}
+    It is not generally true that 
+    \[
+        \sum\limits_{n = 1}^{\infty} (a_n b_n) 
+        = 
+        \left( \sum\limits_{n = 1}^{\infty} a_n \right) 
+        \left( \sum\limits_{n = 1}^{\infty} b_n \right) 
+    \]
+\end{remark}
+
+\subsection{Nonnegative series}
+
+\begin{definition}[Nonnegative series]
+    If $a_n \geq 0, \forall n \in \mathbb{N}$,
+    then $\sum\limits_{n= 1}^{\infty} a_n$ is called a 
+    \textbf{nonnegative series}.
+\end{definition}
+
+\begin{theorem}[Nonnegative series, theorem 1]
+    \label{thm:nonnegative-series-1}
+    Let $\sum\limits_{}^{} a_n$ be a nonnegative series, then 
+    \begin{enumerate}
+        \item $\sum\limits_{}^{} a_n $ converges $\iff$ 
+        its partial sums $\{ S_n \} $ are bounded
+        \item If $\sum\limits_{}^{} a_n$ diverges, then 
+        \[
+            \sum\limits_{n=1}^{\infty} a_n = \lim_{n \to \infty} S_n = \infty
+        \]
+    \end{enumerate} 
+\end{theorem}
+
+\begin{proof}
+    $\{ S_n \} $ is a nonnegative increasing sequence. 
+    \begin{enumerate}
+        \item By MCT, since $ \{ S_n \} $ monotone,
+        it converges if and only if it is bounded.
+        \item $\sum\limits_{}^{} a_n$ diverges, then
+        by (1), $\{ S_n \} $ unbounded from above.
+        Hence $\forall M > 0, \exists N$ s.t. 
+        $S_N > M$, 
+        and $\forall n > N, S_n \geq S_N > M$.
+        Hence 
+        $\lim_{n \to \infty}S_n = \infty$.
+    \end{enumerate} 
+\end{proof}
+
+\begin{theorem}[Nonnegative Series, Theorem 2]
+    \label{thm:nonnegative-series-2}
+    Given a series $\sum\limits_{}^{} a_n$ and let $\sum\limits_{}^{} b_k$
+    be a series obtained from a regrouping of $\sum\limits_{}^{} a_n$ 
+    (obtained by adding paranthesis), 
+    then
+    \begin{enumerate}
+        \item $\sum\limits_{}^{} a_n$ converges $\implies$
+        $\sum\limits_{}^{} b_k$ converges and 
+        $\sum\limits_{}^{} a_n = \sum\limits_{}^{} b_k$
+        \item If $\sum\limits_{}^{} a_n$ is nonnegative series, 
+        then $\sum\limits_{}^{} a_n = A \iff \sum\limits_{}^{} b_k = A$.
+    \end{enumerate} 
+\end{theorem}
+
+\begin{remark}
+    When $a_n$ nonnegative, 
+    convergence of series and convergence of 
+    any regrouping is equivalent.
+    \medskip
+
+    For general $a_n$, we only have the forward direction.
+    The converse (convergence of regrouping implying
+    convergence of original series)
+    is NOT true.
+\end{remark}
+
+
+\begin{proof}
+    Let $S_n$ and $t_n$
+    denote the $n$-th partial sum of $\sum\limits_{}^{} a_n$
+    and $\sum\limits_{}^{} b_k$ respectively. Then
+    $\{ t_n \} $ is a subsequence of $\{ S_n \} $.
+    \medskip
+
+    For the forward direction, which holds 
+    for any convergent $\sum\limits_{}^{} a_n$
+    \begin{align*}
+        \sum\limits_{}^{} a_n \text{ converges} 
+        &\implies \{ S_n \}  \text{ converges} \\
+        & \implies \{ t_n \}  \text{ converges } \\
+        & \implies \sum\limits_{}^{} b_k \text{ converges}
+    \end{align*}
+    
+    For the reverse direction, $\sum\limits_{}^{} a_n$ nonnegative,
+    $\sum\limits_{}^{} b_k$ converges.
+    Since $S_n$ is increasing and has a convergent subsequence
+    $t_n$, therefore $S_n$ must converge to the same limit.
+    \begin{itemize}
+        \item $t_n$ converges implies $t_n$ bounded.
+        \item $S_n$ monotone, and has a bounded subsequence $t_n$,
+        hence $S_n$ is bounded.
+        \item By MCT, $S_n$ converges.
+    \end{itemize} 
+\end{proof}
+
+\begin{corollary}
+    Let $\{ S_n \} $ be the sequence of 
+    partial sums of nonnegative series $\sum\limits_{}^{} a_n $.
+    If $\{ S_n \} $ has a bounded subsequence (or equivalently convergent)
+    then $\sum\limits_{}^{} a_n $ converges.
+\end{corollary}
+
+\subsection{Convergence Rules for Nonnegative series}
+
+\begin{theorem}[Comparison test]
+    \label{thm:nonnegative-series-3}
+    Let $\sum\limits_{}^{} a_n, \sum\limits_{}^{} b_n$ be 
+    two nonnegative series. If $\exists N > 0$ s.t. 
+    $\forall n > N, a_n \leq b_n$, then
+    \begin{enumerate}
+        \item $\sum\limits_{}^{} b_n$ converges $\implies$ $\sum\limits_{}^{} a_n$ converges.
+        \item $\sum\limits_{}^{} a_n$ diverges $\implies$ $\sum\limits_{}^{} b_n$ diverges.
+    \end{enumerate} 
+\end{theorem}
+
+\begin{proof}
+    WLOG, assume $a_n \leq b_n, \forall n \in \mathbb{N}$. \remind{
+        Check why we can do this.
+    }
+    
+    \textbf{Proof of (1)}:
+    Let $S_n^{a}, S_n^{b}$ denote the $n$-th partial sums of 
+    $\sum\limits_{}^{} a_n, \sum\limits_{}^{} b_n$.
+    \begin{align*}
+        & \sum\limits_{}^{} b_n \text{ converges} \\
+        \implies & S_n^{b} \text{ bounded} \\
+        \implies & \exists M > 0 \text{ s.t. } |S_n^{b} | \leq M, \forall n \in \mathbb{N} \\
+        \implies & |S_n^{a} |\leq \left| S_n^{b} \right|  \leq M, \forall n \in \mathbb{N} \\
+        \implies & S_n^{a} \text{ bounded} \\
+        \implies & \sum\limits_{}^{} a_n \text{ converges}
+    \end{align*}
+    \textbf{Proof of (2)}:
+    \begin{align*}
+        & \sum\limits_{}^{} a_n \text{ diverges} \\
+        \implies & S_n^{a} \text{ unbounded} \\
+        \implies & S_n^{b} \text{ unbounded} \\
+        \implies & \sum\limits_{}^{} b_n \text{ diverges}
+    \end{align*}
+\end{proof}
+
+\begin{example}[$p$-series]
+    $\sum\limits_{n=1}^{\infty}  \frac{1}{n^{p}}$
+    converges if $p > 1$, diverges if $ p \leq 1$. 
+    \medskip 
+
+    \textbf{Proof}: 
+    \medskip
+
+    \textbf{Step 1}: $p > 1$,
+    suffices to show a regrouping converges.
+    Consider 
+    \[
+        S_{2^{k} - 1} = \frac{1}{1} + \frac{1}{2^{p}}
+        + \frac{1}{3^{p}} 
+        + \frac{1}{(2^{k} - 1)p}
+    \]
+    Let $b_k = S_{2^{k} - 1} - S_{2^{k-1}-1}, \forall k \geq 2$, and $b_1 = a_1$.
+    i.e. 
+    \begin{align*}
+        b_1 &= a_1 \\
+        b_2 &= S_3 - S_1 = a_2 + a_3 \\
+        b_3 &= S_7 - S_3 = a_4 + a_5 + a_6 + a_7
+    \end{align*}
+    WTS $\sum\limits_{}^{} b_k $ converges.
+    We use comparison test with geometric series.
+    \begin{align*}
+        b_k &= S_{2^k- 1} - S_{2^{k-1} - 1} \\
+        &= \sum\limits_{n = 2^{k-1}}^{2^k}  \frac{1}{n^{p}} \\
+        & \leq \frac{1}{(2^{k-1})^p} (2^{k} - 2^{k-1} ) \\
+        & =\frac{2^{k-1}}{(2^{k-1})^p} \\
+        &= (2^{k-1})^{1-p}  \\
+        &= \left( \frac{1}{2^{p-1}} \right)^{k-1}
+    \end{align*}
+
+    From geometric series, we know that 
+    \[
+        \sum\limits_{k=1}^{\infty}  \left( 
+            \frac{1}{2^{P - 1}}
+        \right)^{k-1}
+    \]
+    converges, hence $\sum\limits_{}^{} b_k$ converges.
+    \medskip
+
+    \textbf{Step 2}: $p \leq 1$: since $ \frac{1}{n^{p}} \geq \frac{1}{n}$,
+    by comparison test, $ \sum \frac{1}{n^{p}}$ diverges.
+\end{example}
+
+\begin{theorem}[Ratio test]
+    \label{thm:nonnegative-series-4}
+    Let $\sum\limits_{}^{} a_n$ be a nonnegative series, $a_n \neq 0$. Then 
+    \begin{enumerate}
+        \item If $\limsup_{n \to \infty} \frac{ a_{n + 1}}{a_n} < 1$, then 
+        $\sum\limits_{}^{} a_n$ converges.
+        \item If $\liminf_{n \to \infty} \frac{a_{n + 1}}{a_n} > 1$, then 
+        $\sum\limits_{}^{} a_n$ diverges.
+    \end{enumerate} 
+\end{theorem}
+
+\begin{remark}
+    If the limsup or liminf is 1, then it is inconclusive.
+\end{remark}
+
+\begin{example}
+    $\sum\limits_{n=1}^{\infty} \frac{n}{2^{n}}$ converges,
+    by ratio test.
+    \begin{align*}
+        \frac{a_{n + 1}}{a_n} = \frac{n+1}{2^{n +1}} \frac{2^{n}}{n}
+        = \frac{1}{2} \frac{n+ 1}{n} 
+        \to \frac{1}{2}
+    \end{align*}
+\end{example}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Let 
+        $r \in (\limsup_{n \to \infty} \frac{ a_{n + 1}}{a_n}, 1)$,
+        then $\exists N > 0$ s.t. $\forall n > N$, 
+        $ \frac{a_{n + 1}}{a_n} < r$.
+        Hence 
+        \begin{align*}
+            a_{n + 1}
+            &= 
+            \frac{a_{n + 1}}{a_n}
+            \frac{a_{n}}{a_{n-1}}
+            \frac{a_{n -1 }}{a_{n-2}} 
+            \hdots
+            \frac{a_{N +2 }}{a_{N+1}} 
+            a_{N + 1} \\
+            & \leq r^{n - N} a_{N + 1} \\
+            & = r^n \frac{a_{N + 1}}{r^N} \\
+            &= cr^n \text{ for some constant } c
+        \end{align*}
+        Since $r < 1 \implies \sum\limits_{}^{} cr^n$
+        converges, by comparison test, 
+        $\sum\limits_{}^{} a_n$ converges
+        \remind{revisit this}
+        \item \remind{fill in mirrored proof}
+    \end{enumerate} 
+\end{proof}
+
+
+\begin{theorem}[Root test]
+    \label{thm:nonnegative-series-5}
+    Let $\sum\limits_{}^{} a_n$ be a nonnegative series, then 
+    \begin{enumerate}
+        \item If $\limsup_{n \to \infty} (a_n)^{ \frac{1}{n}} < 1$ then
+        $\sum\limits_{}^{} a_n$ converges.
+        \item If $\limsup_{n \to \infty} (a_n)^{ \frac{1}{n}} > 1$ then
+        $\sum\limits_{}^{} a_n$ diverges.
+    \end{enumerate} 
+\end{theorem}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Let $r \in \left( \limsup_{n \to \infty} a_n^{ \frac{1}{n}}, 1\right) $
+        then $\exists N$ s.t $\forall n > N$,
+        $a_n^{1/n} < r \implies a_n < r^{n}$. 
+        Since $r < 1$, $\sum\limits_{}^{} r^n$ converges.
+        Hence by comparison test, $\sum\limits_{}^{} a_n$ converges
+        \remind{revisit this}
+        \item \remind{fill in mirrored proof}
+    \end{enumerate} 
+\end{proof}
+
+\begin{example}[Example where ratio test fails but root test works]
+    Consider the series
+    \[
+        \frac{1}{2} + \frac{1}{3} + \frac{1}{2^{2}} + \frac{1}{3^{2}}
+        + \frac{1}{2^{3}} + \frac{1}{3^{3}} + \hdots
+    \]
+    that is, $a_{2k-1} = \frac{1}{2^{k}}$ and $a_{2k} = \frac{1}{3^{k}}$
+    for $k \geq 1$.
+    \medskip
+
+    \textbf{Ratio test}: the ratios alternate between two behaviours.
+    \begin{align*}
+        \frac{a_{2k}}{a_{2k-1}} &= \frac{1/3^{k}}{1/2^{k}}
+        = \left( \frac{2}{3} \right)^{k} \to 0 \\
+        \frac{a_{2k+1}}{a_{2k}} &= \frac{1/2^{k+1}}{1/3^{k}}
+        = \frac{1}{2} \left( \frac{3}{2} \right)^{k} \to \infty
+    \end{align*}
+    Hence
+    $\liminf_{n \to \infty} \frac{a_{n+1}}{a_n} = 0$ and
+    $\limsup_{n \to \infty} \frac{a_{n+1}}{a_n} = \infty$.
+    Neither $\limsup < 1$ nor $\liminf > 1$ holds,
+    so the ratio test does not apply.
+    \medskip
+
+    \textbf{Root test}: $\limsup$ is the largest subsequential limit, 
+    so we compute the limit of $\sqrt[n]{a_n}$ along the odd and the even
+    terms separately.
+    \begin{itemize}
+        \item $n = 2k-1$ (odd), $a_n = \frac{1}{2^{k}}$:
+        \[
+            \sqrt[n]{a_n} = \left( \frac{1}{2^{k}} \right)^{\frac{1}{2k-1}}
+            = 2^{-\frac{k}{2k-1}}
+            = 2^{-\frac{1}{2 - 1/k}}
+            \xrightarrow{k \to \infty} 2^{-1/2} = \frac{1}{\sqrt{2}}
+        \]
+        \item $n = 2k$ (even), $a_n = \frac{1}{3^{k}}$:
+        \[
+            \sqrt[n]{a_n} = \left( \frac{1}{3^{k}} \right)^{\frac{1}{2k}}
+            = 3^{-1/2} = \frac{1}{\sqrt{3}}
+        \]
+    \end{itemize}
+    These are the only subsequential limits, so
+    \[
+        \limsup_{n \to \infty} \sqrt[n]{a_n}
+        = \max \left\{ \frac{1}{\sqrt{2}}, \frac{1}{\sqrt{3}} \right\}
+        = \frac{1}{\sqrt{2}} < 1
+    \]
+    By the root test, the series converges.
+\end{example}
+
+
+\subsection{Discussion of $e$}
+
+\begin{definition}[$e$]
+    $e$ is defined as the sum of the infinite series
+    \[
+        e \coloneq \sum\limits_{n = 0}^{\infty} \frac{1}{n!}
+        = 1 + \frac{1}{1!} + \frac{1}{2!} + \hdots
+    \]
+\end{definition}
+
+\remind{Add in discussion of $e$}.

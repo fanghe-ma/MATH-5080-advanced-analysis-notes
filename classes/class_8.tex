@@ -1,0 +1,415 @@
+%==============================================================================
+% MATH 5080
+% Class:        8
+% Date:         Sept 17th
+%==============================================================================
+\begin{proof}[Proof of 
+    \ref{theorem:bdd-implies-cvgt-subseq} 
+    $\implies$
+    \ref{theroem:bdd-dvgt-implies-multiple-cvgt-subseq}]
+    \hfill
+
+    Fix a bounded and divergent sequence $\{ a_n \}_n $
+    \ref{theorem:bdd-implies-cvgt-subseq},
+    $\exists \{ a_{N_k} \}_k $ and $L_1 \in \mathbb{R}$  s.t. 
+    $a_{N_K} \to L$.
+    By definition of divergence, we know that $ \{ a_n \} $ 
+    does not converge, i.e. fix $\ep > 0$,
+    \begin{align*}
+        & \forall N > 0, \exists n > N \text{ s.t. } 
+        |a_n - L_1| > \ep \\
+        \implies & \exists \{ a_{n_l} \}_l \text{ s.t. }
+        |a_{n_l} - L_1| > \ep, \forall l \in \mathbb{N}
+    \end{align*}
+    Since $\{ a_{n_l} \}_l $ bounded, it has a convergent subsequence by 
+    \ref{theorem:bdd-implies-cvgt-subseq}. WLOG, assume $\{ a_{n_l} \} $
+    converges to $L_2$. 
+    \medskip
+
+    Since $|a_{n_l} - L_2| > \ep, \forall l \in \mathbb{N}$, 
+    $|L_2 - L_1| \geq \ep > 0$.
+\end{proof}
+
+\begin{proof}[Proof of \ref{theorem:bdd-implies-cvgt-subseq}]
+    \hfill
+
+    Consider 2 cases 
+    \begin{itemize}
+        \item Case 1: $\{ a_n \} $ finite
+        Then at least one value is attained infinitely many times, 
+        take a subsequence consisting only of that value, and
+        we have found a convergent subsequence. 
+        \item Case 2: $\{ a_n \} $ infinite
+        By BW, the set of values attained by $\{ a_n \} $
+        has an accumulation point say $L$.
+        \medskip
+
+        We want to construct $\{ a_[n_k] \} $ converging to $L$. 
+        \begin{itemize}
+            \item Let $\ep_1 \coloneq 1$, and 
+            $a_{n_1} \in N^*(L, \ep_1) \cap \{ a_n \}$.
+            \item Let $\ep_2 = \frac{1}{2}$. 
+            Since $N^*(L, \ep_2) \cap \{ a_n \}_{n \geq n_1 + 1} $ has infinitely
+            many points, $\exists n_2 > n$ s.t. $a_{n_2} \in N^*(L, \ep_2)$. 
+            \item Repeat this process, if $a_{n_1}, a_{n_2}, \hdots a_{n_k}$ chosen, 
+            let $\ep_{k + 1} = \frac{1}{k + 1}$ and pick
+            \[
+                a_{n_{k + 1}} \in N^*(L, \ep_{k + 1}) \cap \{ a_n \}_{n \geq n_K + 1}
+            \], 
+            and we have constructed a subsequence $\{ a_{n_k} \} $ such that 
+            $a_{n_k} \rightarrow L$
+        \end{itemize} 
+    \end{itemize} 
+\end{proof}
+
+\begin{definition}[Subsequential limits]
+    Let $\{ a_n \} \subset \mathbb{R}$, the set of subsequential limits of 
+    $\{ a_n \} $ is the set of $x \in \mathbb{R} \cup \{ \pm \infty \} $ such that 
+    some subsequence $\{ a_{n_k} \} $ converges to $x$.
+\end{definition}
+
+\begin{remark}
+    $\{ a_n \} $ bounded if and only if its set of subsequential limits 
+    is a nonempty and bounded subset of $\mathbb{R}$.
+\end{remark}
+
+\begin{definition}[Extended reals]
+    In the extended real number system $R \cup \{ \pm \infty \} $,
+    \begin{itemize}
+        \item we have order
+            \[
+                -\infty < x < \infty, \forall x
+            \]
+        \item we do not have a field 
+        \item we have the following conventions, $\forall x \in \mathbb{R}$
+        \begin{align*}
+            & x + \infty = \infty \\
+            & x - \infty =  - \infty \\
+            & \frac{x}{+ \infty} = \frac{x}{- \infty} = 0 \\
+            &x > 0 \implies x \times (\pm \infty) = \pm \infty \\
+            &x < 0 \implies x \times (\pm \infty) = \mp \infty \\
+            \end{align*}
+    \end{itemize} 
+\end{definition}
+
+
+\begin{definition}[Limit superior, limit inferior]
+    The limit superior of $\{ a_n \} $ is defined as the supremum 
+    of the set of subsequential limit, denoted as 
+    \[
+        \limsup_{ n \to \infty} a_n \in \mathbb{R} \cup \{ \pm \infty \} 
+    \]
+
+    Similarly, the limit inferior is defined as the 
+    infimum of the set of subsequential limits, denoted
+    $\liminf_{n \to \infty} a_n$.
+\end{definition}
+
+\begin{remark}
+    The limit inferiors and superiors always exists for any sequence 
+    in $\mathbb{R} \cup \{ \pm \infty \} $.
+    \begin{itemize}
+        \item $\{ a_n \} $ bounded from above $\iff$ 
+        $\limsup_{n \to \infty} a_n \in \mathbb{R} \cup \{ -\infty \} $. 
+        Otherwise $\limsup_{n \to \infty} a_n = \infty$. 
+        \item $\{ a_n \} $ bounded from bleow $\iff$ 
+        $\liminf_{n \to \infty} a_n \in \mathbb{R} \cup \{ \infty \} $. 
+        Otherwise $\liminf{n \to \infty} a_n = -\infty$. 
+        \item $\{ a_n \} $ bounded $\implies$
+        $\liminf a_n, \limsup a_n \in \mathbb{R}$.
+    \end{itemize} 
+\end{remark}
+
+
+\begin{proposition}
+    \hfill
+    \begin{enumerate}
+        \item $\liminf_{n \to \infty} a_n \leq \limsup_{n \to \infty}a_n$
+        \item A sequence converges if and only if its limsup and liminf agree
+        \[
+            \lim_{n \to \infty} a_n = L \in \mathbb{R} \cup \{ \pm \infty \} 
+            \iff 
+            \liminf_{n \to \infty} a_n = 
+            \limsup_{n \to \infty} a_n = 
+            L
+        \]
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    \textbf{
+        WTS
+        $\lim_{n \to \infty} a_n = L$
+        $\implies$
+        $\liminf_{n \to \infty} a_n = \limsup_{n \to \infty} a_n = L$
+    }
+    Since every subsequence of a convergent sequence converges to the 
+    same limit.
+    \medskip
+
+    \textbf{
+        WTS
+        $\liminf_{n \to \infty} a_n = \limsup_{n \to \infty} a_n = L$
+        $\implies$
+        $\lim_{n \to \infty} a_n = L$
+    }
+    ATC otherwise, i.e. 
+    \begin{align*}
+        & \lim_{n \to \infty} a_{n} \neq L 
+        \implies & \exists \{ a_{n_k} \} \text{ s.t. }
+        \exists \ep_0, |a_{n_k} - L | > \ep_0, \forall k \in \mathbb{N}
+    \end{align*}
+    Since $\liminf a_n = \limsup a_n = L$, $\{ a_n \} $ 
+    must be bounded. Hence $ \{ a_{n_k} \} $ also bounded.
+    Hence $\{ a_{n_k} \} $ has a convergent subsequence,
+    which we still denote $\{ a_{n_k} \} $. 
+    Since this is also a subsequence of the original $\{ a_n \} $, we know 
+    that $\lim_{k \to \infty}a_{n_k} = L$. However, this leads
+    to a contradiction because take $\ep = \frac{\ep_0}{2}$, then
+    $\forall k, |a_{n_k} - L | > \ep_0 > \ep$.
+\end{proof}
+
+
+\begin{proposition}
+    If $\{ a_n \} $ is bounded then its set of subsequential limits is closed. 
+\end{proposition}
+
+\begin{proof}
+    \textit{
+        The idea is to take any accumulation point
+        in the set of subsequential limits of $a_n$,
+        and show that some subsequence indeed
+        converges to that accumulation point.
+    }
+    \medskip
+
+    If $\{ a_n \} $ bounded, 
+    then all of its subsequential limits are in $\mathbb{R}$.
+    Let $E$ denote the set of subsequential limits. 
+    WTS that $E$ contains all of its accumulation points, 
+    i.e. $\forall p \in E^{\prime}, p \in E$. 
+    \medskip
+
+    Now we want to construct a subsequence that 
+    converges to $p$
+    \begin{itemize}
+        \item First choose $p_1 \in N^*(p, 1) \cap E$. 
+    Let $\ep_1 = 1 - |p-p_1| > 0$.
+    $\exists a_{n_1}$ s.t. $|a_{n_1} - p_1| < \ep_1 \implies$
+    $|a_{n_1} - p| < 1$.
+        \item $\vdots$
+        \item 
+    Suppose $a_{n_1} , \hdots a_{n_{k - 1}}$ are found, s.t. 
+    $n_1 < n_2 < \hdots n_{k-1}$,
+    choose $p_k \in N^*(p, \frac{1}{k}) \cap E$. 
+    Let $\ep_k = \frac{1}{k} - |p - p_k| > 0$.
+    $\exists a_{n_k}$ s.t. $n_k > n_{k-1}$ and 
+    $|a_{n_k} - p_k| < \ep_k$. 
+    Hence $|a_{k_k} - p| < \frac{1}{k}$. 
+    \end{itemize} 
+
+    Therefore $a_{n_k} \to p$ and $p \in E$.
+\end{proof}
+
+
+
+\begin{theorem}
+    \label{theorem:limsup-properties}
+    If $\{ a_n \} $ is bounded and $x \in \mathbb{R}$, TFAE 
+    \begin{enumerate}
+        \item $\limsup_{n \to \infty} a_n = x$ 
+        \item 
+        \begin{enumerate}
+            \item $\forall \ep > 0, \exists N > 0$ s.t. 
+            $\forall n > N$, $a_n < x + \ep$ AND
+            \item $\forall \ep > 0, \forall N > 0$,
+            $\exists n > N$, s.t. $a_n > x - \ep$
+        \end{enumerate}
+        \item \begin{enumerate}
+            \item There is $\{ a_{n_k} \} $ that converges to $x$ 
+            AND
+            \item If $\{ a_{n_j} \} $ converges, then 
+            $\lim_{j \to \infty} a_j \leq x$
+        \end{enumerate}
+        \item Let $b_n = \sup_{m \geq n} a_m$, then $b_n$ converges
+        and $\lim_{n \to \infty} b_n = x$
+    \end{enumerate}
+\end{theorem}
+
+% \begin{proof}[Proof of 
+%         \ref{theorem:limsup-properties},
+%         1 $\iff$ 2
+%     ]
+%     \begin{itemize}
+%         \item 1 $\implies$ 2(a). 
+%         \medskip
+
+%         ATC otherwise, fix $\ep > 0$, suppose 
+%         $\not \exists N > 0$ s.t. $\forall n > N$, $a_n < x + \ep$.  Then $\exists \{ a_{n_k} \}_k $ s.t. $a_{n_k} \geq x + \ep, \forall k$. 
+%         By \ref{theorem:bdd-implies-cvgt-subseq}, it has a subsequence 
+%         that converges to some $L \geq x + \ep$, hence a contradiction. 
+%         \item 1 $\implies$ 2(b)
+%         \medskip
+
+%         ATC otherwise, then $\exists N > 0$ s.t. $\forall n > N$, 
+%         $a_n \leq x - \ep$. Hence all convergent subsequences have limits $x < \ep$< 
+%         \medskip 
+
+%         Hence $x \leq x - \ep$, which leads to a contradiction.
+%         \item 2 $\implies$ 1.
+%         \medskip
+
+%         Fix $\ep > 0$, by \ref{theorem:limsup-properties},
+%         2.(a), all subsequential limits are upper bound by 
+%         $x + \ep$.
+%         \[
+%             \limsup a_n \leq x + \ep \implies \limsup a_n \leq x + \ep
+%         \]
+%         We claim that $\limsup a_n = x$. If not, then $\limsup (a_n) < x$< 
+%         le $\ep = \frac{1}{2}(x - \limsup(a_n)) > 0$. By 
+%         2.(b), we can find a subsequence $\{ a_{n_k} \} $ s.t. 
+%         $a_{n_k} > x - \ep$. By
+%         \ref{theroem:bdd-dvgt-implies-multiple-cvgt-subseq},
+%         WLOG, assume $a_{n_k} \to L$, then 
+%         \[
+%             L \geq x - \ep > \limsup a_N
+%         \]
+%         which is a contradiction.
+%     \end{itemize}
+% \end{proof}
+
+% \remind{fill in additional material from class 8}
+
+\begin{proof}[Proof of 
+        \ref{theorem:limsup-properties},
+    ]
+    In general, let $E$ denote the 
+    set of subsequential limits of $a_n$.
+    \begin{itemize}
+        \item (1) $\iff$ (2)
+        \begin{enumerate}
+            \item (1) $\implies$ (2)
+            \begin{itemize}
+                \item (1) $\implies$ (2a): ATC otherwise,
+                then $\exists$ infinitely many terms
+                where $a_n \geq x + \ep$.
+                Then they form a subsequence $ \{ a_{n_k} \} $
+                which is also bounded. 
+                Hence this subsequence itself has a convergent
+                subsequence converging to some
+                limit $L \geq x + \ep > x$. 
+                Hence contradicting the assumption
+                that $x$ is a supremum.
+                \item (1) $\implies$ (2b)
+                ATC otherwise, then only finitely many terms
+                $a_n > x - \ep$. Hence,
+                $\exists N >0$ s.t. $\forall n > N$,
+                $a_n \leq x - \ep$. Hence 
+                all subsequential limits must be less 
+                than $x - \ep$. This contradicts
+                the assumption that $x$ is a minimal upper bound.
+            \end{itemize} 
+            \item (1) $\impliedby$ (2): Fix any $\ep > 0$, 
+            $\exists N \text{ s.t. } \forall n > N$,
+            $a_n < x + \ep$.
+            Hence any subsequential limit is smaller than $x + \ep$.
+            Therefore $\limsup a_n \leq x + \ep$. Since
+            $\ep$ is arbitrary, $\limsup a_n \leq x$.
+        \end{enumerate}
+        \item (1) $\iff$ (3)
+        \begin{enumerate}
+            \item (1) $\implies$ (3)
+            Since the set of subsequential limits is closed,
+            the supremum is in $E$. Hence
+            some subsequence converges to it. 
+            By definition of supremum, $x \geq p, \forall p \in E$.
+            \item (1) $\impliedby$ (3): by definition
+        \end{enumerate} 
+        \item (1) $\iff$ (4)
+        \begin{enumerate}
+            \item (1) $\implies$ (4): 
+            Since $\{ a_n \} $ bounded, 
+            $\{ \sup_{m \geq n} a_m\}_n $ is also bounded
+            by the same bounds. 
+            Also note
+            \begin{align*}
+                \sup_{m \geq n + 1} a_m \leq
+                \sup_{m \geq n} a_m
+            \end{align*}
+            Hence the sequence is decreasing. 
+            By MCT
+            \begin{align*}
+                \lim_{n \to \infty}
+                \sup_{m \geq n} a_m = L \in \mathbb{R}
+            \end{align*}
+            It suffices to show that $L = x$. 
+            Fix $\ep > 0$. 
+            \begin{itemize}
+                \item By (2a): $\exists N > 0$ s.t. $\forall n > N$
+                $a_n < x + \frac{\ep}{2}$. Hence 
+                \[
+                    b_n = \sup_{m \geq n} a_m \leq 
+                    x + \frac{\ep}{2} 
+                    < x + \ep
+                \]
+                Hence $L = \lim_{n \to \infty}b_n \leq x + \ep$
+                $\implies$
+                $L \leq x$
+                \item By (2b): $\forall n > 0$, 
+                \begin{align*}
+                    b_n = \sup_{m \geq n} a_m > x  - \ep
+                \end{align*}
+                Hence $L = \lim_{n \to  \infty}b_n \geq x - \ep$
+                $\implies$
+                $L \geq x$.
+            \end{itemize} 
+            \item (1) $\impliedby$ (4):
+            Prove by showing (4) $\implies$ (3).
+            \medskip
+
+            We pick 
+            \begin{itemize}
+                \item $n_1$ s.t. $a_{n_1} \geq \sup_{m \geq 1} a_m - 1$
+                \item $n_2$ s.t. $n_2 > n_1$ and 
+                $a_{n_2} \geq \sup_{m \geq n_1 + 1} a_m - \frac{1}{2}$.
+                \item $\vdots$
+                \item $n_k$ s.t. $n_k > n_{k-1}$ s.t. $a_{n_k} \geq$
+                $\sup_{m \geq n_{k-1} + 1} a_m - \frac{1}{k}$.
+            \end{itemize} 
+            Let $L = \lim_{n \to \infty} \sup_{m \geq n} a_m$.
+            \medskip
+
+            WTS $\lim_{n \to \infty}a_{n_k} = L$.
+            Fix $ \ep > 0$. Choose $N > 0$ s.t. 
+            $\forall n > N$,
+            \[
+                \left| \sup_{m \geq n} a_m - L\right|  < \frac{\ep}{2}
+            \]
+            Then take $N_0 = \max \{ N + 1, \frac{2}{\ep} \} $,
+            one has $\forall k > N_0$, 
+            \begin{align*}
+                \left|a_{n_k}- L \right| &\leq 
+                \left| a_{n_k} - \sup_{m \geq n_{k -1} + 1} a_m \right|  
+                +
+                \left| \sup_{m \geq n_{k -1} + 1} - L\right|  \\
+                & \leq \frac{1}{k} + \frac{\ep}{2} \\
+                & \leq \frac{\ep}{2} + \frac{\ep}{2} = \ep
+            \end{align*}
+            Hence we have shown (3a). 
+            \medskip
+
+            Let $\{ a_{n_k} \} $ be any convergent subsequence.
+            of $ \{ a_n \} $. We have
+            \begin{align*}
+                &a_{n_k} \leq \sup_{m \geq n_k} a_m, \forall k \\
+                \implies & 
+                \lim_{k \to \infty} a_{n_k} \leq 
+                \lim_{k \to \infty} \sup_{m \geq n_k} a_m = L
+            \end{align*}
+        \end{enumerate}
+    \end{itemize}
+\end{proof}
+
+
+
+
+

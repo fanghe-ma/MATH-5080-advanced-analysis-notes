@@ -1,0 +1,337 @@
+%==============================================================================
+% MATH 5080
+% Class:        15
+% Date:         Oct 20th
+%==============================================================================
+
+\subsection{Alternating Series}
+
+\begin{theorem}
+    \label{thm:alternating-series-1}
+    Let $\{ a_n \} $ be a monotone sequence
+    such that $\lim_{n \to \infty}a_n = 0$. 
+    Then the series 
+    \[
+        \sum\limits_{n = 1}^{\infty} (-1)^{n} a_n
+    \]
+    converges.
+\end{theorem}
+
+\begin{example}
+    $\sum\limits_{n= 1}^{\infty}  (-1)^n \frac{1}{n} = 1 - \frac{1}{2} + \frac{1}{3} - \frac{1}{4}$
+    converges.
+\end{example}
+
+\begin{theorem}
+    \label{thm:alternating-series-2}
+    Let series $\sum\limits_{}^{} a_n$ satisfy:
+    \begin{enumerate}
+        \item $\lim_{n \to \infty}a_n = 0$
+        \item $\exists N > 0$ and a convergent regrouping $\sum\limits_{}^{} b_k$
+        s.t. $b_k$ is the sum of $\leq N$ terms of 
+        $\{ a_n \}, \forall k \in \mathbb{N}$
+    \end{enumerate} 
+    Then $\sum\limits_{}^{} a_n$ converges.
+\end{theorem}
+
+\begin{proof}[Proof of \ref{thm:alternating-series-2}]
+    Let $S_n$ be the $n$-th partial sum of $\sum\limits_{}^{} a_n$,
+    and let $S_{n_k}$ be its subsequence that represents 
+    the $k$-th partial sum of $\sum\limits_{}^{} b_k$. 
+    Since $\sum\limits_{}^{} b_k$ converges, $\exists L \in \mathbb{R}$
+    s.t. 
+    \[
+        \lim_{k \to \infty} S_{n_k} = L
+    \]
+    \textbf{Claim}: $\lim_{n \to \infty}S_n = L$ 
+    \medskip
+
+    Fix any $n \in \mathbb{N}$, then $\exists k \in \mathbb{N} $
+    s.t. $n_k \leq n \leq n_{k + 1}$, hence
+    \[
+        \left| S_n - S_{n - k} \right| 
+        \leq 
+        \sum\limits_{j = 1}^{N}  \left| a_{n_{k} + j} \right| 
+    \]
+    Fix any $\ep > 0$, seek $N_0$ s.t. 
+    $ \left| S_n - L \right|  < \ep, \forall n > N_0$.
+    \medskip
+
+    Let $K_1 > 0$ s.t. $\forall k \geq K_1, \left| S_{n_k} - L \right| < \frac{\ep}{2} $.
+    Let $N_1 > 0$ s.t. $ \forall n > N_0, \left| a_n \right| < \frac{\ep}{2N}$.
+    \medskip
+
+    Take $N_0 = \max \{ n_{k+1}, N_1 + N \} $
+    then $\forall n > N_0$.
+    the unique $k$ s.t. $n_k \leq n \leq n_{k + 1}$
+    must satisfy $k \geq K_1$.
+    Hence $ \left| S_{n_k} - L\right|  < \frac{\ep}{2}$.
+    Also, $n > N_0 \geq N_1 + N \implies$,
+    $n_k > N_1$, hence 
+    \[
+        \left| a_{n_k + j} \right| < \frac{\ep}{2N}
+    \]
+
+    By triangle inequality,
+    \begin{align*}
+        \left| S_n - L \right|  & \leq 
+        \left| S_n - S_{n_k} \right|  + \left| S_{n_k} - L\right|  \\
+        & \leq \sum\limits_{j=1}^{N} |a_{n_k} + j| + |S_{n_k} - L| \\
+        & \leq N \cdot \frac{\ep}{2N} + \frac{\ep}{2} = \ep
+    \end{align*}
+    
+\end{proof}
+\begin{proof}[Proof of \ref{thm:alternating-series-1}]
+    WLOG, assume $\{ a_n \} $ decreasing, 
+    then since $\lim_{n \to \infty}a_n = 0$,
+    we know that $a_n \geq 0, \forall n$.
+    We want to find a regrouping $b_k$ and apply 
+    \ref{thm:alternating-series-1}.
+    \medskip
+
+    The sequence we are given is 
+    \[
+        \sum\limits_{n=1}^{\infty} (-1)^{n}a_n
+        = - a_1 +a_2 - a_3 + a_4 + \hdots
+    \]
+    For convenience, we consider 
+    \[
+        \sum\limits_{n = 1}^{\infty} (-1)^{n-1} a_n
+        = a_1 - a-2 + a_3 - a_4 + \hdots
+    \]
+    Since $a_n$ decreasing, we have
+    \begin{align*}
+        - \sum\limits_{n = 1}^{\infty} (-1)^{n-1} a_n
+        &= a_1 - a-2 + a_3 - a_4 + \hdots \\
+        &= (a_1 - a-2) + (a_3 - a_4) + \hdots \\
+        &= b_1 + b_2 + \hdots
+    \end{align*}
+    where $k = 2n$, and
+    \[
+        b_{k} = (-1)^{(2k-1)-1}a_{2k-1} + (-1)^{2k-1}a_{2k}
+    \] 
+    Then we verify the two conditions of \ref{thm:alternating-series-2}
+    \begin{itemize}
+        \item $\lim_{n \to \infty}a_n = 0$, given 
+        \item there exists a convergent regrouping $\sum\limits_{k}^{} b_k$
+        where each each regrouping is the sum of two terms of $a_n$
+        \begin{itemize}
+            \item To show $\sum\limits_{}^{} b_k$ convergent, since $b_k$ 
+            nonnegative, suffices to show its partial sums are bounded.
+            Consider $S_k$, the $k$-th partial sum of $b_k$
+        \begin{align*}
+            S_k &= \sum\limits_{i = 1}^{k}  b_i \\
+            &= (a_1 - a_2) + (a_3 - a_4) + \hdots + (a_{2k-1}, a_{2k}) \\
+            &= a_1 - (a_2 - a_3) - (a_4 - a_5) \hdots - (a_{2k-2}- a_{2k-1}) 
+            - a_{2k} \\
+            & \leq a_1
+        \end{align*}
+        \end{itemize} 
+        Hence we apply \ref{thm:alternating-series-2} and say that 
+        $\sum\limits_{}^{} (-1)^{n-1}a_n$ converges.
+    \end{itemize} 
+\end{proof}
+
+\begin{theorem}[Dirichlet Convergence Test]
+    \label{thm:dirichlet-convergence-test}
+    Let 
+    \begin{itemize}
+        \item $\sum\limits_{n=1}^{\infty} a_n$ be a series with
+        uniformly bounded partial sums
+        \item $\{ b_n \} $ be a monotone sequence s.t. 
+        $b_n \to 0$
+    \end{itemize} 
+    Then 
+    $\sum\limits_{n=1}^{\infty} a_n b_n$ converges and 
+    \[
+    \left| 
+        \sum\limits_{n=1}^{\infty} 
+        a_nb_n
+    \right|  
+    \leq A \left| b_1 \right| 
+    \]
+    
+\end{theorem}
+
+\subsection{Products and rearrangement of series}
+
+\begin{definition}[Rearrangement of series]
+    Let $\sum\limits_{}^{} a_n$ be a series. 
+    \begin{enumerate}
+        \item $\sum\limits_{}^{} a_n^{\prime}$ is a \textbf{rearrangement}
+        of $\sum\limits_{}^{} a_n$ if there is a bijection 
+        $f: \mathbb{N} \to \mathbb{N}$ s.t. 
+        $a_n^{\prime} = a_{f(n)}, \forall n \in \mathbb{N}$.
+        \item $\sum\limits_{}^{} a_{f(n)}$ is called a \textbf{bounded rearrangement}
+        of $\sum\limits_{}^{} a_n$ if $\exists M > 0$ s.t. 
+        $|f(n) - n| \leq M, \forall n \in \mathbb{N}$.
+    \end{enumerate} 
+\end{definition}
+
+\begin{theorem}[
+    Series converges iff every
+    bounded rearrangement converges
+    ]
+    Let $\sum\limits_{}^{} a_{f(n)}$ be a bounded rearrangement 
+    of $\sum\limits_{}^{} a_n$. Then
+    \[
+        \sum\limits_{}^{} a_n \text{ converges } 
+        \iff
+        \sum\limits_{}^{} a_{f(n)} \text{ converges } 
+    \]
+    and if they converge then they converge to the same limit
+    \[
+        \sum\limits_{n = 1}^{\infty} a_{n} =
+        \sum\limits_{n = 1}^{\infty} a_{f(n)}
+    \]
+\end{theorem}
+
+\begin{proof}
+    Suffices to show 
+    \begin{itemize}
+        \item $\sum\limits_{}^{} a_n \implies \sum\limits_{}^{} a_{f(n)}$
+        \item $\sum\limits_{}^{} a_n = \sum\limits_{}^{} a_{f(n)}$
+    \end{itemize} 
+    Fix convergent $\sum\limits_{}^{} a_n$ and 
+    bounded rearrangement $f$, i.e. $|f(n) - n| \leq M$.
+    \medskip
+
+    Since $\sum\limits_{} a_n $ converges, $a_n \to 0$, we get 
+    \[
+        \lim_{n \to \infty} \sum\limits_{-M}^{M}  |a_{n +j }| = 0
+    \]
+    \textit{The proof is to fix $\ep$, and pick $N$ s.t. $|a_n| < \frac{\ep}{2M + 1}$}.
+    \medskip
+
+    Let $S_n, S_n^{\prime}$ denote the $n$-th partial sum 
+    of $\sum\limits_{}^{} a_n, \sum\limits_{}^{} a_{f(n)}$,
+    then 
+    \[
+        \left| S_n - S_n^{\prime} \right|  \leq \sum\limits_{j = -M}^{M} |a_{n + j}|
+        \to 0
+    \]
+    Since $\lim_{n \to \infty}S_n = \sum\limits_{n=1}^{\infty} a_n$ exists,
+    \begin{align*}
+        \lim_{n \to \infty}S_n^{\prime} = 
+        \lim_{n \to \infty}S_n
+    \end{align*}
+
+\end{proof}
+
+\begin{theorem}
+    [
+        Absolute convergence implies
+        absolute convergence of any rearrangement
+    ]
+    Suppose $\sum\limits_{}^{} a_n$ converges absolutely,
+    then all of its rearrangement $\sum\limits_{}^{} a_{f(n)}$
+    converges absolutely, and 
+    \[
+        \sum\limits_{n=1}^{\infty} a_n 
+        =
+        \sum\limits_{n=1}^{\infty} a_{f(n)} 
+    \]
+\end{theorem}
+
+\begin{proof}
+    We first show 
+    $\sum\limits_{n = 1}^{\infty} |a_n| = $
+    $\sum\limits_{n = 1}^{\infty} |a_{f(n)}|$,
+    we then show that 
+    $\sum\limits_{n = 1}^{\infty} a_n = $
+    $\sum\limits_{n = 1}^{\infty} a_{f(n)}$.
+    \medskip
+
+    \textbf{Step 1:}
+    $\sum\limits_{n = 1}^{\infty} |a_n| = $
+    $\sum\limits_{n = 1}^{\infty} |a_{f(n)}|$,
+
+    Let $S_n^{\prime}$ denote the $n$-th partial sum of
+    $\sum\limits_{}^{} |a_{f(n)}|$.
+    We have 
+    \[
+        S_n^{\prime} \leq \sum\limits_{n = 1}^{\infty} |a_n|
+    \]
+    Since $\sum\limits_{n=1}^{\infty} |a_{f(n)}|$ nonnegative,
+    boundedness of partial sum implies $\sum\limits_{}^{} |a_{f(n)}|$
+    converges. By symmetry,
+    \[
+    \sum\limits_{n=1}^{\infty} |a_{n} |=
+    \sum\limits_{n=1}^{\infty} |a_{f(n)} |
+    \]
+    \textbf{Step 2:} now WTS 
+    $\sum\limits_{n = 1}^{\infty} a_n = $
+    $\sum\limits_{n = 1}^{\infty} a_{f(n)}$.
+    Note that if the sequence is nonnegative then we are done. 
+    We restrict our attention to sequences with a positive and negative part.
+    Define 
+    \begin{align*}
+        a_n^{+} = \begin{cases}
+            a_n, \text{ if } a_n > 0 \\
+            0 \text{ if } a_n \geq 0
+        \end{cases} \\
+        a_n^{-} = \begin{cases}
+            -a_n, \text{ if } a_n < 0 \\
+            0 \text{ if } a_n \geq 0
+        \end{cases}
+    \end{align*}
+    Hence we have $\forall n$, 
+    $a_n^{\pm} \geq 0$.
+    By comparison test, $\sum\limits_{}^{} a_n^{\pm}$ converges.
+    Now note that 
+    \[
+        \sum\limits_{n = 1}^{\infty} a_n 
+        = 
+        \sum\limits_{n = 1}^{\infty} a_n^{+}  -
+        \sum\limits_{n = 1}^{\infty} a_n^{-} 
+    \]
+    Hence 
+    \[
+        \sum\limits_{n = 1}^{\infty} a_n 
+        = 
+        \sum\limits_{n = 1}^{\infty} a_n^{+}  -
+        \sum\limits_{n = 1}^{\infty} a_n^{-} 
+        =
+        \sum\limits_{n = 1}^{\infty} a_{f(n)}n^{+}  -
+        \sum\limits_{n = 1}^{\infty} a_{f(n)}n^{-} 
+    = \sum\limits_{n=1}^{\infty} a_{f(n)}
+    \]
+\end{proof}
+
+\begin{remark}
+    For any series $\sum\limits_{n=1}^{\infty} a_n$,
+    write the $n$-th partial sum as $S_n$, then 
+    \[
+        S_n = S_n^{+} - S_n^{-}
+    \]
+    and if the limits of $S_n, S_n^{\pm}$ exist,
+    \[
+    \sum\limits_{n=1}^{\infty} a_n = 
+    \lim_{n \to \infty}S_n = 
+    \lim_{n \to \infty}S_n^{+} - 
+    \lim_{n \to \infty}S_n^{-} 
+    \]
+\end{remark}
+
+
+\begin{remark}
+    \remind{add in remark}
+\end{remark}
+
+\begin{theorem}[Riemann Rearrangement Theorem]
+\end{theorem}
+\begin{proof}
+    \remind{add in proof}
+\end{proof}
+
+\begin{theorem}[Matrix product of absolutely convergent series]
+\end{theorem}
+\begin{proof}
+    \remind{add in proof}
+\end{proof}
+
+\begin{theorem}[Cauchy product of convergent and absolutely convergent series]
+\end{theorem}
+\begin{proof}
+    \remind{add in proof}
+\end{proof}

@@ -1,0 +1,109 @@
+%==============================================================================
+% MATH 5080 — Introduction to Analysis I (Fall 2026)
+% Class:        5
+% Date:         Sept 8th
+%==============================================================================
+
+\begin{theorem}[Bolzano-Weiestrass]
+    If $S \subset \mathbb{R}$ is bounded and contains infinitely many points then $S^{\prime} \neq \emptyset$.
+\end{theorem}
+
+\begin{remark}
+    Bolzano-Weierstrass gives the existence of limit points, but it does not tell us 
+    that the limit points are in $S$. 
+\end{remark}
+
+\begin{proof}
+    Suppose $S^{\prime} = \emptyset$, then $S = \bar{S} $ is closed. 
+    By HB, $S$ is compact.
+    \medskip 
+
+    For any $x \in S, x \notin S^{\prime}$, $x$ must be isolated point, i.e. 
+    \[
+        \exists \ep_x > 0, s.t. N(x, \ep_x) \cap S = \{ x \} 
+    \]
+    Then $ \{ N(x, \varepsilon_x) \}_{x \in S} $ is an open cover of $S$. 
+    By compactness, $\exists x_1, x_2, \hdots x_N$ s.t. 
+    \[
+        N(x_1, \varepsilon_{x_1}) \cup \hdots N(x_N, \varepsilon_{x_N}) \supset S
+    \]
+    However, each one of the neighborhoods contains only its center, i.e. 
+    \[
+        N(x_1, \varepsilon_{x_1}) = \{ x_1 \}, \hdots N(x_n, \varepsilon_{x_N}) = \{ x_N \} 
+    \]
+    Hence 
+    \[
+        \{ x_1 \}  \cup \hdots \{ x_N \}  \supset S
+    \]
+    and this contradicts $S$ having infinitely many points.
+\end{proof}
+
+\begin{remark}
+    $S$ has infinite points and $S^{\prime} \neq \emptyset \not \implies S$ bounded. 
+\end{remark}
+
+\begin{proof}
+    Let $S \coloneq [1, 2] \cup \mathbb{N}$.
+    Then $S^{\prime} = [1, 2] \neq \emptyset$  , but $S$ unbounded.
+\end{proof}
+
+\begin{remark}
+    If $S \subset \mathbb{R}$, and every 
+    infinite subset of $\mathbb{S}$ has an accumulation point in $\mathbb{R}$, 
+    then $S$ is bounded.
+\end{remark}
+
+\begin{proof}
+    \remind{To be added in}
+\end{proof}
+
+\begin{remark}[Relationship between results]
+    \hfill
+    \begin{center}
+    \begin{tikzpicture}[
+        thm/.style={
+            draw, 
+            rounded corners=2pt, 
+            fill=blue!10, 
+            minimum height=1.5cm,
+            minimum width=3.2cm,
+            align=center,
+            inner sep=4pt
+        },
+        imp/.style={
+            double,
+            double distance=1.6pt,
+            -{Implies[length=2.6mm]}
+        },
+        eqv/.style={
+            double,
+            double distance=1.6pt,
+            {Implies[length=2.6mm]}-{Implies[length=2.6mm]}
+        },
+        lbl/.style={font=\small, fill=white, inner sep=1.5pt}
+    ]
+        \node[thm] (CA)  at (0,0)    {Completeness\\Axiom (CA)};
+        \node[thm] (MCT) at (4.2,0)  {Monotone\\Convergence (MCT)};
+        \node[thm] (BW)  at (8.4,0)  {Bolzano--\\Weierstrass (BW)};
+        \node[thm] (HB)  at (12.6,0) {Heine--Borel\\(HB)};
+        \node[thm] (NIP) at (0,-2.6) {Nested Interval\\Property (NIP)};
+        \node[thm] (CCC) at (0,-5.2) {Cauchy Convergence\\Criterion (CCC)};
+
+        \draw[eqv] (CA) -- (MCT);
+        \draw[eqv] (MCT) -- (BW);
+        \draw[eqv] (BW) -- (HB);
+        \draw[imp] ([xshift=-0.5cm]CA.south) -- node[lbl, left=2pt] {always} ([xshift=-0.5cm]NIP.north);
+        \draw[imp] ([xshift=-0.5cm]NIP.south) -- node[lbl, left=2pt] {always} ([xshift=-0.5cm]CCC.north);
+        \draw[imp, dashed] ([xshift=0.5cm]NIP.north) -- node[lbl, right=2pt] {+ Archimedean} ([xshift=0.5cm]CA.south);
+        \draw[imp, dashed] (CCC.west) -- ++(-0.7,0) |- node[lbl, pos=0.25, rotate=90] {+ Archimedean} (CA.west);
+
+        \node[font=\small, align=left, anchor=west] at (3.2,-3.9) {
+            In any ordered field:\\
+            $\bullet$ CA, MCT, BW, HB are equivalent, and each implies Archimedean;\\
+            $\bullet$ CA $\Rightarrow$ NIP $\Rightarrow$ CCC, and neither converse holds in general;\\
+            $\bullet$ the dashed arrows need the Archimedean property.
+        };
+    \end{tikzpicture}
+    \end{center}
+\end{remark}
+
